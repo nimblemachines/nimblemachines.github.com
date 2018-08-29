@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="journal, 2009, blog" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2009/" />
+<title>2009 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2009 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="september-16-10:20"><a href="#september-16-10:20">2009 September 16 10:20</a></h3>
+<p>I wanted to share pointers to a few <a href="/freescale/">Freescale</a> <a href="/freescale-hc08/">HC08</a> parts I&rsquo;m excited about. One thing about their 8-bit offerings is that there are a zillion different <em>families</em> of parts, and wading thru them can be a chore. Here are three worth checking into:</p>
+<ul>
+<li><a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=S08JS">S08JS</a> (8k and 16k Flash)</li>
+<li><a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=S08JM">S08JM</a> (8k to 60k Flash)</li>
+<li><a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=S08QE">S08QE</a> (4k to 128k Flash)</li>
+</ul>
+<h4 id="s08js"><a href="#s08js">S08JS</a></h4>
+<p>This family is quite new &ndash; introduced in early 2009, I think. It&rsquo;s their &ldquo;low-end&rdquo; USB offering. Though it&rsquo;s a bit limited compared to its peers in terms of I/O &ndash; no ADC, limited timers &ndash; it makes a great, cheap way to connect to USB. The kicker: the price. An S08JS16 is $1.65, quantity one, direct from Freescale.</p>
+<h4 id="s08jm"><a href="#s08jm">S08JM</a></h4>
+<p>This is their mainstay USB offering. This family is amazing. USB and <em>loads</em> of I/O. Some highlights:</p>
+<ul>
+<li>12-bit ADC</li>
+<li>Two UARTs</li>
+<li>Two SPI interfaces</li>
+<li>Loads of 16-bit timer channels (up to 8 on the larger pin-count parts)</li>
+</ul>
+<p>And the cost? Another big surprise. The S08JM32 is $2.65, quantity one.</p>
+<h4 id="s08qe"><a href="#s08qe">S08QE</a></h4>
+<p>The QE is Freescale&rsquo;s ultra low-power family, but it&rsquo;s also a good all-rounder. Unlike the JS and JM, this is a 3v family &ndash; which is true of most of the S08 offerings.</p>
+<p>Also unlike the JS and JM &ndash; which only come in surface-mount packages &ndash; the smaller (4k and 8k) QEs come in DIP form, and the DIP16 version is pin-compatible with the older <a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=S08QG">S08QG</a> family.</p>
+<p>Some highlights:</p>
+<ul>
+<li>12-bit ADC (10-bit on the DIP16 parts)</li>
+<li>Two UARTs (one on DIP16)</li>
+<li>Up to <em>twelve</em> 16-bit timer channels, and three timers</li>
+</ul>
+<p>Again, the cost is a nice surprise. A QE32 in LQFP44 package is $2.33 quantity one, direct.</p>
+<p>One other point. The JM and QE are so-called <em>Flexis</em> parts, which means that there is a pin-compatible (in the larger pin-count parts anyway) version with a ColdFireV1 32-bit core and the same 8-bit peripherals. Assuming you haven&rsquo;t written your entire application in S08 assembler, it&rsquo;s an easy upgrade path.</p>
+<p>The 32-bit parts are surprisingly inexpensive as well.</p>
+<hr />
+<h3 id="september-16-02:02"><a href="#september-16-02:02">2009 September 16 02:02</a></h3>
+<p>Maybe I&rsquo;m becoming a big geek again, or maybe I&rsquo;m going completely crazy.</p>
+<p>A couple of nights ago two things happened that made me doubt myself. First, I was editing <a href="https://github.com/nimblemachines/dyndns-updater/tree/master/update-ip.sh.in">this shell script</a> and as I was staring at the page I suddenly thought, &ldquo;this is beautiful code!&rdquo; I&rsquo;ve never liked shell scripting, but somehow, just then, I felt a warm glow looking at that code. I don&rsquo;t know. Go figure.</p>
+<p>The other was that while reading <a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/ch08.html#_the_object_database">this intro to Git&rsquo;s objects</a>, and trying to &ldquo;follow along&rdquo;, I found I didn&rsquo;t have a <strong>zpipe</strong> executable on my machine... so I went looking for one. Found the <a href="http://www.zlib.net/">zlib homepage</a> (which is hilarious and excellent) and from there found myself wandering over to the <a href="http://www.libpng.org/pub/png/">PNG (ping!) homepage</a>, and starting to really appreciate not only the lovely features of PNG but also <a href="http://www.gregroelofs.com/">Greg Roelofs&rsquo;</a> nutty humour... I spent a good while geeking out about PNG&rsquo;s features and trying to think of fun arty projects I could do with it PNG files, rather than just making buttons and icons for the web.</p>
+<p>I got super-stoked about a <em>file format</em>. This too made me wonder.</p>
+<p>Have I completely lost it?</p>
+<p>PS: You have to build <strong>zpipe</strong> yourself. Get <a href="http://www.zlib.net/zpipe.c">the source</a> from zlib.net.</p>
+<hr />
+<h3 id="september-15-14:38"><a href="#september-15-14:38">2009 September 15 14:38</a></h3>
+<p>Wanted to document a bash echo bug. GNU bash, version 3.2.17(1)-release (i386-apple-darwin9.0) has a bug with &ldquo;echo -n&rdquo;, if bash is invoked as /bin/sh.</p>
+<p>But GNU bash, version 3.2.48(1)-release (i686-pc-linux-gnu) &ndash; which is what&rsquo;s on my Arch Linux box &ndash; works fine.</p>
+<p>When researching the bash echo bug online I found not only <a href="http://hans.fugal.net/blog/2007/12/07/echo-n-bug">this confirmation</a> of the bash bug but also <a href="http://hans.fugal.net/blog/2008/11/10/git-push-is-worse-than-worthless">this expression of frustration</a> with git push. I commented on Hans&rsquo;s <a href="http://hans.fugal.net/blog/">blog</a>, but decided I should write about effective use of git push, and how <em>not</em> to shoot yourself.</p>
+<p>The documentation for git push is confusing, at best.</p>
+<hr />
+<h3 id="september-12-20:33"><a href="#september-12-20:33">2009 September 12 20:33</a></h3>
+<p>I&rsquo;m going to make a heterodox assertion: Git is simple! And you should start using it. Today, if not sooner. I&rsquo;ll try to explain why.</p>
+<hr />
+<h3 id="september-09-21:04"><a href="#september-09-21:04">2009 September 09 21:04</a></h3>
+<p>This site &ldquo;officially&rdquo; live again after a long absence. It&rsquo;s running wildly upgraded (heh) wiki code that I&rsquo;ve spent the last week, night and day, working on. You can read more about the wiki code.</p>
+<p>I&rsquo;ve changed the way some of the URIs works, and I haven&rsquo;t edited the pages yet, so there are going to be broken links and such, but I wanted to &ldquo;toss this all online&rdquo; again.</p>
+<p>The site is running on my desktop machine (a Mac &ndash; go figure!), so it&rsquo;ll go down &ldquo;nightly&rdquo; &ndash; though of late that&rsquo;s been from shortly before sunrise to a few hours after that. I haven&rsquo;t been sleeping much. ;-)</p>
+<p>I&rsquo;m using a (somewhat fragile) Git backend, but I&rsquo;m excited to be Officially Done with Subversion.</p>
+<p>I&rsquo;ll report more news as I have it. Enjoy!</p>
+<hr />
+<p>Read the <a href="/2008/">2008 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202009%20journal">Send feedback</a> on this page (last edited 2013 January 29 20:03)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

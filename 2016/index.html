@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="journal, 2016, blog" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2016/" />
+<title>2016 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2016 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="november-05-16:02"><a href="#november-05-16:02">2016 November 05 16:02</a></h3>
+<p>I&rsquo;m experimenting with some very basic semantic markup. I noticed that some sites have <em>names</em> rather than URLs in their Google search results. It turns out that this is part of Google&rsquo;s push for publishers to add <a href="https://developers.google.com/search/docs/guides/intro-structured-data">structured data markup</a> to their sites. One of the simplest of these is <a href="https://developers.google.com/search/docs/guides/enhance-site">metadata about the site itself</a>: the <a href="http://schema.org/WebSite">WebSite</a> schema. This can include a friendly name and also a search engine, which Google will show as part of the search results.</p>
+<p>My initial attempts to add the search engine failed. I dutifully created a <a href="https://developers.google.com/custom-search/">custom search engine</a> (as per <a href="https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site">Google&rsquo;s instructions</a>) but the metadata markup failed to <a href="https://search.google.com/structured-data/testing-tool">validate</a> because the domains didn&rsquo;t match. So I did something crazy: I created a forwarding rule, forwarding <code>search.nimblemachines.com</code> to <code>cse.google.com</code>, substituted my domain in the CSE URL, and put this into the site&rsquo;s metadata markup. Miraculously, it validated!</p>
+<p>I won&rsquo;t know for a while if it worked, though.</p>
+<hr />
+<h3 id="november-04-16:40"><a href="#november-04-16:40">2016 November 04 16:40</a></h3>
+<p>The redirection (of the top-level index page to a journal page) is now <em>gone</em>. It created more problems than it solved.</p>
+<p>I initially implemented it because it seemed like people were bookmarking the site root hoping to bookmark the content that was there <em>right then</em>, but because the site root dynamically mirrors the current year&rsquo;s journal page, a year later their bookmark would point to totally different content. To forestall this potential confusion, I added code forcing a redirect to the current journal page; the user then bookmarks <em>that specific journal page</em>, which will remain valid in coming years.</p>
+<p>But what about someone who actually wants to bookmark the site itself, and wants to see the new, dynamic home page, not the 2016 version of it? That was tricky. Or maybe impossible.</p>
+<p>The &ldquo;canonical url&rdquo; meta tag of the site root now points to itself, not to the journal page it mirrors, and I&rsquo;ve added a &ldquo;noindex&rdquo; meta tag to (hopefully) prevent search engines from suggesting that people visit the site root directly. Casual visitors will end up on <em>pages</em>, not on the root, and so confusion should be minimal. But people who, for whatever reason, really <em>want</em> to link to the site root can do so again.</p>
+<hr />
+<h3 id="august-09-13:27"><a href="#august-09-13:27">2016 August 09 13:27</a></h3>
+<p>I&rsquo;m pretty happy. Yesterday I breathed new life into my Nexus 7 (2012). It&rsquo;s a snappy device again &ndash; just like when it was new!</p>
+<p>After suffering for three weeks or so with Lollipop (5.1.1) on the Nexus 7, I rolled back to Jelly Bean (4.3), and the difference was <em>astonishing</em>.</p>
+<p>While running Lollipop it was not unusual to wait seconds &ndash; even <em>tens</em> of seconds &ndash; after touching the screen before something happened. It was truly like watching paint dry, and probably the slowest, and most infuriating, computing experience of my life! (In contrast, the best and slickest probably remains the brief period that I owned an <a href="/chromebook-diary/">HP Chromebook 14</a> &ndash; the original Haswell version.)</p>
+<p>This is not the first time I&rsquo;ve reflashed my Nexus 7 back to an earlier release. (Back-flashing? Flash-backing?). But it&rsquo;s the first time I&rsquo;ve gone all the way back to Jelly Bean, and <em>this</em> time I won&rsquo;t succumb to the belief that Things Will Be Better if I update (instead, things always got <em>much</em> worse).</p>
+<p>I&rsquo;ve written up the steps to <a href="/unzombify-your-nexus-7/">unzombify your Nexus 7</a>. I hope you try it out.</p>
+<hr />
+<h3 id="april-27-14:59"><a href="#april-27-14:59">2016 April 27 14:59</a></h3>
+<p>I dug this out of my &ldquo;sticky notes&rdquo; page, which I just deleted (part of an ongoing project to remove cruft from this site):</p>
+<p>A <a href="http://musicmavericks.publicradio.org/features/essay_gann05.html">nice essay</a> by Kyle Gann about John Cage, Henry Cowell, Conlon Nancarrow, Harry Partch, Henry Brant (spatial music), and Trimpin. If you are interested in truly &ldquo;out there&rdquo; musical visionaries, this might be for you.</p>
+<p>Gann was a <a href="http://www.kylegann.com/Voice_biblio.html">long-time contributor</a> to the Village Voice, and wrote <a href="http://www.cambridge.org/us/academic/subjects/music/twentieth-century-and-contemporary-music/music-conlon-nancarrow">the definitive book</a> on Conlon Nancarrow.</p>
+<hr />
+<h3 id="april-27-14:15"><a href="#april-27-14:15">2016 April 27 14:15</a></h3>
+<p>I&rsquo;ve decided to get rid of the &ldquo;recent changes&rdquo; page.</p>
+<p>The few people who are reading this site doubtless arrive here via web search; I don&rsquo;t think anyone scans the &ldquo;recent changes&rdquo; page for new stuff. (And anyway, most additions of interest will be announced here.)</p>
+<p>If you <em>were</em> a dedicated &ldquo;recent changes&rdquo; junkie, write me via the comments link in the footer and I&rsquo;ll consider reversing this change. But I&rsquo;m not expecting a flurry of email. ;-)</p>
+<hr />
+<h3 id="april-08-16:22"><a href="#april-08-16:22">2016 April 08 16:22</a></h3>
+<p>I think Bing might be broken. Like, irretrievably, unconscionably broken.</p>
+<p>I&rsquo;ve been trying to make sure that this site gets crawled and indexed reasonably well. I&rsquo;ve got my robots meta tags, I&rsquo;ve submitted a <a href="/sitemap.xml">sitemap</a>, and bing.com still says the same thing: that there are <a href="http://www.bing.com/search?q=site%3animblemachines.com">22 pages on my site</a> (the number is closer to 150), and that <a href="http://www.nimblemachines.com/all-pages/">http://www.nimblemachines.com/all-pages/</a> has some kind of redirect error. Of course, before I submitted a sitemap, that file was the <em>de facto</em> list of all the live pages, and a great resource for Google et al: by crawling that one page they could find everything interesting on the site.</p>
+<p>When submitting a sitemap to Google Webmaster Tools, you get immediate feedback: after publishing the file and pointing Google to it, seconds later it says &ldquo;successfully parsed 145 URLs&rdquo; or some such.</p>
+<p>On Bing Webmaster Tools, the same process is rather unrewarding. After submitting the link to the sitemap file, the interface just shows &ldquo;pending&rdquo;. Later, it says &ldquo;0 URLs&rdquo;. I just re-submitted my sitemap (for the third or fourth time) but I&rsquo;m not expecting much.</p>
+<p>Why is Bing so broken?</p>
+<p>It also means that Yahoo (if anyone still uses it) is also broken &ndash; they share crawling metadata.</p>
+<p>I&rsquo;m close to no longer caring, but I&rsquo;m surprised that Bing is so messed up.</p>
+<hr />
+<h3 id="april-07-15:11"><a href="#april-07-15:11">2016 April 07 15:11</a></h3>
+<p>I just read two blog posts about <a href="https://www.ansible.com/">Ansible</a> vs <a href="http://saltstack.com/">Salt</a> (by <a href="http://jensrantil.github.io/salt-vs-ansible.html">Jens Rantil</a> and <a href="http://ryandlane.com/blog/2014/08/04/moving-away-from-puppet-saltstack-or-ansible/">Ryan Lane</a>). The authors came to the same conclusions: Salt&rsquo;s community was much better about bug fixes and accepting contributions; the Salt docs, while disorganized, were very deep and thorough; Salt was generally much faster; and Salt&rsquo;s built-ins made things easier. Also, while Salt was initally more difficult, it paid off to stick with it.</p>
+<p>Ansible&rsquo;s creator, <a href="http://michaeldehaan.net/">Michael DeHaan</a>, showed up in the comment sections of both blogs defending Ansible. It&rsquo;s interesting reading. If you can stomach such things, there is also a <a href="https://news.ycombinator.com/item?id=8134079">long discussion at Hacker News</a>.</p>
+<p>I&rsquo;m not sure exactly why I was reading about these tools. I&rsquo;m not in the biz of &ldquo;standing up&rdquo; cloud servers or services. But I do find the whole thing fascinating. Last year I dug into Docker a bit, to try to understand it, and ended up discovering <a href="https://coreos.com/">CoreOS</a> &ndash; which appealed to me in part because their update mechanism was borrowed from ChromeOS, where it works very well. While CoreOS was originally written to work with Docker, <a href="https://coreos.com/blog/rocket/">the missions of the teams diverged</a>; the CoreOS folks created their own container runtime, <a href="https://coreos.com/rkt/">rkt (aka &ldquo;Rocket&rdquo;)</a>. I never tried to actually <em>do</em> anything with CoreOS, rkt, or Docker, however.</p>
+<p>Digging into the idea of containers led to me to a blog post by <a href="http://phk.freebsd.dk/">Poul-Henning Kamp</a>, a longtime FreeBSD committer, about <a href="http://phk.freebsd.dk/sagas/jails.html">inventing jails</a> and how happy he was to see the idea taking off in the form of containers on Linux. Curiously, he committed the jails support into FreeBSD in April 1999. Linux containers only started to take off in 2013 or so.</p>
+<p>I&rsquo;ve been interested in the fundamental problem of software deployment for a long time; I started installing (and upgrading!) operating systems in 1996. I&rsquo;ve installed Linux, Windows, and FreeBSD more times than I can count, and struggled with various package managers. The imperative approach of overwriting the OS and applications <em>in-place</em> &ndash; whether via a package manager or by doing BSD&rsquo;s <em>make installworld</em> &ndash; always seemed like a mistake. It&rsquo;s very error-prone. Even a &ldquo;successful&rdquo; upgrade of a package can, by changing an underlying library, render another package unusable. This is one reason that the CoreOS update feature appealed to me &ndash; it is <em>atomic</em> &ndash; but CoreOS depends on containers to solve the rest of the deployment problem, and it&rsquo;s not completely clear (to anyone!) how to do it correctly.</p>
+<p>Frustration with all of this &ldquo;culminated&rdquo; in my discovery of <a href="https://nixos.org/~eelco/">Eelco Dolstra&rsquo;s</a> PhD thesis &ndash; <a href="https://nixos.org/~eelco/pubs/phd-thesis.pdf"><em>The purely functional software deployment model</em></a> &ndash; and the <a href="https://nixos.org/nix/">Nix package manager</a> project, which I now desultorily use. I have a few programs on my Mac managed via the Darwin port of Nix, and I run <a href="https://nixos.org/">NixOS</a> &ndash; a Linux distro based on Nix &ndash; on a very creaky old laptop. Nix seems like the most elegant solution to this problem &ndash; even though it often seems beyond my ken. The Nix community have their own cloud deployment tool, <a href="https://nixos.org/nixops/">NixOps</a>, for deploying sets of machines running NixOS.</p>
+<p>Someday I&rsquo;ll write more about Nix and NixOS &ndash; they are both deep subjects, and I have a love-hate relationship with both!</p>
+<p>And perhaps someday I&rsquo;ll do a real cloud deployment and can talk it about it in more than theoretical terms. ;-)</p>
+<hr />
+<h3 id="march-31-01:50"><a href="#march-31-01:50">2016 March 31 01:50</a></h3>
+<p>Sometimes Google really pisses me off by doing something obviously stupid. The latest? They decided to remove the Archived History database in Chrome, which stored browsing history that is older than 90 days. The &ldquo;logic&rdquo; of this? That the user is better off without this history, since the UI in Chrome does nothing useful (and sometimes does something <em>confusing</em>) with it. But instead of leaving existing Archived History files alone, they went ahead and deleted them, without asking the user.</p>
+<p>For your reading pleasure, here is the <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=359377">&ldquo;enlightened&rdquo; discussion</a>, among Chrome engineers, of this issue.</p>
+<p>In addition to this, the online help is now really confusing. It suggests that history more than 3 months old is still available <em>somewhere</em>, but the &ldquo;instructions&rdquo; (I use the word advisedly) for accessing it tell you to basically open the history page using the &ldquo;hamburger&rdquo; menu. Which shows the first few entries of the last 90 days of history. If you were patient enough to click the &ldquo;Older&rdquo; link until you got RSI, you&rsquo;d find that nothing older than 90 days had been saved.</p>
+<p>I discovered this only after spending the time to understand how the history database works, how to export it from sqlite into a couple of text files (urls and visits), and how to read and make sense of those. I was hoping to recreate my browsing history from last year &ndash; in a more usable form than the browser presents (ahem) &ndash; so I could dig up the interesting things I was reading about, and follow the paths of some of the &ldquo;rabbit holes&rdquo; I had gone down. I had been careful (so I thought) <em>not</em> to delete my history, for exactly this reason.</p>
+<p>But then Google, without asking me, quietly deleted it. Thanks a lot, assholes!</p>
+<p>I&rsquo;m misrepresenting the situation &ndash; slightly. The more astute (pedantic?) among you will notice that the discussion linked to above is dated April 2014, so my Archived History disappeared <em>then</em>. The 2015 history that I thought I was accumulating was a mirage. It <em>never</em> existed. I was too naive and trusting of Chrome&rsquo;s &ldquo;benevolence&rdquo; to realize that, because Chrome&rsquo;s UI for browsing history is desperately broken, it only stores 90 days of history, rather than keeping it until the user deletes it.</p>
+<p>Shouldn&rsquo;t this be in bold print somewhere? If you asked a hundred Chrome users, how many would know that Chrome quietly and continually loses their older browsing history? Ten? Five? One?</p>
+<p>What if the engineers had instead decided to keep this (possibly valuable) data around, and simply built an API to access it? Just because they are too lame to figure out how to use and display it doesn&rsquo;t mean that someone else won&rsquo;t come along and write a brilliant extension that <em>does</em>.</p>
+<p>Is it obvious that I&rsquo;m feeling frustrated and angry about this?</p>
+<hr />
+<h3 id="march-29-00:06"><a href="#march-29-00:06">2016 March 29 00:06</a></h3>
+<p>I just found what I think is a bug in <a href="https://pages.github.com">Github Pages</a>. I&rsquo;m not entirely <em>sure</em> only because the behaviour that I saw was rather confusing. I&rsquo;ll explain.</p>
+<p>This web site is hosted using Github Pages, which I set up in the normal way: I created a repository with a special name under my user account, put some special files there (<code>CNAME</code>, <code>404.html</code>, etc), set up a few DNS entries for my domain, and by &ldquo;magic&rdquo; this website appeared. I also created a tiny <em>test</em> site for my <a href="https://muforth.nimblemachines.com/">muforth</a> project, also in the normal way: I created a <em>gh-pages</em> branch in the project, and put a single file there: <code>index.html</code>.</p>
+<p>Because of how Github Pages maps project names to URLs, the muforth <em>project</em> URL is the same as the muforth <em>page</em> URL of this site, and that collision caused some odd behaviour &ndash; or that, at least, is my conjecture.</p>
+<p>I found that <em>some</em> random subdirectories of <code>nimblemachines.com/muforth/</code> would return a generic Github Pages 404 error, while others returned my custom 404 page, <a href="/page-not-found/">page not found</a>. I tried doing this on three machines: a Linux laptop (using <code>lynx</code>!!), my Mac (Chrome), and my Nexus 7 (Chrome for Android). Actually I tried a fourth way too: using <code>curl</code>. What&rsquo;s crazy is that I saw different behaviour in each case!</p>
+<p>I figured that the problem could only be the <em>gh-pages</em> branch of muforth, so I deleted it &ndash; but the problem remained. However, a few hours later, I only get <em>my</em> 404 page no matter what URLs I try. The immediate failure to fix the problem was probably due to caching by Github&rsquo;s CDN.</p>
+<p>So, problem solved, but some time needed to pass.</p>
+<p>I wanted to quickly write this up in case anyone else is having bizarre issues with this kind of URL collision on Github Pages between a personal site and a project site. I hope this helps.</p>
+<hr />
+<h3 id="march-21-18:50"><a href="#march-21-18:50">2016 March 21 18:50</a></h3>
+<p>I realize now that my previous solution to the problem of redirecting visitors to the current &ldquo;journal&rdquo; page (in 2016, the page you are now reading) isn&rsquo;t ideal.</p>
+<p>For one thing, non-Javascript-enabled clients &ndash; and that might include search-engine crawlers! &ndash; visiting <code>www.nimblemachines.com</code> will see nothing. Also, I am using Google Webmaster Tools and they need to see a &ldquo;verify&rdquo; meta tag, so they know that I own this domain. That tag was missing from the previous, simple <code>index.html</code>.</p>
+<p>My first solution to fix this was to create a pseudo-page, which I called <em>The tip of the iceberg</em>, and which basically just contained a link to the current journal, and the normal footer links (all pages, recent changes, home). This was better &ndash; it had the right <code>&lt;meta></code> tags &ndash; but for clients that <em>were</em> Javascript-enabled, things were ugly. A page would flash by &ndash; you would briefly see the title &ldquo;The tip of the iceberg&rdquo; &ndash; before redirecting.</p>
+<p>My second try &ndash; the current implementation &ndash; was to create a top-level <code>index.html</code> that is essentially a <em>copy</em> of the current journal page, but with a few changes:</p>
+<ul>
+<li>the canonical link element points to the top-level, not the journal page; this way crawlers know that these are two different pages;</li>
+<li>the robots meta tag says <em>noindex, follow</em> (unlike normal pages, which say <em>index, follow</em>);</li>
+<li>prefixed to the normal page content is the Javascript redirect code, which for 2016 says:</li>
+</ul>
+<pre>
+  &lt;script type="text/javascript">
+    document.location.replace("/2016/");
+  &lt;/script>
+</pre>
+<p>I&rsquo;m hopeful that this will be non-annoying, and that crawlers will still be able to find me.</p>
+<hr />
+<h3 id="march-14-11:31"><a href="#march-14-11:31">2016 March 14 11:31</a></h3>
+<p>I want to &ldquo;announce&rdquo; two neat new features of this site: self-linking headings, and automatic current-year redirection. What do these mean in English?</p>
+<p>Any heading on any page is a &ldquo;self-link&rdquo;: if clicked on, the heading moves to the top of the browser page, and the heading&rsquo;s &ldquo;fragment id&rdquo; becomes the new URL in the address bar, which can then be easily shared or bookmarked. The way the fragment id&rsquo;s are constructed &ndash; leaving out the initial year if found on a journal page &ndash; makes them look like blog URLs. (On non-journal pages the complete heading text is used as the fragment id.)</p>
+<p>In addition to making linking and sharing easy, I want the &ldquo;front page&rdquo; of the site to be the journal for the current year. My previous solution was to symlink (on the server side) the toplevel <code>index.html</code> to the current journal page, say 2016. The problem with this is that if bookmarked or shared, in a year the URL will be wrong. Instead of pointing to 2016&rsquo;s journal page it will point to 2017&rsquo;s. And any heading self-links (as described above) will also fail.</p>
+<p>The solution is for visitors to get redirected. This already happens to the &ldquo;apex&rdquo; domain. Github Pages redirects <code>nimblemachines.com</code> to <code>www.nimblemachines.com</code>. But it isn&rsquo;t possible (as far as I can tell) to have Github Pages redirect to a page on the site. I ended up writing a totally simple new <code>index.html</code> that basically consists of one line of Javascript. The current <code>index.html</code> looks like this:</p>
+<pre>
+  &lt;html>
+    &lt;head>&lt;/head>
+    &lt;body>
+      &lt;script type="text/javascript">
+        document.location.replace("/2016/");
+      &lt;/script>
+    &lt;/body>
+  &lt;/html>
+</pre>
+<p>I used <code>location.replace</code> rather than <code>location.assign</code> because <code>replace</code> doesn&rsquo;t leave the original URL in the browser history.</p>
+<p>Thanks are due to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Location/replace">Mozilla&rsquo;s great documentation</a> for making this easy (for a Javascript know-nothing).</p>
+<hr />
+<h3 id="march-14-10:42"><a href="#march-14-10:42">2016 March 14 10:42</a></h3>
+<p>Here is something for everyone who is annoyed by telemarketers. At least two people have created &ldquo;bots&rdquo; that can answer a call, and using simple logic and some prerecorded audio, can &ldquo;pretend&rdquo; to listen and respond to the caller. Both projects have recorded some of these calls, and they are priceless.</p>
+<ul>
+<li><a href="http://jollyrogertelephone.com/finally-a-realistic-plan-to-stop-unsolicited-telemarketing/">Jolly Roger Telephone</a></li>
+<li><a href="http://toao.net/595-lenny">Lenny</a></li>
+</ul>
+<p>Here is an example call with Lenny:</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/vWrkDOt_IfM" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<hr />
+<h3 id="march-11-23:43"><a href="#march-11-23:43">2016 March 11 23:43</a></h3>
+<p>Ok, one more quick link before the day expires... I found an interesting talk by Bryan Cantrill, an engineer from Sun who invented DTrace, worked on Solaris (and OpenSolaris), briefly worked at Oracle (after the Sun acquisition), and now works for <a href="https://www.joyent.com/">Joyent</a>. His talk &ndash; about <a href="http://wiki.illumos.org/">illumos</a>, and why it was forked from OpenSolaris &ndash; is funny and cutting. If you&rsquo;re interested in operating systems and the engineers who love them, you should enjoy this.</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/-zRN7XLCRhc" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<hr />
+<h3 id="march-11-22:18"><a href="#march-11-22:18">2016 March 11 22:18</a></h3>
+<p>In my ongoing quest to make the web a better place, I exported my bookmarks from Delicious (which has since become <em>disgusting</em>), deleted my account, and ran the weird HTML that Delicious exported through a custom Lua filter, to create a simple page, <a href="/bookmarks-from-delicious/">bookmarks from delicious</a>.</p>
+<p>It&rsquo;s unedited, at the moment. Some of the notes have been truncated (esp the early ones &ndash; I think the site had some database issues or something). There are going to be broken links &ndash; and links I might be embarrassed about today &ndash; but there are a lot of gems among the junk. It also stands as a history of what I was researching (and thinking about) over a four-year period.</p>
+<hr />
+<h3 id="march-11-13:27"><a href="#march-11-13:27">2016 March 11 13:27</a></h3>
+<p>I just found this <a href="http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/">interesting post about how only non-garbage-collected native code can work on mobile devices</a>. In other words, you should forget about Android and write for iOS. ;-)</p>
+<p>Is the age of garbage collection (in the computer sense) over? <a href="https://developer.apple.com/legacy/documentation/Cocoa/Conceptual/GarbageCollection/GarbageCollection.pdf">Apple seems to think so</a>. (see pg 6 in that document)</p>
+<p>Also, the <a href="http://clang.llvm.org/docs/AutomaticReferenceCounting.html">Clang team chimes in about automatic reference counting</a> (which is a way for the compiler to help you, the programmer, do memory management, and not a kind of garbage collector &ndash; and it&rsquo;s what Apple thinks you should use from now on on OSX and iOS).</p>
+<hr />
+<h3 id="march-09-22:49"><a href="#march-09-22:49">2016 March 09 22:49</a></h3>
+<h4 id="happy-belated-2016"><a href="#happy-belated-2016">Happy (belated) 2016!</a></h4>
+<p>Just like last year, I&rsquo;ve totally, painfully, and egregiously neglected this site. Not only have I failed to write about the random things I&rsquo;ve been thinking about and exploring, but the site itself is still broken and ugly &ndash; the lovely <a href="http://huertatipografica.com/en/about">huerta tipogr&aacute;fica</a> <a href="http://huertatipografica.com/en/fonts/alegreya-ht-pro">font</a> I carefully chose is unreadable, the site is useless on mobile devices, etc.</p>
+<p>I&rsquo;d love to see 2016 be different. I&rsquo;m thinking I&rsquo;d like to have the journal pages be kind of a &ldquo;microblogging&rdquo; thing: random sharing of links, books, ideas, and other small things I happen across that I find interesting. I <em>think</em> what stops me from writing more than I do is the sense of <em>commitment</em>: a longer piece takes time and focus. So what happens is that a bunch of things that I&rsquo;ve run across that are cool, interesting &ndash; even important! &ndash; get lost in the shuffle, and I never write about them. I have lists of things from 2014 that I still need to get to. Ugh.</p>
+<p>So, I thought I&rsquo;d start out with something that found <em>me</em> rather randomly: Unicode. I mean, I&rsquo;ve known about Unicode for ever, but I&rsquo;d never delved into it, and all that &ldquo;wide character&rdquo; support in Linux, BSD, and OSX just seemed like a lot of hooey. I&rsquo;m not interested in writing in Japanese on this site, so why should I care? I had a hunch that all those sites where apostrophes show up as &#x00e2;&#x20ac;&#x2122; had something to do with Unicode, but I never bothered to understand why.</p>
+<p>Somehow I landed on <a href="http://www.unicode.org/">the Unicode site</a> and decided to download the <a href="http://www.unicode.org/versions/Unicode8.0.0/">8.0 specification</a> and look through it. That started my adventures with Unicode.</p>
+<hr />
+<p>Read the <a href="/2015/">2015 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202016%20journal">Send feedback</a> on this page (last edited 2016 November 05 16:02)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

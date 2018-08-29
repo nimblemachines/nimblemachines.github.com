@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/code-reviews/" />
+<title>Code reviews &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Code reviews</h1>
+<hr />
+</div>
+
+<div id="content">
+<p><em>This page was originally contributed by Michael Pruemm. It was written by a colleague of his; Michael&rsquo;s comments are in green.</em></p>
+<hr />
+<p>After many reviews of code of colleagues I would like to share my experience as reviewer and give some practical advice on reviews. I hope that my pragmatic approach can help to improve the quality (and quantity) of reviews. Maybe this advice can evolve to some guideline or handbook for reviewers.</p>
+<p>Reviewing is more than a supplement to testing.</p>
+<div class="voice2">
+<p>In fact, it should occur before significant time is spent on testing, because you can find many otherwise hard to test/debug problems early.</p>
+</div>
+
+<p>Maintainability, extensibility and scalability are aspects of an application that cannot be tested. They can be checked in a review. The structure of an application can be checked in a review, not in a test. Some problems like incorrect exception handling and synchronization are hard to find in tests and difficult to debug. A reviewer can find them.</p>
+<p>And above all: The one doing the review and the programmer of the reviewed code learn from eachother. It will make a better programmer of both of them.</p>
+<h3 id="properties-of-a-good-application"><a href="#properties-of-a-good-application">Properties of a good application</a></h3>
+<p>(between square brackets the aspect that realizes it):</p>
+<ul>
+<li>simplicity [structure, design]</li>
+</ul>
+<div class="voice2">
+<p>I am wondering whether there is an ordering for the things within the brackets. I would attribute simplicity first of all to the design, than to the structure.</p>
+</div>
+
+<ul>
+<li>clarity [style, structure]</li>
+<li>completeness [structure, design]</li>
+<li>consistent [structure]</li>
+</ul>
+<div class="voice2">
+<p>But this is also a property of the design. E.g. the uniform handling of Init/Terminate in the DVD projects.</p>
+</div>
+
+<ul>
+<li>robustness [structure, design]</li>
+<li>flexibility [structure, design]</li>
+<li>maintainability [structure]</li>
+</ul>
+<div class="voice2">
+<p>... and to a lesser extent design, too. Think of minimising the coupling of components.</p>
+</div>
+
+<ul>
+<li>logical correctness [design]</li>
+<li>functional correctness [design, specification]</li>
+</ul>
+<p>The low level aspects of good code can be captured by style guides and style checking tools. The high level aspects of good code, the logical</p>
+<div class="voice2">
+<p>I would say &ldquo;Some low level aspects...&rdquo; and &ldquo;Many high level...&rdquo;</p>
+</div>
+
+<p>and functional correctness, can be checked by system tests. The aspects in between can be described as the structure and design of the code. The design is (or should) be well documented and contains the strategy to realize certain requirements of the system, such as algorithms, fault tolerance, security, performance and interfaces. They are generally well</p>
+<div class="voice2">
+<p>Much more import is to document any design decisions that were made and WHY they where made. Remember the (very) short &ldquo;design guidelines&rdquo; I made up for the DVD1 project? I should have them somewhere at home, I should go and find them. They should be developed a bit further in the same style as your review notes here.</p>
+</div>
+
+<p>discussed with designers and architects. Between design and coding style is an aspect that I would call the structure of the code. The structure is left to the individual programmer and is seldom discussed, poorly documented and not tested. This is a weak point and even a risk in projects. Why? Because an application with a good structure is:</p>
+<ul>
+<li>easier to maintain</li>
+<li>easier to test</li>
+<li>more flexible</li>
+<li>robust</li>
+<li>beautiful (to show at your customer!)</li>
+</ul>
+<div class="voice2">
+<p>Should be: &ldquo;to show TO your customer&rdquo;</p>
+<p>This list somehow reminds me of what Dijkstra called &ldquo;elegance&rdquo;, but that included much more, among other things brevity of expression etc.</p>
+</div>
+
+<p>The structure of the code encompasses:</p>
+<ul>
+<li>allocation of functionality to modules, classes and methods.</li>
+<li>symmetry, orhogonality and completeness.</li>
+<li>cohesion and coupling</li>
+<li>resource allocation and usage</li>
+<li>exception handling</li>
+</ul>
+<p>Although it&rsquo;s hard to give proper definitions for structure and design I think that most programmers know what I&rsquo;m talking about.</p>
+<p>One of the most important jobs of a reviewer is to check the structure of the code. A second aspect to check is the use of the language and programming environment.</p>
+<p>A checklist for the reviewer:</p>
+<ul>
+<li>comments in code (also use tools)</li>
+</ul>
+<div class="voice2">
+<p>This list should come with specific questions... e.g. Are there any comments? Are they helpful? Are they correct (do they match the code)? Are they too wordy?</p>
+</div>
+
+<ul>
+<li>formatting (use tools)</li>
+<li>naming (also use tools)</li>
+<li>clarity</li>
+<li>simplicity</li>
+<li>allocation of functionality to modules, classes and methods.</li>
+<li>hacks (problems solved at the wrong place.)</li>
+<li>interconnectedness of modules and classes.</li>
+<li>structure (length, complexity) of methods</li>
+<li>complex logic</li>
+<li>functional errors (not conform spec)</li>
+<li>fault critical (complex) syntactical constructions</li>
+<li>inefficient use of the programming environment</li>
+<li>incorrect use of the programming environment</li>
+<li>synchronisation errors</li>
+<li>errors in exception handling</li>
+<li>logical correctness (of algoritmes, state machines)</li>
+<li>lack of design patterns (when they are useful)</li>
+<li>deviations from programming conventions</li>
+<li>blind guts and other evolutionary remains</li>
+</ul>
+<p>.......... more to come.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Code%20reviews">Send feedback</a> on this page (last edited 2013 January 23 22:52)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

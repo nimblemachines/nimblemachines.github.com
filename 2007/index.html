@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2007/" />
+<title>2007 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2007 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="december-02-23:16"><a href="#december-02-23:16">2007 December 02 23:16</a></h3>
+<p>Stormywindyrainy here in the Bay Area.</p>
+<p>I&rsquo;ve decided to try hosting email on Google Apps. I don&rsquo;t mind if my web site is down &ndash; even for days &ndash; but not having email is a drag; and my current setup (server in the basement) means I&rsquo;m at the mercy of a capricious DSL modem.</p>
+<p>Having my DNS and email hosted off-site makes my life simpler.</p>
+<hr />
+<h3 id="november-27-16:00-pkgsrcs-tenth-anniversary"><a href="#november-27-16:00-pkgsrcs-tenth-anniversary">2007 November 27 16:00. pkgsrc&rsquo;s tenth anniversary</a></h3>
+<p><a href="http://pkgsrc.org/">pkgsrc</a>, NetBSD's third-party software packaging system (based on, and descended from FreeBSD's <a href="http://www.freebsd.org/ports/">ports</a>) turned ten in October. To mark the occasion the pgksrc people published several <a href="http://www.netbsd.org/gallery/10years.html">interviews with key people</a> involved in NetBSD's, OpenBSD's, and FreeBSD's ports &amp; packages systems &ndash; Alistair Crooks, Hubert Feyrer, and Jordan K. Hubbard, among others.</p>
+<p>When I ran Linux, years ago (1995 to 2000, roughly), I always thought that building everything from source was the One True Way. When I discoverend that FreeBSD does this &ndash; for the kernel, the userland (the applications bundled with the kernel in a release), and ports (where all the third-party software goes) &ndash; I was thrilled. I switched and have (mostly ;-) never looked back. I still think it&rsquo;s the way to go, but in practice ports and packages on FreeBSD have some issues. It&rsquo;s my least favorite part of the system, actually.</p>
+<p>I ran NetBSD on a server for a year or so, and my experience with pkgsrc was that it worked better than ports. I&rsquo;m happy to be using it now on DragonFlyBSD as well.</p>
+<p>People have discovered that using <em>make</em> as the core of a packaging system &ndash; while an elegant and in some sense obvious choice &ndash; creates awkward problems. Replacing this with an entirely new model is an interesting idea.</p>
+<p>There are projects doing just that. Two that seem quite appealing are <a href="http://www.pkgjam.org/">pkgjam</a> and <a href="http://nix.cs.uu.nl/">Nix</a>. pkgjam is a &ldquo;radically re-engineered pkgsrc&rdquo; using a real database (sqlite) and replacing make as the dependency engine; Nix is a &ldquo;purely functional&rdquo; package manager, and sounds like the system that I wanted to build once I began to understand Git&rsquo;s object store.</p>
+<hr />
+<h3 id="november-18-15:26"><a href="#november-18-15:26">2007 November 18 15:26</a></h3>
+<p>I seem to have managed to hose my laptop &ndash; stubb, running FreeBSD &ndash; by runnig &ldquo;make installworld&rdquo; and having it fail in the middle. I&rsquo;m not sure what happened or why, but the make stopped with an error. Something about not being able to find a file with the name &lt;heart> (the heart card suit character from the console font). I tried rerunning it, I tried copying things by hand. Nothing worked. The system got worse. Lots of segfaults.</p>
+<p>I can boot &ndash; sort of. The kernel starts, but when it tries to run the services, it&rsquo;s a mess.</p>
+<p>I&rsquo;ve run out of options. I&rsquo;m going to boot via floppy and run a binary upgrade to re-install the binary bits. I hope that will solve the problem.</p>
+<p>I&rsquo;ve run make build/installworld lots of times, on different machines, with nary a hitch. The worst part of this experience is not knowing why the installworld failed.</p>
+<div class="voice2">
+<p>Update: 2007 November 18 17:11</p>
+<p>It wasn&rsquo;t painless, but I was successful. Requiring four floppies to boot was annoying, and getting the network interface configured (wireless with WEP) was tedious, and I had to do some quick and dirty cleanup because my root partition was a bit full &ndash; the initial install of the GENERIC kernel failed! But I managed. It wasn&rsquo;t for the faint of heart, though. If I hadn&rsquo;t been comfortable with FreeBSD I would have been really terrified!</p>
+</div>
+
+<hr />
+<h3 id="november-17-21:25"><a href="#november-17-21:25">2007 November 17 21:25</a></h3>
+<p>The wiki now redirects to canonical URIs. What this means in practice is that the browser&rsquo;s address bar will always show a valid URI. It used to be &ndash; esp when visiting the front page &ndash; that you would see</p>
+<pre>
+  http://www.nimblemachines.com/show
+</pre>
+<p>since Apache redirects the first request ("/") to "/show&rdquo; and then the script simply displays the home page. Now it <em>redirects</em> to the home page.</p>
+<p>Also, if a request had a slash after the page name, with or without more trailing junk, the request would fail. Now those are stripped, and a redirect is again done to a canonical URI.</p>
+<div class="voice2">
+<p>Of course, I broke it the first time around. I was canonicalizing <em>everything</em> &ndash; which meant that search URIs were getting rewritten and essentially clobbered. That&rsquo;s fixed now. Only /show URIs redirect. Everything else is likely to be a link generated by the wiki, and so should be correct.</p>
+</div>
+
+<hr />
+<h3 id="november-17-02:49"><a href="#november-17-02:49">2007 November 17 02:49</a></h3>
+<p>Well, that was <em>quite</em> interesting. For several hours now I&rsquo;ve been sending my myriad readers (and spiders) into a redirect black hole.</p>
+<p>How could this possibly happen? (you ask). There are several pieces to the puzzle.</p>
+<h4 id="dns:-inside-or-out"><a href="#dns:-inside-or-out">DNS: inside or out?</a></h4>
+<p>My internal DNS here at home resolves both nimblemachines.com and www.nimblemachines.com to the web server, but because of details of my cheap &amp; nasty dynamic DNS, for everyone <em>outside</em>, nimblemachines.com doesn&rsquo;t resolve. To anything.</p>
+<h4 id="who-is-doing-the-redirecting"><a href="#who-is-doing-the-redirecting">Who is doing the redirecting?</a></h4>
+<p>The redirections that my script does (see <a href="/redirecting-properly-after-http-post/">redirecting properly after HTTP post</a>) use &ldquo;root relative&rdquo; URIs like</p>
+<pre>
+  /show/RecentChanges
+</pre>
+<p>which redirect to the same host, so if the first request resolved, the second will as well. Not so with Apache&rsquo;s internal redirector, which I now invoke because I am <a href="/redirecting-uris-with-query-strings/">redirecting URIs with query strings</a> to new shiny pathinfo-style URIs (via mod_rewrite), which generates true absolute URIs like</p>
+<pre>
+  http://nimblemachines.com/show/RecentChanges
+</pre>
+<p>These <em>can</em> fail if they redirect from a reachable host (&ldquo;www.nimblemachines.com&rdquo;) to an unreachable one (&ldquo;nimblemachines.com&rdquo;).</p>
+<h4 id="what-is-this-site-called-again"><a href="#what-is-this-site-called-again">What is this site called again?</a></h4>
+<p>Apache gets its idea of the domain name &ndash; for redirects, eg &ndash; from a ServerName directive in the virtual hosts configuration. Up till now I had something like this:</p>
+<pre>
+  ServerName nimblemachines.com
+  ServerAlias www.nimblemachines.com
+</pre>
+<p>This allows connections from clients asking for either one (via the Host: header in their HTTP request). Because of my local DNS, I am able to generate requests with the bare &ldquo;nimblemachines.com&rdquo;, but no one outside can.</p>
+<p>What does this all add up to? Google, or a reader, requests</p>
+<pre>
+  http://www.nimblemachines.com/wiki?show=RecentChanges
+</pre>
+<p>receives a redirect 301 (permanent) to</p>
+<pre>
+  http://nimblemachines.com/show/RecentChanges
+</pre>
+<p>because Apache (mod_rewrite) is doing this redirection, and gets its idea of the server&rsquo;s name from ... the ServerName directive. This sends Google or the reader into a black hole. There is no domain there... so they wait, and then time out. A reader might get lucky: if they are running Firefox (but not IE!!), the browser will usually try to prepend &ldquo;www.&rdquo; and this will work.</p>
+<p>I never fell into the hole because nimblemachines.com resolves, for me, and the server accepts it, so the redirection works fine.</p>
+<p>I&rsquo;ve removed those &ldquo;resolutions&rdquo; from the local DNS, and changed the ServerName to &ldquo;www.domain&rdquo;; looking at the logs I can see that Google is successfully seeing the new URIs. Finally! Wow.</p>
+<div class="voice2">
+<p>Postscript: around 7am on 2007 November 17, Google started madly fetching the new URIs. I think it grabbed my entire site! One page every ten seconds or so.</p>
+<p>And I discovered a &ldquo;robots.txt&rdquo; gotcha as well: I changed my robots.txt and the structure of the site at the same moment. Google grabbed my old robots.txt moments before this. What this meant is that Google ended up following some search URIs that essentially do a full-text search of the site (to find backlinks) &ndash; and it did this for every page that it indexed.</p>
+<p>I had no idea what was going on &ndash; my new robots.txt clearly disallowed these URIs &ndash; until I logged into Google&rsquo;s Webmaster Tools and looked at what their idea of my robots file was. Sure enough, they still had the old copy.</p>
+<p>Moral: upload a robots.txt file that is a union of the old and new at least 24 hours before doing a major reworking of the URI space. Later you can expire the old patterns.</p>
+</div>
+
+<hr />
+<h3 id="november-16-21:00"><a href="#november-16-21:00">2007 November 16 21:00</a></h3>
+<p>I&rsquo;d like to announce that this site is now running my modular wiki code. I worked on it a lot a few months ago, and, as with my other projects, after getting eighty percent done I ran out of steam. I was able to finish the job today, and I&rsquo;m much relieved. A bunch of small hacks I wanted to make had been postponed until the modular code was live. Having already &ldquo;forked&rdquo; the code, I wasn&rsquo;t thrilled with having to keep two branches in sync. Esp when changes to the original wiki file map to one of about six files now.</p>
+<p>There are two aspects of this system that might be of broad interest (to web people anyway):</p>
+<ul>
+<li><a href="/redirecting-properly-after-http-post/">redirecting properly after HTTP post</a></li>
+<li><a href="/redirecting-uris-with-query-strings/">redirecting URIs with query strings</a></li>
+</ul>
+<p>The code (it&rsquo;s not brilliant) is <a href="https://github.com/nimblemachines/wiki/tree/master/">here</a>.</p>
+<hr />
+<h3 id="november-15-18:16-getting-git-redux"><a href="#november-15-18:16-getting-git-redux">2007 November 15 18:16. Getting Git, redux</a></h3>
+<p>After successfully using the command line PIC assembler (MPASMWIN) to build a couple of little PIC demos, I&rsquo;ve decided to move things along. I&rsquo;m already tired of Windows, and I think I could pretty easily use the PICkit2 with open source tools &ndash; my own or others&rsquo; &ndash; esp now that Microchip has released a command line programming tool, and folks have ported it (to Linux at least). Porting this to FreeBSD would be a good start, for me.</p>
+<p>I&rsquo;ve also, thanks in part to watching <a href="http://www.stonehenge.com/merlyn/">Randal Schwartz</a>&rsquo;s <a href="http://video.google.com/videoplay?docid=1251251453592758541">Git talk</a> at Google, gotten re-excited about using Git. I was feeling a bit overwhelmed by it &ndash; afraid of it, almost. Having gone back to using Git after a three-month hiatus has been pretty sweet. Git is fun!</p>
+<p>Another reason I wasn&rsquo;t using it was fear that the versions I was running were subtly broken &ndash; a while after building and installing Git, on two machines, I ran the test suite and it <em>failed</em> on both machines. So I spent some time building and testing Git, and documented my findings &ndash; esp useful for people running BSD systems.</p>
+<p>Now I&rsquo;m thinking about removing (and archiving) this Windows disk, getting another PATA disk, and starting over with FreeBSD. I still like like <em>it</em> too!</p>
+<hr />
+<h3 id="november-06-02:01-does-commercial-software-suck"><a href="#november-06-02:01-does-commercial-software-suck">2007 November 06 02:01. Does commercial software suck?</a></h3>
+<p>I built a Windows machine so I could work with Microchip&rsquo;s PIC microcontrollers. I bought a PICkit2 programmer, and sampled a few parts. I started down the (long) road of creating my own software to assemble and program the parts (a Forth-based assembler, and a Lua-based programmer) and got bogged down in gory detail, and lost momentum.</p>
+<p>Recently I wanted to get going on those projects again, so I snatched the body of my web server machine (putting an inferior one in its place) and built myself a nice Windows XP box. Installing Windows was a joke, as always, but now that the machine is running, it&rsquo;s reasonably easy to use.</p>
+<p>I can&rsquo;t say the same about MPLAB, Microchip&rsquo;s IDE for their chips. <strong>mplab stinks</strong>. Several times I sat gaping in awe at its stupidity.</p>
+<p>I&rsquo;m tempted either to</p>
+<ul>
+<li>use the tools provided from the command line, perhaps from MSYS; or</li>
+<li>chuck the whole thing, install Linux or BSD, and go back to what I was doing before, and hope I don&rsquo;t get as stuck this time.</li>
+</ul>
+<p>I definitely prefer BSD/Linux to Windows; and I find mouse-centric IDEs (with completely brain-damaged user interfaces) so awful that I want to throw things. And my hand hurts from mousing. And I still got nothing done.</p>
+<div class="voice2">
+<p>Most software sucks, commercial or open source. What&rsquo;s a poor geek to do? Identify the best bits and beat them into submission. Don&rsquo;t release it (or remove the beta tag) until it&rsquo;s right.</p>
+</div>
+<div class="voice3">
+<p>Since making this entry I&rsquo;ve also installed <a href="/freescale/">Freescale</a>'s CodeWarrior suite (so I could write code for their <a href="/freescale-hc08/">HC08</a> and <a href="/freescale-hcs08/">HCS08</a> processors) and was appalled by its bloat. The <em>installer</em> is a 350MB download, and puts 2GB of gunk on the disk. So I can run their 350K assembler? I think not. <em>Axe</em></p>
+</div>
+
+<hr />
+<h3 id="november-04-19:01"><a href="#november-04-19:01">2007 November 04 19:01</a></h3>
+<p>I&rsquo;ve been thinking about an Arduino killer &ndash; a board based on the <a href="http://www.nxp.com/pip/LPC2141_42_44_46_48_3.html">NXP LPC2141</a>, an ARM7TDMI microcontroller with built-in USB that costs about what the <a href="http://atmel.com/dyn/products/product_card.asp?part_id=3303">Atmel ATmega168</a>, which powers the Arduino, costs.</p>
+<p>However, the Atmel chip <em>lacks</em> USB capability; the Arduino requires another chip, which costs as much as the microcontroller!</p>
+<p>A fairer comparison would be between the LPC2141 and the similar, but much slower, <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1335&amp;dDocName=en010300">PIC18F4550</a> &ndash; a &ldquo;high-end&rdquo; PIC device with built-in USB. However, this is an 8-bit device, running at one-fifth the speed of the ARM.</p>
+<p>And &ndash; surprise! &ndash; it costs <em>more</em> than the ARM does.</p>
+<p>When 32 bits are cheaper than 8, the time seems to have come when <a href="/eight-bit-microcontrollers-are-obsolete/">eight bit microcontrollers are obsolete</a>.</p>
+<hr />
+<h3 id="november-03-17:36"><a href="#november-03-17:36">2007 November 03 17:36.</a></h3>
+<p>A few quick notes about using MinGW and MSYS.</p>
+<hr />
+<h3 id="november-03-04:43"><a href="#november-03-04:43">2007 November 03 04:43.</a></h3>
+<p>I&rsquo;m going to attempt installing MinGW and MSYS. I probably won&rsquo;t get anywhere until later.</p>
+<hr />
+<h3 id="november-03-02:29-new-infrastructure"><a href="#november-03-02:29-new-infrastructure">2007 November 03 02:29. New infrastructure</a></h3>
+<p>I decided to switch things around. Tashtego &ndash; the Free Geek machine running DragonFlyBSD that hosts this site &ndash; has a new body. An old body, really. I dug up an old Pentium II (300 MHz!) machine and moved Tash&rsquo;s brain into it. Works great, and is doubtless beefy enough to handle my not-so-overwhelming traffic.</p>
+<p>That freed up the Free Geek machine &ndash; a gigahertz Pentium III &ndash; to use as a Windows box (I know &ndash; bleech) for hardware development. I made a mistake in this process, though: I assumed that I could install Windows on the old machine, and simply move the hard drive over. I&rsquo;ve done this heaps of times with <a href="http://netbsd.org/">NetBSD</a> &amp; <a href="http://freebsd.org/">FreeBSD</a>, and the drive always boots in the new machine (my kernels, though not GENERIC, only lack SCSI and oddball network drivers; I leave in the common stuff, and all the IDE drivers). Not so with Windows. Sadly, having already spent several hours getting my new XP install updated to the latest bits, I ended up having to &ldquo;repair&rdquo; the installation (essentially a fresh install) followed by a re-update. Happily, the repair process left my registry intact, so I didn&rsquo;t have to also reinstall any apps.</p>
+<p>I wouldn&rsquo;t have had this problem if I hadn&rsquo;t assumed that Windows would actually behave reasonably. I&rsquo;m an incurable optimist in this regard, expecting that one day it will make sense. It never does. Why Windows can&rsquo;t be as flexible and smart as BSDs is a mystery.</p>
+<p>I had another problem, too, one that wasn&rsquo;t caused by naivet&eacute;/optimism: this new machine (Flask, another character from <em>Moby Dick</em>) has only wired Ethernet, but the only wired network is in the basement between the DSL modem/router and Tashtego. I pressed an unused Linksys WAP11 (802.11b access point) into service as an access point <em>client</em>, bridging the traffic on its local LAN (connected only to Flask) to the wireless. It acted flaky &ndash; doubling pings, not routing other pings &ndash; until I moved its IP address <em>out</em> of the range of the wireless subnet (192.168.0/24) and into its own (192.168.1/24). Now it&rsquo;s solid.</p>
+<hr />
+<h3 id="october-29-19:31-arduino"><a href="#october-29-19:31-arduino">2007 October 29 19:31. Arduino!</a></h3>
+<p>Lots of people are talking about the <a href="http://arduino.cc/">Arduino</a>, a hardware &amp; software platform for doing fun things with electricity. It&rsquo;s intended as a simple-but-powerful microcontroller that is accessible to creative people for whom this kind of technology is normally out of reach.</p>
+<p>I haven&rsquo;t played around with one yet, but wanted to share some pointers and initial thoughts. Here in Portland, the <a href="http://dorkbotpdx.org/">Dorkbot crew</a> are talking about having an Arduino soldering party, which sounds like a lot of fun.</p>
+<p>I&rsquo;ve created an Arduino page that discusses the some of the variants that are available.</p>
+<hr />
+<h3 id="october-29-02:38-neat-things"><a href="#october-29-02:38-neat-things">2007 October 29 02:38. Neat things</a></h3>
+<p>One-wheeled electric scooters (think of a cross between a skateboard and a <a href="http://segway.com/">Segway</a>):</p>
+<ul>
+<li><a href="http://ben.jellybaby.net/">Ben Smither&rsquo;s</a></li>
+<li><a href="http://chriscoleman.com/stuff/?page_id=5">Chris Coleman&rsquo;s</a> (inspired by previous)</li>
+</ul>
+<p><a href="http://machineproject.com">Machine Project</a>, an <em>amazing</em> non-profit gallery-cum-workshop space in Los Angeles that does all kinds of neat technology workshops for artists and has very cool gallery shows. Some highlights:</p>
+<ul>
+<li><a href="http://machineproject.com/2007/06/13/blubberbot/">Blubber</a> <a href="http://machineproject.com/2007/06/28/blubalot/">Bots</a>. These are happy, slow, &amp; friendly helium balloon autonomous robots!</li>
+<li><a href="http://www.machineproject.com/difficult/">Difficult music</a>. A performance &amp; discussion series.</li>
+<li><a href="http://machineproject.com/2007/06/02/electronics-for-artists/">Electronics for artists</a></li>
+<li><a href="http://machineproject.com/2007/02/10/feltcircuits/">Felt + circuits</a>. Make your own electronic plush toy!</li>
+<li><a href="http://machineproject.com/2007/02/07/hekla-dgg-jnsdttir/">Hekla D&ouml;gg J&oacute;nsd&oacute;ttir</a> show</li>
+<li><a href="http://machineproject.com/2007/09/05/machine-sewing-101-2/">intro sewing workshop</a>!</li>
+</ul>
+<p>... and lots of other happenings, <a href="http://www.machineproject.com/past">past</a>, <a href="http://www.machineproject.com/">present</a>, and <a href="http://www.machineproject.com/future">future</a>.</p>
+<p>Is there anything like this in Portland? If so, where is it? If not, we need to make one!</p>
+<hr />
+<h3 id="october-25-16:19-exploring-vim"><a href="#october-25-16:19-exploring-vim">2007 October 25 16:19. Exploring Vim</a></h3>
+<p>I&rsquo;ve been using Emacs for a long time. I&rsquo;ve never loved it. I don&rsquo;t use most of its features. It seems like a bloated dying whale to me. However, my fingers know how to tickle it.</p>
+<p><a href="http://www.vim.org/">Vim</a> has seemed for a long time to be a compelling option. The whole &ldquo;learning a new set of keystrokes&rdquo; thing made me a bit shy &ndash; though, I must admit, that from 1982 to 1988 or so I used <em>vi</em> intensively, so Vim&rsquo;s vi-ness will be familiar. It&rsquo;s learning Vim&rsquo;s &ldquo;improvements&rdquo; that seemed daunting.</p>
+<p>Last night I read through a lot of the manual and played around a bit with Vim. I liked it. <a href="http://www.moolenaar.net/">Bram</a> seems to have done a thorough job not only of writing great documentation but also anticipating wants, needs, and confusions. In early 2007 Bram gave a <a href="http://tech.groups.yahoo.com/group/vimannounce/message/170">tech talk</a> about using Vim to be more productive.</p>
+<div class="voice2">
+<p>I just watched the tech talk. It&rsquo;s a bit slow, and probably not worth the bother. Sadly, while I think Vim has some exciting features/aspects, I don&rsquo;t think Bram does it justice.</p>
+</div>
+
+<p>I decided to install it on tashtego. The version I was using last night was 6.4, installed on a FreeBSD machine via ports (vim-lite). Today I built and installed a &ldquo;vanilla&rdquo; Vim from pkgsrc (/usr/pkgsrc/editors/vim), and was irritated to find that F1 doesn&rsquo;t fire up the help.</p>
+<p>My travails with hosting on Tashtego tells the whole story (and a few others too).</p>
+<p>I may have more to say about Vim as I continue to play around with it.</p>
+<hr />
+<h3 id="october-13-04:47"><a href="#october-13-04:47">2007 October 13 04:47</a></h3>
+<p>It appears that Google needs sysadmin talent.</p>
+<p>Douglas Shacteau just tried to send me email, which my server bounced &ndash; it&rsquo;s picky about things to ward off spammers. Apparently the outgoing Gmail server announced itself as &ldquo;hs-out-2021.google.com&rdquo; &ndash; but that name doesn&rsquo;t exist in the DNS!</p>
+<p>Oops.</p>
+<p>Got mail server administration skills? Need a job? Google sure needs <em>you</em>.</p>
+<hr />
+<h3 id="october-08-15:17-james-howard-kunstler"><a href="#october-08-15:17-james-howard-kunstler">2007 October 08 15:17. <a href="http://kunstler.com/">James Howard Kunstler</a>!</a></h3>
+<p>Some of his beliefs:</p>
+<ul>
+<li>We are living, now, in the time of Post Peak Oil.</li>
+<li>The housing bubble is collapsing, signalling an end to suburbia and a reality check on having sold out our manufacturing infrastructure and replaced it with delusionary finance and a suburbia-building juggernaut.</li>
+<li>We could solve some of the hassle of air travel, and save lots of fuel, by rebuilding our passenger train infrastructure. People <em>love</em> trains! Why did we get rid of ours?</li>
+<li>Modern architecture, and the Banal Suburban, have done more than miss the point: dementor-like, they are sucking the American soul.</li>
+</ul>
+<p>Quotes from <a href="http://www.kunstler.com/mags_diary22.html">Clusterfuck Nation</a>:</p>
+<blockquote><p>I&rsquo;m hardly an advocate of the US giving up and committing suicide. What I advocate is a broad recognition that reality is compelling us to change our behavior. Reality is trying to tell us that we can&rsquo;t run an economy based on nothing more than investment schemes without directing investment into activities that produce things of value. Reality is telling us to be very worried about living arrangements that can only function with copious imports of oil from people who are disgusted with us. Reality is telling us that we can&rsquo;t divert our food crops into making motor fuels without people becoming unable to afford either fuel or food. Reality is telling us to redirect our culture more toward things-we-do-with-other-people and less toward things-we-do-with-new-things. Reality is telling us to shift from avoidance behavior and denial to engaging with reality in order to lead lives that are consistent with reality.</p></blockquote>
+<blockquote><p>Are we building a society with a future? Does our culture affirm life or yearn for destruction? Are our daily ceremonies and rituals meaningful or empty? Are our hopes and dreams consistent with what reality has to offer? Can we look in the mirror and say that we are upright people?</p></blockquote>
+<p>A few tidbits from his <a href="http://www.kunstler.com/eyesore.html">Eyesore of the Month</a>, a lovely collection of architectural mistakes as a symptom of ongoing cultural collapse. His skewering of Modernists &ndash; with which I heartily agree &ndash; is breathtaking.</p>
+<ul>
+<li>Hope for the future: the <a href="http://www.kunstler.com/eyesore_200512.html">revitalization of small-city America</a> (focussing here on Troy, NY, and Baltimore, MD).</li>
+<li>Journey by foot to catch the train: how <a href="http://www.kunstler.com/eyesore_200504.html">pedestrians have been completely left out</a> of the planning &amp; design process.</li>
+<li>Rem Koolhaas&rsquo; ridiculous <a href="http://www.kunstler.com/eyesore_200406.html">Seattle Public Library</a>. Neatly skewered.</li>
+</ul>
+<hr />
+<h3 id="september-28-03:19-bicycle-bits"><a href="#september-28-03:19-bicycle-bits">2007 September 28 03:19. Bicycle bits</a></h3>
+<p>I&rsquo;ve been spending a lot of time reading &amp; thinking about cycling and my bike projects &ndash; not doing much else, frankly. I wanted to share a few things here.</p>
+<p>First, if you want to read some snarky &amp; hilarious (&amp; intelligent) commentary about the contemporary cycling scene &ndash; with extra special care taken to skewer urban fixie-riding hipsters &ndash; read <a href="http://bikesnobnyc.blogspot.com/">Bike Snob NYC</a>. Don&rsquo;t be drinking anything though, unless you want it shooting out your nose and ending up all over your laptop/monitor. The guy is <em>funny</em>.</p>
+<p>Second, I finished and delivered (to my dad!) the Schwinn Le Tour, set up as a singlespeed (40x18 gearing on 700c wheel), with upright cruiser bars. It&rsquo;s a lot of fun to ride. I don&rsquo;t have pictures yet, but hope to soon.</p>
+<p>Lastly, a conundrum (for me anyway). Right now I&rsquo;m working on two bikes: my old (1987) Bianchi Brava road bike, and my urban utility project bike (the Nishiki Olympic twelve). The Bianchi has always had its bars too low, even with the stem maxed out. So, I need a new stem. (The Nitto Technomic is nice and long.) I figure if I&rsquo;m replacing the stem I could put nicer bars on it too &ndash; like 44cm Nitto Noodles &ndash; the current bars are 40cm Nitto Mod55. It would be nice to have wider bars, and the Noodles sound great.</p>
+<p>The rear wheel is pretty trashed. And it&rsquo;s &ldquo;obsolete&rdquo;: 126mm spacing, 6 speed, thread-on freewheel.</p>
+<p>I could get two new wheels for it from Peter White Cycles for about $260. The rear would be a 126mm spacing <em>cassette</em> freehub that will take 7 speed cassettes &ndash; which, though obsolete, are still available, and pretty cheap. By buying a couple &ndash; or several even &ndash; I could buy cheap obsolescence insurance.</p>
+<p>The big question: does it make sense to spend this time and money on an old road bike? I have ridden and loved this bike for twenty years. If I don&rsquo;t fix it up I&rsquo;m going to stop riding it, and selling it seems silly.</p>
+<p>But I could instead be buying new wheels for my fixie project...</p>
+<hr />
+<h3 id="july-27-14:18"><a href="#july-27-14:18">2007 July 27 14:18</a></h3>
+<p><a href="http://research.microsoft.com/~simonpj/">Simon Peyton Jones</a> was in Portland this week, at <a href="http://conferences.oreillynet.com/os2007/">OSCON</a> and at <a href="http://galois.com">Galois</a>, giving interesting talks. Wednesday I heard him talk (at Powell&rsquo;s Technical bookstore) about his chapter on <a href="http://research.microsoft.com/~simonpj/papers/stm/index.htm#beautiful">Beautiful Concurrency</a> in the new book <a href="http://www.oreilly.com/catalog/9780596510046/">Beautiful Code</a>. Yesterday I went to Galois to hear his <em>amazing</em> talk about <a href="http://research.microsoft.com/~simonpj/papers/stm/index.htm">Software Transactional Memory</a>, also the subject of &ldquo;Beautiful Concurrency&rdquo;.</p>
+<p>I haven&rsquo;t watched it but there is also an <a href="http://channel9.msdn.com/Showpost.aspx?postid=231495">hour-long interview</a> in which he talks about STM.</p>
+<p>STM is a principled way of doing lock-free concurrency on a shared-memory multiprocessor machine (which is what lots of people have now and everyone will have in the future). As each thread reads and writes memory within an &ldquo;atomic&rdquo; block, other threads see all or none of the thread&rsquo;s writes. The details are interesting, and the Haskell implementation makes good use both of the type system and monads, to make large classes of bugs unwritable.</p>
+<div class="voice2">
+<p>Have you seen <a href="http://www.cs.otago.ac.nz/staffpriv/ok/santa/index.htm">this</a>? dgs</p>
+</div>
+
+<p>Seeing Simon talk is always an inspiration. He is passionate, articulate, and witty. His talks always reinvigorate my interest in Haskell.</p>
+<p>In fact I&rsquo;m building <a href="http://haskell.org/hugs">Hugs</a> (a Haskell interpreter) right now. ;-)</p>
+<p>In other Haskell news, <a href="http://www.cse.unsw.edu.au/~dons/">Don Stewart</a> is moving from Sydney to Portland, to work for Galois. He is also co-authoring a much-needed book, on <a href="http://www.realworldhaskell.org/blog/">Real-world Haskell</a>.</p>
+<p>Oh, and he has solved my window manager woes. He is also the co-author of <a href="http://www.xmonad.org/">xmonad</a>, a monadic tiling X window manager (of very modest size, principled design, and <a href="http://www.cs.chalmers.se/~rjmh/QuickCheck/">QuickCheck</a>ed implementation). I&rsquo;m looking forward to trying it.</p>
+<hr />
+<h3 id="july-10-13:00"><a href="#july-10-13:00">2007 July 10 13:00</a></h3>
+<p>I was worried that after the move to dynamic DNS Google had given up on me, but early this morning I noticed a bunch of traffic from Googlebot, so I&rsquo;m still being indexed.</p>
+<p>Last night I tried running the battery of tests on Git and discovered that <em>none</em> of the Git executables I have built pass all the tests. Not so good. I&rsquo;m going to spend some time documenting building and testing Git.</p>
+<hr />
+<h3 id="july-05-15:27"><a href="#july-05-15:27">2007 July 05 15:27</a></h3>
+<p>My server (really Randy Thelen's) died on June 27, after that post. While the machine is back up, we are going to change the arrangement. I&rsquo;m now hosting on Tashtego (my Free Geek machine), using some dynamic DNS tricks. The one thing that no longer works is that bare domains, like <a href="http://nimblemachines.com">http://nimblemachines.com</a> don&rsquo;t have any records in the DNS any more. There used to be an A record pointing to Randy&rsquo;s machine, but he&rsquo;s switching to dynamic IP, which is what I have here at home ... so there is nowhere to point an A record.</p>
+<p>However! Subdomains (like <a href="http://www.nimblemachines.com">http://www.nimblemachines.com</a>) can be CNAMEs for my dynamic host name, and in fact that is how things are currently.</p>
+<p>If you are using a modern browser, chances are that following the first link above will take you to the right place, because it will try prepending &ldquo;www.&rdquo; after finding nimblemachines.com unreachable.</p>
+<p>We&rsquo;ll see how it goes with the web spiders...</p>
+<hr />
+<h3 id="july-03-14:15"><a href="#july-03-14:15">2007 July 03 14:15</a></h3>
+<p>I decided to set up my Free Geek freebie machine as my web hosting platform! This means I&rsquo;ll be experimenting some more with dynamic IP resolution (see dynamic DNS), and also with DragonFlyBSD.</p>
+<hr />
+<h3 id="june-27-16:06"><a href="#june-27-16:06">2007 June 27 16:06</a></h3>
+<p>I&rsquo;m going to try importing from Subversion to Git. We&rsquo;ll see how it goes...</p>
+<hr />
+<h3 id="june-23-19:47"><a href="#june-23-19:47">2007 June 23 19:47</a></h3>
+<p>I&rsquo;m thinking about <a href="/version-control/">version control</a> again. I started using <a href="http://www.nongnu.org/cvs/">CVS</a> in 2002; in 2005 I dumped it for <a href="http://subversion.tigris.org/">Subversion</a>; now I&rsquo;m thinking of dumping Subversion for <a href="http://www.kernel.org/pub/software/scm/git/docs/">Git</a>, Linus Torvalds's new-ish distributed version control system.</p>
+<hr />
+<h3 id="june-17-20:13"><a href="#june-17-20:13">2007 June 17 20:13</a></h3>
+<p>The <a href="https://muforth.nimblemachines.com/">muforth</a> source and its <code class="forth">info</code> word refer to the following URI:</p>
+<pre>
+  http://nimblemachines.com/browse?show=muforth
+</pre>
+<p>Because I have changed the scripts that publish this site, that URI doesn&rsquo;t work any more.</p>
+<p>I plan to fix the source code, but instead of leaving the web site broken until I do, I added the following to my Apache config:</p>
+<pre>
+  RedirectMatch /browse(.*)  /wiki$1
+</pre>
+<p>Note that the much easier to type</p>
+<pre>
+  Redirect  /browse  /wiki
+</pre>
+<p>does <em>not</em> work. Apache complains that the right hand side is not a fully-qualified URI (ie, doesn&rsquo;t start with &ldquo;http://" or another URI scheme, and doesn&rsquo;t contain a fully-qualified domain name (FQDN)).</p>
+<p>Apache can be really arbitrary and annoying.</p>
+<div class="voice2">
+<p>And what&rsquo;s so bad about</p>
+<pre>
+  Redirect /browse http:///wiki
+</pre>
+<p>?</p>
+</div>
+<div class="voice3">
+<p>There needs to be a domain name after the URI scheme, and since this code is shared now among several sites, I can&rsquo;t plug in a constant domain.</p>
+<p>Of course, I have this information when generating the vhosts file for the domain that contains these Redirects, so I <em>could</em> generate</p>
+<pre>
+  Redirect  /browse  http://nimblemachines.com/wiki
+</pre>
+<p>for this site. What confused and irritated me was that Apache would accept a RedirectMatch that is semantically identical to a Redirect that it refused.</p>
+</div>
+<hr />
+<h3 id="june-17-14:53"><a href="#june-17-14:53">2007 June 17 14:53</a></h3>
+<p>I put the &ldquo;c&rdquo; (cascading) in CSS finally. Now the wiki code will accept as a config setting a link to a stylesheet local to that wiki; its settings override the default style sheet.</p>
+<p>In other news, yesterday evening I finally finished the build program at Free Geek, and came home with my free computer &ndash; the box and keyboard, anyway: I opted to forgo the monitor (have one already) and mouse (ditto). The only thing interesting about this is that I carried it home on my bicycle! This wasn&rsquo;t a &ldquo;full size&rdquo; (ie, mid-tower) box, though; it was a Dell GPX150 &ldquo;desktop&rdquo; &ndash; about the size of a full-sized VCR, but much heavier.</p>
+<p>I strapped it to the side of my pannier. No problem! I haven&rsquo;t booted it again yet to see if I trashed the hard drive on the ride...</p>
+<p>Here are the (rather modest) specs:</p>
+<ul>
+<li>1000M P-III</li>
+<li>256M SDRAM (PC133)</li>
+<li>20G Western Digital Caviar hard drive</li>
+<li>ATI Rage128 video (the onboard video had hash in it)</li>
+</ul>
+<p>It has Ubuntu Linux installed on it. I&rsquo;m likely to install either Windows (so I can do hardware development with it using lame proprietary IDEs), or Fedora Core, so I can play with Planet CCRMA.</p>
+<hr />
+<h3 id="june-16-03:19-smoke-test"><a href="#june-16-03:19-smoke-test">2007 June 16 03:19. Smoke test!</a></h3>
+<p>I just hugely reworked the Apache configuration for this site (and its sister sites). They used to each have a copy of the wiki code, and for various reasons it was messy and kludgy. Now there is one shared copy of the wiki code, the URIs are treated uniformly, and all is well in the world.</p>
+<p>Since I haven&rsquo;t tried to save any edits yet, this is the smoke test!</p>
+<p><em>There was a tiny bit of smoke, but with a minor tweak, everything worked.</em></p>
+<hr />
+<h3 id="june-15-02:57"><a href="#june-15-02:57">2007 June 15 02:57</a></h3>
+<p>I was just poking around on <a href="http://wiki.c2.com/?WardsWiki">WardsWiki</a> and stumbled across <a href="http://wiki.c2.com/?OrwellsParody">OrwellsParody</a>, a transcription of Orwell&rsquo;s rewriting of a lovely verse from Ecclesiastes in &ldquo;modern English&rdquo;.</p>
+<p>His criticisms reminded me sharply of my own about &ldquo;modern coding practice&rdquo; &ndash; the way we accrete layer upon layer. I find it distasteful, and prefer embedded programming down to bare metal.</p>
+<p>I especially liked this bit:</p>
+<blockquote><p>It consists in gumming together long strips of words which have already been set in order by someone else, and making the results presentable by sheer humbug.</p></blockquote>
+<hr />
+<h3 id="june-14-01:15"><a href="#june-14-01:15">2007 June 14 01:15</a></h3>
+<p>Both Ward Cunningham and Michael Pruemm agree that having both a Tweak (for small changes, like typos and misspellings), and a Save (for larger, more substantive changes) is bad. Having the choice is bad, and Tweak allows you to hide &ndash; accidentally or intentionally &ndash; substantive changes. (Save edits the recent changes file; Tweak does not.) So, Tweak is gone.</p>
+<p>Or, as Yoda might say: &ldquo;There is <em>no</em> Tweak; there is only Save.&rdquo;</p>
+<p>Enjoy.</p>
+<p>(Tweak was called <a href="http://wiki.c2.com/?MinorEdit">MinorEdit</a> on <a href="http://wiki.c2.com/?WardsWiki">WardsWiki</a>.)</p>
+<hr />
+<h3 id="june-13-14:56"><a href="#june-13-14:56">2007 June 13 14:56</a></h3>
+<p><a href="/debugging-ssh-and-bash/">Debugging ssh and bash</a> to figure out which shell startup scripts get sourced when I ssh to another machine. I need to get the PATH right, so my <em>svn</em> commands (using the svn+ssh scheme, which runs <em>svnserve</em> on the remote end) will work!</p>
+<p>It turns out to be rather obscure, but I debugged it using shell variables.</p>
+<hr />
+<h3 id="june-11-18:49"><a href="#june-11-18:49">2007 June 11 18:49</a></h3>
+<p>I&rsquo;m helping to set up a Mac mini as a hosting platform, so I&rsquo;m working on</p>
+<ul>
+<li>building Apache on OSX</li>
+<li>building Subversion on OSX</li>
+<li>building Postfix on OSX</li>
+<li>building Erlang and Yaws on OSX</li>
+<li>building Git on OSX</li>
+</ul>
+<p>In each case I&rsquo;m building from scratch. It&rsquo;s not hard, really &ndash; just giving configure the right options!</p>
+<hr />
+<h3 id="june-11-16:50"><a href="#june-11-16:50">2007 June 11 16:50</a></h3>
+<p>Since I just spent a couple of hours figuring out to do it, I thought I&rsquo;d share my thoughts on locking down Postfix against spammers. Just basic simple configuration &ndash; not even any content filtering. It&rsquo;s amazing how few spammers can manage to send mail from a properly configured mailer!</p>
+<hr />
+<h3 id="june-11-13:57"><a href="#june-11-13:57">2007 June 11 13:57</a></h3>
+<p>I&rsquo;m fiddling with config files again, and re-discovered my hack for relaying Postfix thru Gmail.</p>
+<hr />
+<h3 id="june-07-14:02"><a href="#june-07-14:02">2007 June 07 14:02</a></h3>
+<p>Last night I went to my first <a href="http://dorkbotpdx.org/">dorkbotpdx</a> meeting. It was really fun talking about Forth and microcontrollers. And people had heard of <a href="https://en.wikipedia.org/wiki/Trimpin">Trimpin</a>, which was cool.</p>
+<p>I may end up giving a little talk/presentation about <a href="https://muforth.nimblemachines.com/">muforth</a> at the upcoming <a href="http://dorkbotpdx.org/wiki/dorkbotpdx_0x00">dorkbotpdx event</a>. That should kick me into gear to finish some things related to my ARM Forth target compiler, and my code to download to the Philips LPC ARM series of microcontrollers.</p>
+<p>On an unrelated subject (bicycling), a friend sent me <a href="http://www.ski-epic.com/amsterdam_bicycles/">this link</a>. It&rsquo;s a page of photos and comments by an American who sat on a corner in Amsterdam and took photos for 73 minutes. His attitude is very US-centric, and occasionally annoying, but the pictures are fun, and reminded me of how much I liked the bike culture in the Netherlands. He has graciously posted reader responses to the page; it&rsquo;s the most interesting content!</p>
+<p>The pictures made me rethink a few things about my city bike project (my Nishiki Olympic twelve). I think I want an upright seating position, &ldquo;touring&rdquo; (ie, three speed style) handlebars, and perhaps simple platform pedals that I can use with normal shoes.</p>
+<p>I&rsquo;ve been riding with either cleats (had a pair of lovely wood-soled Duegis until 1996 or so) or SPD shoes for almost thirty years! It&rsquo;ll be hard to go back, but I&rsquo;ve been wishing recently that I could ride to the store or to go out in the evenings in something other than my Shimano mountain biking shoes. It&rsquo;ll be an interesting experiment.</p>
+<div class="voice2">
+<p>How about using pedals that are &ldquo;flat&rdquo; on one side and have cleats on the other? (Don&rsquo;t know how those are called.) &ndash; Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>Definitely a possibility. I&rsquo;m not sure what they are called either.</p>
+<p>I kind of like the idea of being old-skool, though... Another thought was fixie-style toe-clips and straps. The trouble there is that they only work with fairly narrow shoes, so that limits my options again.</p>
+</div>
+<hr />
+<h3 id="june-03-16:12-freebsd-installer-considered-harmful"><a href="#june-03-16:12-freebsd-installer-considered-harmful">2007 June 03 16:12. <a href="http://freebsd.org/">FreeBSD</a> installer considered harmful?</a></h3>
+<p>I just discovered 8 gigs of unused, unpartitioned space on my hard drive, and I blame <a href="http://people.freebsd.org/~phk/">Poul-Henning Kamp</a> (PHK).</p>
+<p>I&rsquo;ve had issues in the past with the FreeBSD installer not using all the drive space because it was trying to align partitions with its idea of cylinder geometry, which, we all know, is a fiction on modern drives. The culprit is <em>libdisk</em>, the core library used by <em>fdisk</em> and the FreeBSD installer. <em>libdisk</em> was written by PHK and is covered by his &ldquo;beer-ware license&rdquo;, which says that if you like his code that you&rsquo;ll consider buying him a beer if you meet him in person. I wrote to a friend, during my time of travail with <em>libdisk</em> (via the FreeBSD installer), that if I ever met PHK I&rsquo;d be more likely to punch him in the nose.</p>
+<p>I&rsquo;m feeling that way again.</p>
+<p>I&rsquo;m thinking about axing the FreeBSD 6.1 install on my (old) laptop and replacing it with Linux. Maybe I haven&rsquo;t figured out how to use <a href="http://www.freebsd.org/cgi/man.cgi?query=portupgrade&amp;sektion=1&amp;manpath=FreeBSD+6.1-RELEASE+and+Ports"><em>portupgrade</em></a> competently, but I find using FreeBSD as a desktop OS frustrating. There are compatibility issues (no way to run Flash inside Firefox, eg), and keeping large third-party packages, like Firefox, updated is unwieldy and error-prone. I love being able to buildworld &amp; installworld, but outside of the base system FreeBSD is less friendly.</p>
+<p>I&rsquo;d like to &ldquo;check in&rdquo; again on the Linux world. I haven&rsquo;t run Linux since I first installed FreeBSD in 2000. It seemed so much better that I never looked back. Well, almost. I briefly installed <a href="http://debian.org/">Debian</a> on my laptop when I upgraded the hard drive, but was annoyed by some things about it &ndash; like that <em>hwclock</em>, which was broken in 1996, was still broken &ndash; so I relented and put FreeBSD back on.</p>
+<p>I&rsquo;d really love to try playing with <a href="http://ccrma.stanford.edu/planetccrma/software/">Planet CCRMA</a>, a huge collection of audio and computer music software, curated by <a href="http://ccrma.stanford.edu/">Stanford University&rsquo;s CCRMA</a> computer music center &ndash; one of the foremost research centers of its kind. Using their repository requires that you run some flavor of <a href="http://fedoraproject.org/">Fedora</a> Core. (They haven&rsquo;t &ldquo;upgraded&rdquo; yet to Fedora 7.)</p>
+<p>Some of you may think that Fedora is evil. Maybe you&rsquo;re right. I&rsquo;ve never been much of a fan of <a href="http://redhat.com/">Red Hat</a>. But Planet CCRMA seems pretty cool, and I&rsquo;ve had my eye on it for several years now.</p>
+<p>So what does all this have to do with PHK, <em>libdisk</em>, and the FreeBSD installer? In figuring out a way to get Fedora onto my laptop &ndash; which lacks a CDROM drive, and which can&rsquo;t boot from USB sticks &ndash; I discovered to my great surprise that 8 gig hole on my hard disk &ndash; thanks, I have no doubt, to PHK and <em>libdisk</em>.</p>
+<p>Or maybe I left room for something that never got installed. (Windows 98, anyone?)</p>
+<p>In any case, it gave me a great idea: why not leave some space &ndash; 32M perhaps &ndash; at the end of the disk to put special-purpose boot code for installing operating systems? Right now I am limited to systems whose installers can boot from floppy, and they are a vanishing breed. My list currently is: Debian, FreeBSD, NetBSD. Ubuntu won&rsquo;t work; neither will Fedora. Unless I can &ldquo;misuse&rdquo; some of the empty space on my disk.</p>
+<p>Hmm. Maybe I owe PHK a beer after all.</p>
+<hr />
+<h3 id="june-01-13:48-updates-to-kepler"><a href="#june-01-13:48-updates-to-kepler">2007 June 01 13:48 // Updates to Kepler</a></h3>
+<p>I just discovered that the Kepler project &ndash; a very lightweight web &ldquo;framework&rdquo; written in the <a href="/lua-programming-language/">Lua programming language</a> &ndash; has a <a href="http://kepler-tmp.dreamhosters.com/">new version</a>, which is not only much easier to install, but now sports a <em>wiki</em>, called Sputnik.</p>
+<p>Pretty cool stuff!</p>
+<hr />
+<h3 id="may-31-23:19"><a href="#may-31-23:19">2007 May 31 23:19</a></h3>
+<p>I was just reading about <a href="http://joomla.org/">Joomla!</a> and <a href="http://wordpress.org/">WordPress</a> and noticed some &ldquo;similarities&rdquo; in the documentation. I&rsquo;ve quoted two pairs of excerpts here.</p>
+<p>First this:</p>
+<blockquote><p>Development of WordPress moves fairly quickly and day-to-day things break as often as they are fixed. This high churn is part of our development process that aims to produce the most stable releases possible. (<a href="http://wordpress.org/download/nightly/">source</a>)</p></blockquote>
+<blockquote><p>Development of Joomla! moves fairly quickly and day-to-day things break as often as they are fixed. This high churn is part of our development process that aims to produce the most stable releases possible. (<a href="http://dev.joomla.org/content/view/17/60/#nightly">source</a>)</p></blockquote>
+<p>I&rsquo;m not sure how high churn yields stable releases. Whatever.</p>
+<p>And then this:</p>
+<blockquote><p>After the 1.5 release we&rsquo;re moving our source control off of the legacy Sourceforge CVS system and on to a modern Subversion repository. When we get confused about Subversion we use this great Subversion book that&rsquo;s available for free online. Here are some quick tips for checking out and working with the WordPress repository. (<a href="http://wordpress.org/download/svn/">source</a>)</p></blockquote>
+<blockquote><p>The Joomla! source code repository is run on a Subversion (SVN) server. When we get confused about Subversion we use this great Subversion book that&rsquo;s available for free online. Here are some quick tips for checking out and working with the Joomla! repository. (<a href="http://dev.joomla.org/content/view/17/60/#subversion">source</a>)</p></blockquote>
+<p>Who &ldquo;borrowed&rdquo; from whom? It seems a bit tacky to use someone else&rsquo;s text without attribution.</p>
+<p>Is it a coincidence that both projects use <a href="http://php.net/">PHP</a>?</p>
+<hr />
+<h3 id="may-30-16:14-gearing-up-to-use-source-forge"><a href="#may-30-16:14-gearing-up-to-use-source-forge">2007 May 30 16:14. Gearing up to use source forge</a></h3>
+<p>I&rsquo;m going to be working on a project hosted on <a href="http://sourceforge.net/">SourceForge</a>; details to follow. To get started I <a href="https://sourceforge.net/account/newuser_emailverify.php">registered as a new user</a>, and then created a new SSH key pair for myself:</p>
+<pre>
+  ssh-keygen -t dsa -C &lt;username>@shell.sourceforge.net
+</pre>
+<p>When asked where to put the key data I specified <strong>~/.ssh/id_dsa_sourceforge</strong>, to keep it separate from my other identities. Normally this defaults to ~/.ssh/id_dsa. To make having more than one SSH &ldquo;identity&rdquo; not painful in practice, I edited my ~/.ssh/config and added this:</p>
+<pre>
+  Host sf
+    HostName shell.sourceforge.net
+    User &lt;username>
+    IdentityFile ~/.ssh/id_dsa_sourceforge
+</pre>
+<p>Now I can say</p>
+<pre>
+  ssh sf
+</pre>
+<p>and all the right things will happen. That is, once I&rsquo;m registered as a member of a project...</p>
+<hr />
+<h3 id="may-26-10:01"><a href="#may-26-10:01">2007 May 26 10:01</a></h3>
+<p>I hate WD-40. You know, that spray lubricant stuff. I hate it. I really do.</p>
+<p>I think it&rsquo;s because it&rsquo;s more <em>solvent</em> than <em>lubricant</em>, and it smells funny, and I always hope it&rsquo;s going to do something that it never does.</p>
+<p>The last time I used it (and I mean that in every way possible!) I had just rebuilt the rear wheel on my road bike &ndash; lovely repacked new bearings, freshly greased, perfectly adjusted &ndash; and I was trying to get the freewheel to be less grindy and noisy. Note (for bike geeks): this is an old-style wheel with a thread-on freewheel/cluster. I put the wheel on the bike, spun it, and sprayed WD-40 into the freewheel. It made a mess.</p>
+<p>Some WD-40 also ran down onto the axle and into my freshly packed bearings and dissolved a bunch of the grease, so I had to take the freewheel off, repack the drive side, and readjust it (and I was grumbling the whole time). I also let the WD-40 drain out of the freewheel and &ndash; <em>off the bike and off the wheel</em> &ndash; I spun it some more and squirted it full of motor oil. A bunch of black gritty stuff came out. It doesn&rsquo;t sound any quieter or smoother &ndash; I&rsquo;m pretty sure it&rsquo;s trashed and needs replacing &ndash; but one thing is for sure:</p>
+<p><em>I&rsquo;m never using WD-40 again. Ever.</em></p>
+<hr />
+<h3 id="may-25-13:24-finding-my-tribe-in-pdx"><a href="#may-25-13:24-finding-my-tribe-in-pdx">2007 May 25 13:24. Finding my tribe in PDX</a></h3>
+<p>Last night I went to a <a href="http://barcamp.org/BarCampPortlandMeetups">post-BarCamp meetup</a> and talked with <a href="http://lifeofaudrey.com/">Audrey Eschright</a> about <a href="http://dorkbotpdx.org/">DorkbotPDX</a>. Good stuff! Too bad I missed the last meeting (two days ago), but looking at some of the participants&rsquo; interests and experience on the <a href="http://dorkbotpdx.org/wiki/members">DorkbotPDX wiki</a>, I realized that these may be some of My People. I&rsquo;m excited to meet and talk with them.</p>
+<p>Shared interests include: microcontrollers, kinetic sculpture, digital audio &amp; music. (Mis)using technology to make art!</p>
+<hr />
+<h3 id="may-19-01:44-bicycle-projects"><a href="#may-19-01:44-bicycle-projects">2007 May 19 01:44. Bicycle projects</a></h3>
+<p>I&rsquo;ve (re)started two bicycle projects. I&rsquo;m working on a Schwinn Le Tour (as a utility bike for my dad), and a Nishiki Olympic twelve (the new fixie/singlespeed project). I have given up on my Motobecane fixie and will be essentially junking it.</p>
+<p>I&rsquo;ve also added a bicycle parts directory so I can keep track of what I find.</p>
+<p>In the process of trying to prepare myself for riding a fixed gear bicycle I&rsquo;ve been singlespeeding for the last two years on my road bike (a 1987 Bianchi Brava) and have fallen in love. I&rsquo;ll try to elucidate why single speeding thrills me.</p>
+<hr />
+<h3 id="may-11-17:47-barcamp-portland"><a href="#may-11-17:47-barcamp-portland">2007 May 11 17:47. BarCamp Portland!</a></h3>
+<p>Having recently got back from a month (!!) in California, visiting family and friends, I stumbled over a link to BarCamp Portland, happening this weekend. I&rsquo;m planning to go, and I&rsquo;ll be writing about what happens there!</p>
+<hr />
+<h3 id="february-27-16:56-blogging-redux"><a href="#february-27-16:56-blogging-redux">2007 February 27 16:56. Blogging redux!</a></h3>
+<p>I&rsquo;m thinking again about blogging &ndash; &ldquo;proper&rdquo; blogging, with RSS, pingbacks, the works. Though people are finding my pages here (thru Google, mostly) I still feel a bit invisible.</p>
+<p>I can&rsquo;t remember exactly when or how I first got excited about blogging (in its modern form). I have wanted to &ldquo;be online&rdquo; since 1997. I was reading <a href="http://www.useit.com/">Jakob Nielsen</a> then. I knew that the &ldquo;real&rdquo; Web was about text, the human voice, and personal expression. I didn&rsquo;t have a good idea about what tools to use, and in fact I&rsquo;ve been stumbling around since then.</p>
+<p>In 1997-8 I was using a strange combination of m4 macros and automated FTP to build a small site for my Earthlink account. Around 2000 or so I learned how to run Apache myself, and helped my sister build an online presence for her company, by setting up email and web servers, but they were responsible for building their own site, which they did by hand in HTML. Yikes!</p>
+<p>I knew that mere mortals shouldnt write HTML. It is too low-level, and at the time lacked good semantic markup. (This has since changed dramatically; however, it&rsquo;s still rather tedious to type all those angle brackets.).</p>
+<p>Somewhere in here, 2000 or 2001 probably, I discovered Jon Udell's book Practical Internet groupware. This was another quantum shift for me. He makes a compelling case for writing documents in XML, using some kind of semantic markup. He used slightly-modified HTML at the time; now you could probably do the same in straight XHTML. He did a lot of really neat things integrating HTTP and NNTP servers to build collaborative spaces out of off-the-shelf technology. His book is mind-bendingly innovative, and full of ideas.</p>
+<p>With a headful of XML, I went in search of tools, and got truly bogged down by the idea of running some kind of <a href="http://apache.org/">Apache</a> toolset. The Apache group were (are?) busy building XML tools, but in Java. Yuck. I had, and have, no interest in learning Java, and I was then, and am now, running <a href="http://freebsd.org/">FreeBSD</a> on my web server machine. At the time Java didn&rsquo;t run on FreeBSD. (There has since been a huge effort to port it, once Sun released the source, so this is no longer an issue. I think. I haven&rsquo;t tried it in years.)</p>
+<p>The Apache <a href="http://xml.apache.org/">XML</a> &amp; <a href="http://jakarta.apache.org/">Java</a> worlds are overwhelming. There are tools to do everything, but everything is hierarchic. Navigating the pyramid, just to figure out what was available, made me crazy. I probably spent several weeks, on several occasions, trying to get my head around what they were doing. I&rsquo;m not sure I ever succeeded. I was going to use <a href="http://cocoon.apache.org/">Cocoon</a>, but finally realized that for what I wanted to do it was massive overkill. And I couldn&rsquo;t run Java on my server.</p>
+<p>Back into search mode. I forget the exact chronology &ndash; and don&rsquo;t have a blog to refer back to! &ndash; but between 2001 and 2004 I discovered both wikis and blogging. Wiki technology seemed like a good fit for what I wanted to do. Whenever I thought about how to &ldquo;organize&rdquo; my interests (I was thinking hierarchically) I would get frustrated. Then I discovered <a href="http://wiki.c2.com/?CategoryCategory">how Categories work</a> on Ward&rsquo;s wiki. They are essentially an early form of tagging. A page can belong to multiple Categories, just as it can have several tags. Same idea. This completely changed my world. I knew this was the answer.</p>
+<p>I also liked the way the page &ldquo;name space&rdquo; was flat, rather than hierarchical. Now I was free to write without having to worry about where to put my ideas. Clay Shirky&rsquo;s <a href="http://del.icio.us/nimblemachines/shirky+tagging+paper">paper</a> (and <a href="http://del.icio.us/nimblemachines/shirky+tagging+podcast">talk</a>) about ontology and folksonomy simply re-affirmed these ideas. It&rsquo;s really worth reading and listening to.</p>
+<p>Now I needed a wiki. Yikes! Another huge process. There are 50000 implementations, all different, all using different markup. At first I wanted to be a purist (which is to say, true to Ward&rsquo;s ideals and markup, which are intertwingled) but I have since changed my mind about certain things. CamelCase and accidental linking are nice ideas, but ugly on the page, and they interfere with Google searches. I&rsquo;m still using CamelCase on this site, and while it&rsquo;s nice to be able to easily make links, it&rsquo;s going to go away in favor of something more like Wikipedia&rsquo;s link markup.</p>
+<p>I looked at the source of several wiki&rsquo;s (the &ldquo;free&rdquo; code bundled with Ward&rsquo;s wiki book &ndash; free only for non-commercial use), and the code to <a href="http://www.usemod.com/cgi-bin/wiki.pl">UseMod</a> and <a href="http://oddmuse.org/">OddMuse</a>. (Interestingly, OddMuse has a lot of the features I was thinking of adding to this wiki to make it more blog-like. Hmm.) Everything I looked at did more than I wanted, so I wrote my own. Of course this was a slow, fitful, and somewhat painful process (character flaw of mine) but Michael Pruemm egged me on, and in late January 2005 this site was up.</p>
+<p>Somewhere in here, in fall 2004, I started a blog on Blogger. After posting a few times I realized that I loved the idea (of a blog) but hated Blogger and mechanics of blogging there. I&rsquo;m still searching for a good blogging tool. <a href="http://wordpress.org/">Wordpress</a> seems highly regarded, but every time I visit the <a href="http://codex.wordpress.org/">documentation site</a> I feel nauseated. It seems really disorganized and overly complex. Also, Wordpress is written in PHP, an ugly &ldquo;language&rdquo;. I want my tools to be not only <a href="/convivial-tool/">convivial tool</a>s but also beautiful ones. PHP is not beautiful. The <a href="/lua-programming-language/">Lua programming language</a> is.</p>
+<p>I got really into the idea of blogging, and found out about tagging, and about <a href="http://flickr.com/">flickr</a> and <a href="http://del.icio.us/">del.icio.us</a> by listening to podcasts by <a href="http://scripting.com/">Dave Winer</a>, <a href="http://scobleizer.wordpress.com/">Robert Scoble</a> (<a href="http://scoble.weblogs.com/">older blog</a>), Jon Udell, and others. (I&rsquo;ve got some of this <a href="http://del.icio.us/nimblemachines/podcast">bookmarked</a>.) Somehow hearing about this stuff, and hearing some of conference talks (<a href="http://www.itconversations.com/series/bloggercon2004.html">BloggerCon III</a> was especially cool) got me pretty amped about blogging. (There is also <a href="http://www.bloggercon.org/2006/06/23#a12084">audio from BloggerCon IV</a> which I haven&rsquo;t listened to.)</p>
+<p>After my frustration with Blogger and my inability to settle on and set up tools for myself, I contented myself with pseudo-blogging &ndash; what you see on this site. I have a macro &ndash; <code>&#x005b;now]</code> &ndash; that, when the file is saved, is converted to the current time. I use this to make a heading, add an hrule (by hand), and voil&agrave;. (The OddMuse author has a better way: the &lt;author> tag will troll thru the pages and find ones whose names are a date, and pull several of them together to make a page. This makes creating an RSS feed much easier than teasing apart &ldquo;posts&rdquo; that are separated on a page by "----".)</p>
+<p>In a recent <a href="http://www.itconversations.com/shows/detail1067.html">podcast</a> about Scoble and <a href="http://redcouch.typepad.com/">Shel Israel</a> &ndash; who together authored the book <em>Naked Conversations</em>, about corporate blogging &ndash; Scoble mentioned that he trolls various blog search engines &ndash; particularly <a href="http://technorati.com/">technorati</a> &ndash; looking for memes, like any mention of &ldquo;Linux&rdquo;. Since I&rsquo;m not pinging technorati and they aren&rsquo;t scanning my feed &ndash; since I don&rsquo;t have one! &ndash; I&rsquo;m invisible to Scoble. That&rsquo;s too bad. ;-)</p>
+<p>So, I&rsquo;m thinking about how to change that. I only need my &ldquo;journal&rdquo; (this front page) to have an RSS feed, so breaking these posts out OddMuse-style, and then having two ways to render them &ndash; HTML and RSS &ndash; would be a pretty easy and elegant solution.</p>
+<p>Someday I&rsquo;ll be blogging using Lua, but I don&rsquo;t want everything I want to say to have to wait until then.</p>
+<hr />
+<h3 id="january-21-21:02-usb-hid-woes-aaaaaaagh"><a href="#january-21-21:02-usb-hid-woes-aaaaaaagh">2007 January 21 21:02. USB HID woes. Aaaaaaagh!</a></h3>
+<p>I&rsquo;ve been having trouble getting my PICkit2 programmer to talk to FreeBSD. There has been a range of issues:</p>
+<ul>
+<li>bugs in <a href="http://www.freebsd.org/cgi/man.cgi?query=usbhidctl&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+6.2-RELEASE&amp;format=html">usbhidctl(1)</a> made me think that the driver was misinterpreting the device&rsquo;s report descriptor, when in fact usbhidctl&rsquo;s <em>separate</em> implementation (!!) of the descriptor parsing code was broken;</li>
+<li>FreeBSD&rsquo;s <a href="http://www.freebsd.org/cgi/man.cgi?query=uhid&amp;apropos=0&amp;sektion=4&amp;manpath=FreeBSD+6.2-RELEASE&amp;format=html">uhid(4)</a> was &ldquo;in the way&rdquo;, trying to do things that I didn&rsquo;t need it to do, so removing the driver from the kernel and having the PICkit2 show up as a <a href="http://www.freebsd.org/cgi/man.cgi?query=ugen&amp;apropos=0&amp;sektion=4&amp;manpath=FreeBSD+6.2-RELEASE&amp;format=html">ugen(4)</a> (general-purpose USB) device worked much better; in fact, it wasn&rsquo;t until I did this that I was able to exchange messages with the PICkit2 and discover that...</li>
+<li>...the PICkit2 is running older firmware than I expected! This threw me off because I had the source for the 2.xx firmware and was basing my expectations of the communications protocol on that code; but my PICkit2 is running 1.20.0 firmware, which implements a completely different protocol!</li>
+</ul>
+<p>Now that I have the basic communication path down, my next struggle is to decide whether to base <em>my</em> host software on the 1.xx firmware, or to write an updater (that talks to the PICkit2&rsquo;s built-in bootloader) to download the newest 2.xx firmware, and plan to talk to that. The 2.xx firmware can program a greater variety of devices, and moves the complexity of the different programming algorithms into <em>scripts</em> which all live in a <em>database</em>, which I&rsquo;ve already written Lua code to read. I would prefer to use the 2.xx firmware, but I&rsquo;m afraid of b0rking the PICkit2 in the process of updating it.</p>
+<p>That&rsquo;s the basic story; I&rsquo;m working on a longer story of the pic kit two and USB.</p>
+<hr />
+<h3 id="january-17-12:57"><a href="#january-17-12:57">2007 January 17 12:57</a></h3>
+<p>I&rsquo;m going in several directions at once. I&rsquo;ve written an <a href="https://github.com/nimblemachines/muforth/tree/master/mu/target/8080/asm.mu4">8080 assembler</a> (in Forth) and now I&rsquo;m revamping my meta-compiler (again) so it&rsquo;s generic. I&rsquo;d like to be able to use it for the 8085, the ARM, and maybe the AVR or PIC18F chips.</p>
+<p>I haven&rsquo;t worked on it for a few days, but I was able, after writing a small C library to unpack binary data from a string, to use Lua to read Microchip&rsquo;s database of programming info for all the PICs. Using this it should be pretty easy to &ldquo;script&rdquo; the PICkit2 programmer using Lua. I still need a Lua interface to the host&rsquo;s <a href="http://usb.org/">USB</a> capability, so that&rsquo;s another small library, and extra work to make it multiplatform.</p>
+<p>Thanks are due to Microchip for publishing the source code for both the PICkit2 firmware and their host-side programming tool. Writing a Lua-based open-source programming tool would be nearly impossible without being able to refer to their code &ndash; and to use their PIC database!</p>
+<p>While thinking and learning about USB I&rsquo;ve been looking around for cheap &amp; fun development hardware. There are several interesting options. I&rsquo;ve collected details on some USB development boards.</p>
+<hr />
+<h3 id="january-14-15:27"><a href="#january-14-15:27">2007 January 14 15:27</a></h3>
+<p>I was at Free Geek yesterday, trying to build myself a new machine. The one I picked had a bad on-board net interface, so I&rsquo;m going to try again on Wednesday. Having fried (irrevocably write-protected) the BIOS chip on my oldish Athlon box, I thought while there I might look around for some Flash chips.</p>
+<p>I managed to &ldquo;harvest&rdquo; about twenty Flash BIOS chips from a huge box of motherboards that were going to be recycled. It&rsquo;s basically the only part on the board that isn&rsquo;t soldered down. I pried them loose and scraped off the stickers, and ended up with about half 1Mbit (128k x 8) and half 2Mbit (256k x 8) chips, some of which are sector programmable &ndash; meaning that you can use them as little silicon disk drives! These will be great for some &ldquo;old hardware&rdquo; projects I&rsquo;m tinkering with, involving 8085s (in one case), and an original Altair 8800 (in another).</p>
+<p>I&rsquo;d like the Altair to boot into Forth. The sector Flash can be used to store a binary boot image but also the source &ldquo;blocks&rdquo; (1k chunks of ASCII source code). Probably a waste of time, but I&rsquo;ve been meaning to resurrect that machine for <em>ages</em>.</p>
+<p>I&rsquo;m still working on the PIC stuff too. ;-)</p>
+<hr />
+<p>Read the <a href="/2006/">2006 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202007%20journal">Send feedback</a> on this page (last edited 2013 January 29 20:03)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

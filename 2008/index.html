@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="journal, 2008, blog" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2008/" />
+<title>2008 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2008 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="april-29-15:36"><a href="#april-29-15:36">2008 April 29 15:36</a></h3>
+<p>I seem to be in another &ldquo;excited about programming languages&rdquo; phase.</p>
+<p>First it was <a href="http://www.cs.princeton.edu/software/lcc/">lcc</a>. I spent a couple of days reading and thinking about the project, and decided I want to read <a href="http://www.pearsonhighered.com/educator/academic/product/0,,0805316701,00%2ben-USS_01DBC.html">the book</a>. The <a href="http://www.cs.princeton.edu/software/lcc/preface.html">preface</a> does a good job of explaining why the project is important and interesting. I really like the idea of documenting end-to-end &ndash; via literate programming &ndash; a large software artifact &ndash; in this case a portable ANSI C compiler. Niklaus Wirth has complained that there should be more books and papers written that carefully describe complete systems &ndash; ideally the description should include the <em>source code</em> &ndash; rather than exhibiting lots of theory and small and useless toy systems. While his projects successfully embody this ideal &ndash; which I share &ndash; his implementations tend to leave me cold. Oh well.</p>
+<p>Thinking about lcc reminded me of my idea of writing (yet another) Haskell compiler in Haskell, with the intent that it be small and beautiful, and that there be a book describing it (that includes all the source code!). I wish I knew where &amp; how to begin working on this.</p>
+<p>Somehow while noodling and googling about my Haskell project, I discovered that Caltech have a <a href="http://www.cs.caltech.edu/courses/cs11/material/haskell/index.html">Haskell track</a> in their <a href="http://www.cs.caltech.edu/courses/cs11/">&ldquo;language lab&rdquo; course</a>, and <a href="http://mojave.caltech.edu/jyh/">Jason Hickey</a> uses Objective Caml in the <a href="http://mojave.caltech.edu/jyh/classes/cs134/cs134b/index.html">compiler course</a> he teaches there. He has written an introductory Objective Caml book that you should <a href="http://files.metaprl.org/doc/ocaml-book.pdf">download</a>, because soon it will be published on paper and unavailable electronically.</p>
+<p>Then, today, I was reading about Scheme again (partly in search of a good, friendly implementation for learning the language) and became fascinated reading the vehement <a href="http://www.r6rs.org/ratification/results.html#X67">votes against ratification</a> of R6RS.</p>
+<p>I want to say more about revised six Scheme than will fit comfortably here.</p>
+<hr />
+<h3 id="april-20-11:41-moving-to-git"><a href="#april-20-11:41-moving-to-git">2008 April 20 11:41. Moving to Git</a></h3>
+<p>My code used to be in a Subversion repo, parts of which were publicly available from <em>svn.nimblemachines.com</em>, a CNAME for my webserver machine. The Apache configuration for that subdomain fired up some Subversion-Apache-WebDAV magic so that the code was browsable from the web and indexable by spiders.</p>
+<p>All that has changed. My code is in Git repositories now, and I&rsquo;m not hosting them on my machine (though it is easy to do so, using <a href="http://www.kernel.org/pub/software/scm/git/docs/git-daemon.html">git-daemon</a>). Instead I&rsquo;m using a hosted Git repo.</p>
+<p>Last night I started to edit by hand the wiki pages that refer to svn.nimblemachines.com and change them over to github.com, but midway through the process realized that I may have to do this again if things move in the future. Instead of constantly editing pages I should have an abstraction: some wiki markup that acts like a macro and expands to the current code repository host.</p>
+<p>The markup for linking to a Git repo is this:</p>
+<pre>
+  Git:muforth
+  Git:muforth/mu/target/ARM/
+  Git:muforth:target-arm
+</pre>
+<p>The Git keyword can take an optional <em>branch</em> (prefixed by ":&rdquo;) and an optional path (prefixed by "/") after the project name. In general the format would be Git:<em>project</em>:<em>branch</em>/<em>path</em>.</p>
+<p>There are two subtleties with this approach. One is that I can&rsquo;t use these macros in preformatted sections &ndash; which is usually where I explain command lines and such &ndash; because doing so would, among other things, make it hard to demonstrate the code, since it would get expanded into URIs instead.</p>
+<p>The other is that while I now have an abstraction for where my code repos are, I often say something like &ldquo;my code is now hosted github.com; browse it here&rdquo; and make a link ... using these macros. Which, down the road, will expand to something other than github.</p>
+<p>So I need to mention github in one place only &ndash; how about my mention of it already in this post? &ndash; and elsewhere on the site simply say &ldquo;browse the code here&rdquo;, where <em>here</em> is a link to some Git markup. Now I need to go eradicate the several mentions of github that I&rsquo;ve scattered about.</p>
+<div class="voice2">
+<p>I agree with referring to github in one place only (actually two: one page, and the code that expands the Git macro). But I would refer to a page, say, Git repo and mention on that page where it is actually hosted. --Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>I&rsquo;ve done precisely this. Thanks.</p>
+</div>
+
+<hr />
+<h3 id="april-19-11:53"><a href="#april-19-11:53">2008 April 19 11:53</a></h3>
+<p>I&rsquo;m likely to launch into an annoying phase. This is your warning.</p>
+<p>More concretely, I&rsquo;ve been thinking about American English and how much it annoys me. Having already adopted two conventions of British English, I may start using their spellings as well. I did this when I was much younger &ndash; perhaps in middle school &ndash; and enjoyed it. I stopped doing it because it seemed precious and posery. Now I don&rsquo;t care. I like what I like, and there isn&rsquo;t any good reason to use spellings that I find ugly, when I could simply choose a more pleasing way.</p>
+<p>I am unlikely to change existing pages on this site; that way there will be a demarcation between my sanity and insanity.</p>
+<p>The two conventions I&rsquo;ve adopted already are these:</p>
+<ul>
+<li>chapter and section headings have only the initial word capitalised (excepting proper nouns); and</li>
+<li>aggregates (companies, bands) are referred to in the plural (as in &ldquo;Ford have introduced&rdquo;, rather than &ldquo;Ford has introduced&rdquo;.)</li>
+</ul>
+<p>Of course, this wiki violates that first &ldquo;rule&rdquo; because of the way that it converts CamelCase page names into titles, and this is, in fact, one reason that I keep considering replacing the CamelCase linking with something more flexible.</p>
+<p>I&rsquo;ve always thought that American &ldquo;modernised&rdquo; spellings (the modernisers wouldn&rsquo;t spell it that way of course) were ugly and stupid. And I like calling the letter Z <em>zed</em>. It sounds final, as it should, unlike the American <em>zee!!</em> which sounds like a whoop uttered by someone riding a roller coaster.</p>
+<p>What people here in America often call a <em>donut</em> used to be spelled <em>doughnought</em> which tells much more about what it <em>is</em>: a hunk of (fried) dough in the shape of a nought &ndash; <em>nought</em> being another name for <em>zero</em>.</p>
+<p>I think that&rsquo;s much more interesting and far less ugly. It has a story to tell that <em>donut</em> is silent about.</p>
+<p>Modernised, &ldquo;simplified&rdquo; spellings also relate to an ugly American habit of intentional misspelling (Krispy Kreme) that is egregious enough that it deserves its own post. I&rsquo;ll leave that for later.</p>
+<p>And don&rsquo;t get me started on our failed effort to convert to the metric system.</p>
+<p>What a backwards country I live in!</p>
+<hr />
+<h3 id="april-17-12:34"><a href="#april-17-12:34">2008 April 17 12:34</a></h3>
+<p>Back again after a bit of a hiatus. I&rsquo;ve put the site back up temporarily while I perseverate about my future. Right now it is being served from <em>starbuck</em>, the machine under my desk (and next to my bed) that I use for programming microcontrollers. This means that it may go away at night, since I don&rsquo;t want to listen to its fan while I&rsquo;m trying to sleep.</p>
+<p>I&rsquo;m about to launch into a minor rewrite of the site engine &ndash; mostly involving how it stores pages. They are in <a href="http://subversion.tigris.org/">Subversion</a> now, but there isn&rsquo;t a good way to browse past versions. I wanted to put them into <a href="http://git.or.cz/">Git</a>, but that would be even worse. Not because Git is somehow bad (on the contrary, I <em>love</em> it) but because it&rsquo;s only possible to have one tree checked out. If various people are viewing various versions of pages, this becomes a bit complicated.</p>
+<p>Also, right now I store two tidbits of metadata as Subversion properties: the page <em>modtime</em> (as a Unix epoch), and a <em>commit message</em>. With Git I don&rsquo;t have this capability, so I need another way to store metadata.</p>
+<p>I need to experiment. But I also wanted to be able to write about what I was doing, so I fired the site back up, as it was, and will be using the Subversion backend for now.</p>
+<p>I&rsquo;d also like to report that I&rsquo;ve been pretty busy. In early March I agreed to give a <a href="http://vimeo.com/859408">talk</a> at <a href="http://dorkbotpdx.org/wiki/dorkbotpdx_0x01">DorkbotPDX 0x01</a>. This got me fired up to dig into <a href="https://muforth.nimblemachines.com/">muforth</a> (one subject of my talk) and I spent a week first <a href="/using-git-svn/">using git svn</a> to exhume my code from its grave in Subversion, and get it into Git, and then a couple of weeks cleaning up and trying out new things.</p>
+<p><a href="/using-git-svn/">Using git svn</a> actually worked really well, but it meant I had to let go of my desire to use my Lua code (that parses Subversion dump files and generates commands and data for git-fast-import) &ndash; which I could not get to work. It turns out that parsing dump files is the wrong approach, at least for a repo, like mine, that had been twisted around and reorganized (partly to fix mistakes of mine, and partly to fix shortcomings of various conversion tools).</p>
+<p>I was rather depressed about not using my Lua code, and initially didn&rsquo;t trust that git-svn would work. I did some experiments, and carefully checked various revs between Git and svn trees (using &ldquo;diff -ur&rdquo;), and convinced myself that I was getting good output. Once I swallowed my pride, used git-svn for the conversion, and put my <a href="https://github.com/nimblemachines/muforth/tree/master">muforth code</a> in a public Git repo, I was pretty ecstatic, and launched into two solid weeks of coding, and using Git &ndash; which I now love, even though I agree with the consensus that its UI is a bit dain-bramaged.</p>
+<p>After my talk I spent some time soldering &ndash; first building a couple of <a href="http://moderndevice.com/RBBB_revB.shtml">RBBB</a>s (a form of Arduino), and then a <a href="http://hamptone.com/hvtp2_info.html">tube mic preamp</a> (which is still not quite finished). That was <em>really</em> fun. I&rsquo;m not the most skilled soldering tech, but I enjoy it. I&rsquo;d love to build some more audio gear!</p>
+<p>Now I&rsquo;m going to turn my thoughts to random page fixes and working on the backend.</p>
+<hr />
+<h3 id="february-13-00:27-ruby-redux"><a href="#february-13-00:27-ruby-redux">2008 February 13 00:27. Ruby redux?</a></h3>
+<p>In 2003 I played with Ruby a bit, but decided not to pursue it. Now I&rsquo;m reconsidering Ruby. At least for the web. Or parts of it.</p>
+<p>It might be fun, and there are lots of Rubyists in PDX to talk to. Maybe I can convince them all to use Haskell.</p>
+<hr />
+<h3 id="february-07-01:29-quiet-for-far-too-long"><a href="#february-07-01:29-quiet-for-far-too-long">2008 February 07 01:29. Quiet for far too long.</a></h3>
+<p>I&rsquo;m posting partly to do a brain dump of things I&rsquo;ve recently discovered, and also to mention some recent project ideas.</p>
+<p>I am, for the present, giving up on BSD. I ran into different kinds of trouble with FreeBSD, NetBSD, and DragonFlyBSD, and decided to try running Linux again (for the first time in seven years.). I found Arch Linux, and have been happy with it so far &ndash; having used it for a month or so.</p>
+<p>I haven&rsquo;t done much with Git, but I still think that it&rsquo;s the future, and look forward to playing around with it.</p>
+<p>I&rsquo;ve been thinking about writing a Forth interpreter and cross-compiler in Lua, and may still, but never got beyond the idea stage.</p>
+<p>Instead I got very inspired by <a href="/alan-kay/">Alan Kay</a> and Ian Piumarta's work on reinventing programming &ndash; so much so that I&rsquo;ve decided I want to try to do what they are doing, but in the functional space ... by writing a Haskell compiler in 5000 lines of code. I have no idea if it&rsquo;s even possible, but I&rsquo;d like to try. It would be bootstrapped, as simple as possible, deeply convivial, and as &ldquo;live&rdquo; as possible: the system would, like Lisp, Smalltalk, or Forth, have the entire compiler available at all times.</p>
+<p>Before trying that, I may instead try using Haskell as a cross-compiler (for AVR architecture, <a href="/arm-architecture/">ARM architecture</a>, and <a href="/freescale-hc08/">HC08</a> microcontrollers). That will be a much easier project but also rewarding.</p>
+<p>Since I&rsquo;m currently planning to move out of my house and leave on a trip (of unknown duration!), there will no longer be a place called &ldquo;my basement&rdquo;, so the server that resides there will have to move. I&rsquo;ll probably give it to a friend, but even so I&rsquo;m thinking I might be done with self-hosting; hence &ndash; I&rsquo;ve recently been looking for interesting (free, cheap, powerful, different, innovative, whatever) web hosting solutions, having solved my email hosting problems by hosting email on Google Apps. Sadly Google don&rsquo;t offer compelling ways to build web sites. Their <a href="http://pages.google.com/">Google Pages</a> service is silly &ndash; they offer a WYSIWYG interface for building pages, and each one can be styled independently. They should instead offer some kind of super-simple content management system (CMS) that can be easily tweaked into being a blog or wiki. Oh well.</p>
+<p>Rather than take up more space here, I&rsquo;ve collected some ideas about web hosting.</p>
+<p>Happy 2008!</p>
+<hr />
+<p>Read the <a href="/2007/">2007 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202008%20journal">Send feedback</a> on this page (last edited 2013 January 29 20:03)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

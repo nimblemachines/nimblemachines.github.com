@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/rs-232-cabling/" />
+<title>RS-232 cabling &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>RS-232 cabling</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>My ARM AEB-1 came with a DB-9 null-modem serial cable. Why?</p>
+<p>Having just ordered an Olimex LPC-P2138 <a href="/arm-development-board/">ARM development board</a>, I wondered what kind of serial cable I would need. Since this has always confused me, I did a little research.</p>
+<hr />
+<p>RS232 was invented to connect large computers with communication devices &ndash; not, as some might think, with terminals. The standard defines a cable with two endpoints: a DTE, and a DCE. The DTE is data <em>terminal</em> equipment &ndash; ie, your computer or terminal. DCE is data <em>communications</em> equipment &ndash; ie, your modem, or whatever is connecting your large machine to the outside world.</p>
+<p>To reduce confusion (but it has had the opposite effect), they defined the connectors and wiring such that these endpoints couldn&rsquo;t be confused. A DTE is <em>always</em> wired with a male connector (initially DB-25; now more often DB-9); a DCE is <em>always</em> wired with a female connector. The cable to connect them is wired straight-thru (pin 1 wired to pin 1, pin 2 to pin 2, etc), with a male connector on one end and a female on the other.</p>
+<p>So, how do you connect your computer <em>directly</em> to your terminal, <em>without</em> an intervening modem? Now we need some way to connect two DTEs, so our cable is going to have two female ends, and be wired &ldquo;funny&rdquo;. This kind of cable is called a &ldquo;null modem&rdquo; cable because it acts like a non-existent (null) modem connecting the two DTEs.</p>
+<p>What do I mean by &ldquo;funny&rdquo;? To explain that, we need to talk about the signals, their names, and another decision that made sense at the time but that hasn&rsquo;t reduced confusion.</p>
+<p>Signal names in RS232 are &ldquo;relative&rdquo; to the DTE, so the pin called &ldquo;transmit data&rdquo; means &ldquo;carry a signal <em>from</em> the DTE <em>to</em> the DCE&rdquo;; and &ldquo;receive data&rdquo; means &ldquo;carry a signal <em>from</em> the DCE <em>to</em> the DTE&rdquo;. The decision has that caused confusion is that the signals have the same names on both ends, even though on the DCE end their direction is often reversed &ndash; ie, the DCE transmits on the &ldquo;receive data&rdquo; line...because that&rsquo;s the line that the DTE is listening to!</p>
+<hr />
+<p>With that short intro, here are the signals on a DB-9. I don&rsquo;t care about DB-25s, and neither should you. ;-)</p>
+<ol>
+<li>Carrier detect (CD)</li>
+<li>Receive data (RXD)</li>
+<li>Transmit data (TXD)</li>
+<li>Data terminal ready (DTR)</li>
+<li>Signal ground</li>
+<li>Data set ready (DSR)</li>
+<li>Request to send (RTS)</li>
+<li>Clear to send (CTS)</li>
+<li>Ring indicator (RI)</li>
+</ol>
+<p>And what do the connectors look like? Looking at the pins of a <em>male</em> DB-9 they are numbered like this:</p>
+<pre>
+  _______________________
+  \  1   2   3   4   5  /
+   \   6   7   8   9   /
+    +-----------------+
+</pre>
+<p>To mate properly with it, the <em>female</em> has to be numbered thus:</p>
+<pre>
+  _______________________
+  \  5   4   3   2   1  /
+   \   9   8   7   6   /
+    +-----------------+
+</pre>
+<p>If you look closely (and aren&rsquo;t too old) you can see the little numbers next to the pins or sockets.</p>
+<p>A couple of notes.</p>
+<ul>
+<li>RTS &amp; CTS are again defined from the point of view of the DTE, which means they can be used to throttle traffic from DTE to DCE, but not in the other direction.</li>
+<li>The Olimex boards wire pin 4 (DTR) to the reset line, so the boards can be reset remotely. There are two Unix terminal (tty) ioctls &ndash; TIOCSDTR and TIOCCDTR &ndash; that can be used in the host software to set &amp; clear DTR.</li>
+</ul>
+<hr />
+<p>Back to our &ldquo;funny&rdquo; cable. Instead of being wired straight-thru, a null-modem cable is wired something like this (there are variations &ndash; this is the cable that came with my ARM AEB-1):</p>
+<pre>
+  1  --  4
+  2  --  3
+  3  --  2
+  4  --  1
+  5  --  5
+  7  --  8
+  8  --  7
+</pre>
+<p>Pins 6 &amp; 9 were not connected.</p>
+<p>Wiring the cable this way connects TXD on one end to RXD on the other. Since both DTEs are going to be &ldquo;talking&rdquo; on TXD and &ldquo;listening&rdquo; on RXD, this is the only way they will be able to hear each other.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20RS-232%20cabling">Send feedback</a> on this page (last edited 2013 January 29 20:03)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

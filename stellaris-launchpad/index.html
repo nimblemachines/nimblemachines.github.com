@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="ti,arm,cortex-m4,cortex-m4f,stellaris,launchpad,development board" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/stellaris-launchpad/" />
+<title>Stellaris Launchpad &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Stellaris Launchpad</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>TI&rsquo;s <a href="http://www.ti.com/tool/ek-lm4f120xl">Stellaris Launchpad</a> board is another very low cost ARM Cortex-M development board. It is based on the LM4F120 (now renamed and rebranded as the TM4C1233 &ndash; that&rsquo;s a story unto itself), a Cortex-M4F processor with 256 KiB of flash, 32 KiB of RAM, and loads of serial i/o, timers, 12 bit ADCs, etc.</p>
+<p><img src="/-/ti.com-ek-lm4f120xl_stellarislaunchpad_tool.JPG" alt="Stellaris Launchpad board" title="Stellaris Launchpad board" /></p>
+<p>These are very cheap &ndash; as of August 2013 they are USD10 directly from TI, as they are getting rid of these &ldquo;old&rdquo; boards in favour of the new <a href="/tiva-launchpad/">Tiva Launchpad</a>.</p>
+<p>These seem like nice boards. After my inital excitement about the board &ndash; good price point, nice chip (esp the timers) &ndash; I decided to ignore it when TI relaunched the parts as &ldquo;Tiva C-series&rdquo; parts, changed all of the part numbers, and apparently alienated some of their customers. (I read some <a href="http://e2e.ti.com/support/microcontrollers/tiva_arm/f/908/p/258137/919524.aspx">grumbling on the forums</a>.)</p>
+<p>This is one reason I respect Freescale as a source for microcontrollers: They have a very transparent <a href="http://www.freescale.com/webapp/sps/site/overview.jsp?code=PRDCT_LONGEVITY_HM">product longevity</a> program. Most of their processors are supported for ten years after inital launch. Medical and automotive products are supported for fifteen years. It&rsquo;s unlikely they would pull a stunt like TI&rsquo;s, of launching a product line, and then a few months later completely pulling everything and starting over.</p>
+<p>That snafu notwithstanding, the chips are pretty sweet, the board is small and cheap, and it&rsquo;s easy to use. After some digging online I was able to figure out that TI&rsquo;s so-called ICDI &ndash; in-circuit debug interface &ndash; is simply an implementation over USB bulk endpoints of the GNU GDB <a href="http://sourceware.org/gdb/onlinedocs/gdb/Remote-Protocol.html">remote protocol</a>! And thus is extensively documented. After reading the GDB docs, and tweaking the USB support in <a href="https://muforth.nimblemachines.com/">muforth</a>, I was able to connect and exchange packets with the board.</p>
+<p>One curious discovery: the &ldquo;M&rdquo; (write memory) command doesn&rsquo;t work! Instead of doing what it is supposed to do, it does the following:</p>
+<ul>
+<li>writes the first byte of the destination memory address to 00</li>
+<li>ignores the first nybble of data to be written, thus shifting everything by 4 bits</li>
+</ul>
+<p>I thought about various work-arounds, but instead gave up and used the &ldquo;X&rdquo; command instead &ndash; which does exactly the same thing but uses a slightly more efficient binary (rather than hex-in-ASCII) format for the data.</p>
+<p>I was rather surprised to discover that such a fundamental part of the GDB protocol is broken on this board! It&rsquo;s a bit embarrassing.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Stellaris%20Launchpad">Send feedback</a> on this page (last edited 2013 August 08 13:13)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

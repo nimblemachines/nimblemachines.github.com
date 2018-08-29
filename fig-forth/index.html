@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/fig-forth/" />
+<title>Fig-FORTH &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Fig-FORTH</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>fig-FORTH, the Forth Interest Group&rsquo;s Forth standard, was my introduction, at the tender age of sixteen, to the magic and mystery of Forth. I spent hours poring over the code, trying to unravel it, and, years later, finally understood all of it.</p>
+<p>The document that I have, the &ldquo;fig-FORTH installation manual&rdquo; (published 1980), is one of the most interesting computing publications in my possession. In its scant 60-odd pages it not only <em>defines</em> but <em>implements</em> a language and its programming environment, and the whole thing fits into about 8k bytes.</p>
+<p>Since my introduction to Forth (by George Maverick, then an active &ldquo;figgie&rdquo;), its density and gem-like crystallization (and self-referential nature, since the fig &ldquo;model&rdquo; defines fig-FORTH in fig-FORTH!) have been a source of inspiration, bemusement, and wonder. Its wonder is one of the inspirations for Nimble Machines, since machines running Forth are, in my experience, very nimble machines.</p>
+<hr />
+<h2 id="history"><a href="#history">History</a></h2>
+<p>I don&rsquo;t know much about the history of the fig-FORTH project, but here is a quote from the introduction in the installation manual:</p>
+<blockquote><p>The fig-FORTH implementation project occurred because a key group of Forth fanciers wished to make this valuable tool available on a personal computing level. In June of 1978, we gathered a team of nine systems-level programmers, each with a particular target computer. The charter of the group was to translate a common model of Forth into assembly-language listings for each computer. It was agreed that the group&rsquo;s work would be distributed in the public domain by FIG.</p></blockquote>
+<p>So, not only was this an early exercise in portable coding, but an early open-source project as well!</p>
+<p>My understanding is that the key &ldquo;Forth fanciers&rdquo; had been exposed to polyFORTH, the commercial product that Chuck Moore&rsquo;s company, FORTH, Inc, sold at the time. (Chuck invented Forth circa 1970.)</p>
+<h2 id="infelicities"><a href="#infelicities">Infelicities</a></h2>
+<p>fig-FORTH is amazing, but not flawless. It has a few infelicities, both in design and implementation.</p>
+<ul>
+<li>the vocabulary structure is baroque, and too inflexible to do meta-compilation easily</li>
+<li>the implementation of <code class="forth">builds</code> (in later Forths called <code class="forth">create</code>) and <code class="forth">does></code> is suboptimal (it turns out this suboptimality was inherited from polyFORTH; in subsequent Forths, this has been &ldquo;fixed&rdquo;, where possible)</li>
+<li>the semantics of signed division is unspecified</li>
+<li>the text interpreter loop was based on several intertwingled hacks, making it inflexible, and hard to understand or modify</li>
+</ul>
+<p>I&rsquo;ll try to explain the Forth dictionary structure, and suggest some alternative implementations (originating with Chuck Moore&rsquo;s cmFORTH, and continuing in <a href="https://muforth.nimblemachines.com/">muforth</a>).</p>
+<p>For <a href="https://muforth.nimblemachines.com/">muforth</a> I devised an alternative Forth text interpreter, which I think is simple and elegant.</p>
+<p>When in 1983 Forth was standardized (as FORTH-83), the Forth community decided that signed division should floor its quotient (see <a href="/symmetric-division-considered-harmful/">symmetric division considered harmful</a> for a discussion).</p>
+<p>When I try <a href="/demystifying-create-does/">demystifying create does</a> I&rsquo;ll explain in detail the history of its implementation (as I understand it), and delve into the horror and mystery of meta-compiling with <code class="forth">create</code> and <code class="forth">does></code>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Fig-FORTH">Send feedback</a> on this page (last edited 2006 September 19 15:09)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

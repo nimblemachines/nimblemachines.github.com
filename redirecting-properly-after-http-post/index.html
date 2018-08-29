@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/redirecting-properly-after-http-post/" />
+<title>Redirecting properly after HTTP post &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Redirecting properly after HTTP post</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Using HTTP POST requests to publish new content to the web (how most blogging and wiki software works) is convenient and useful, but the details are subtle.</p>
+<p>While something of a hack to get around the read-mostly nature of the Web &ndash; largely the result of server and browser software failing to &ldquo;realize&rdquo; the <em>true</em> nature of the Web &ndash; using POST to publish can be quite effective, but we must be careful to get our implementation right.</p>
+<p>Anyone who has written an authoring tool that uses web text forms for data entry &ndash; say for a blog or wiki &ndash; will have the following problem: after the user POSTs new content to a URI, what do you display to them? The POST URI is usually a script; generally you&rsquo;d want to redirect to the new rendering of the resource. But it&rsquo;s not obvious how to do this.</p>
+<p>I see three possibilities:</p>
+<ul>
+<li>Use a &ldquo;thank you&rdquo; page that links to the new version of the resource. This is ugly and annoying and warrants no further discussion. The extra clicking involved is intolerable.</li>
+<li>Simply render the new resource. In other words, the &ldquo;entity body&rdquo; returned by the POST is the HTML of the new page. This is convenient, but incorrect. Refreshing this page will try to re-POST the content, and this is confusing to the user. Also, the <a href="/http-spec/">HTTP spec</a> says that the response to a POST should <em>describe</em> the result, not <em>be</em> the new result.</li>
+<li>Return a Redirect to the new resource. This is nice, convenient, and correct &ndash; but only if we use the proper redirect code. User agents are <em>not</em> supposed to automatically redirect a POST if the server returns a &ldquo;302 Found&rdquo; redirect. The correct code is &ldquo;303 See other&rdquo;. The details are subtle.</li>
+</ul>
+<p>It would seem that using a Redirect response is the best approach, but when we consult the <a href="/http-spec/">HTTP spec</a> it contradicts itself. There seem to be &ndash; with all things Web! &ndash; questions of correctness versus backwards-compatibility.</p>
+<p>What&rsquo;s wrong with the &ldquo;302 Found&rdquo; (moved temporarily) redirect? The <a href="/http-spec/">HTTP spec</a> says:</p>
+<blockquote><p>If the 302 status code is received in response to a request other than GET or HEAD, the user agent MUST NOT automatically redirect the request unless it can be confirmed by the user, since this might change the conditions under which the request was issued.</p></blockquote>
+<p>Since we <em>want</em> the user agent to automatically redirect, this sounds like the wrong solution.</p>
+<p>Ok, what about the &ldquo;303 See other&rdquo; redirect? The spec:</p>
+<blockquote><p>The response to the request can be found under a different URI and SHOULD be retrieved using a GET method on that resource. This method exists primarily to allow the output of a POST-activated script to redirect the user agent to a selected resource.</p></blockquote>
+<p>Wow. Great. Sounds perfect. But there&rsquo;s more:</p>
+<blockquote><p>Note: Many pre-HTTP/1.1 user agents do not understand the 303 status. When interoperability with such clients is a concern, the 302 status code may be used instead, since most user agents react to a 302 response as described here for 303.</p></blockquote>
+<p>Now it&rsquo;s telling us to use 302 since older user agents don&rsquo;t understand 303. <em>Sigh.</em></p>
+<p>After careful reading I figured out that the added redirects (303 and 307) reflect the two possible interpretations of 302, and exist so that the server can make clear which one it means. 303 means &ldquo;yes please follow this redirect even on POST&rdquo;. 307 means &ldquo;redirect on GET, but ask the user on POST whether to redirect&rdquo;. 302 can mean either of these.</p>
+<p>I&rsquo;m using 303 in my wiki code.</p>
+<p>The issue of what to return as a response to a POST request is an issue not only for publishing applications, but for commerce as well. If I return a &ldquo;thank you&rdquo; page as a result of a POST to a URI that actually charges a credit card, refreshing that page will try to re-do the POST. This is dangerous. Of course, any decent browser will query the user, but a better solution is to render this mistake impossible. By returning instead a Redirect (303) to a thank-you page, we solve this problem. The user can refresh to their heart&rsquo;s content with no danger of re-POSTing.</p>
+<hr />
+<h2 id="excerpts-from-the-http-spec"><a href="#excerpts-from-the-http-spec">Excerpts from the <a href="/http-spec/">HTTP spec</a></a></h2>
+<h3 id="1033-302-found"><a href="#1033-302-found">10.3.3 302 Found</a></h3>
+<p>The requested resource resides temporarily under a different URI. Since the redirection might be altered on occasion, the client SHOULD continue to use the Request-URI for future requests. This response is only cacheable if indicated by a Cache-Control or Expires header field.</p>
+<p>The temporary URI SHOULD be given by the Location field in the response. Unless the request method was HEAD, the entity of the response SHOULD contain a short hypertext note with a hyperlink to the new URI(s).</p>
+<p>If the 302 status code is received in response to a request other than GET or HEAD, the user agent MUST NOT automatically redirect the request unless it can be confirmed by the user, since this might change the conditions under which the request was issued.</p>
+<p>Note: RFC 1945 and RFC 2068 specify that the client is not allowed to change the method on the redirected request. However, most existing user agent implementations treat 302 as if it were a 303 response, performing a GET on the Location field-value regardless of the original request method. The status codes 303 and 307 have been added for servers that wish to make unambiguously clear which kind of reaction is expected of the client.</p>
+<h3 id="1034-303-see-other"><a href="#1034-303-see-other">10.3.4 303 See Other</a></h3>
+<p>The response to the request can be found under a different URI and SHOULD be retrieved using a GET method on that resource. This method exists primarily to allow the output of a POST-activated script to redirect the user agent to a selected resource. The new URI is not a substitute reference for the originally requested resource. The 303 response MUST NOT be cached, but the response to the second (redirected) request might be cacheable.</p>
+<p>The different URI SHOULD be given by the Location field in the response. Unless the request method was HEAD, the entity of the response SHOULD contain a short hypertext note with a hyperlink to the new URI(s).</p>
+<p>Note: Many pre-HTTP/1.1 user agents do not understand the 303 status. When interoperability with such clients is a concern, the 302 status code may be used instead, since most user agents react to a 302 response as described here for 303.</p>
+<h3 id="1038-307-temporary-redirect"><a href="#1038-307-temporary-redirect">10.3.8 307 Temporary Redirect</a></h3>
+<p>The requested resource resides temporarily under a different URI. Since the redirection MAY be altered on occasion, the client SHOULD continue to use the Request-URI for future requests. This response is only cacheable if indicated by a Cache-Control or Expires header field.</p>
+<p>The temporary URI SHOULD be given by the Location field in the response. Unless the request method was HEAD, the entity of the response SHOULD contain a short hypertext note with a hyperlink to the new URI(s) , since many pre-HTTP/1.1 user agents do not understand the 307 status. Therefore, the note SHOULD contain the information necessary for a user to repeat the original request on the new URI.</p>
+<p>If the 307 status code is received in response to a request other than GET or HEAD, the user agent MUST NOT automatically redirect the request unless it can be confirmed by the user, since this might change the conditions under which the request was issued.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Redirecting%20properly%20after%20HTTP%20post">Send feedback</a> on this page (last edited 2010 December 10 19:37)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

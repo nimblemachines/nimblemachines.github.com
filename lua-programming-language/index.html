@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/lua-programming-language/" />
+<title>Lua programming language &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Lua programming language</h1>
+<hr />
+</div>
+
+<div id="content">
+<p><a href="http://lua.org/"><img src="/-/lua-lang-128.gif" alt="Lua language logo" title="Lua language logo" /></a></p>
+<h2 id="2006-september-02-20:48"><a href="#2006-september-02-20:48">2006 September 02 20:48</a></h2>
+<p>I&rsquo;m officially excited about the <a href="http://www.lua.org/">Lua</a> programming language.</p>
+<p>Lua is a small, elegant language, very carefully designed and implemented, with many, if not all, of the features that I want:</p>
+<ul>
+<li>anonymous functions (lambdas) and closures;</li>
+<li>lexical scoping;</li>
+<li>proper tail-recursion;</li>
+<li>a resident compiler;</li>
+<li><em>embeddability</em>, in both senses: it can be used as an extension language, and can run on &ldquo;embedded&rdquo; (and rather modest) hardware;</li>
+<li><em>extensibility</em> &ndash; it can be extended, both in itself (ideally via some kind of metaprogramming), or in C.</li>
+</ul>
+<p>Lua has three &ldquo;implementation&rdquo; features that are important to me:</p>
+<ul>
+<li>the primary documentation (book and reference manual) is written by the designer and primary implementor;</li>
+<li>there is an authoritative, high-performance implementation by the language&rsquo;s designers (unlike, say, Scheme, which has so many implementations that it&rsquo;s impossible to choose a &ldquo;good&rdquo; one);</li>
+<li>the implementation is small enough to understand and modify.</li>
+</ul>
+<p>Philosophically Lua appeals to me. Everything about it is small. There are few key ideas, but they are good ones. The implementation is tiny. The language is tuned for size and speed, but because it&rsquo;s designed to be linked to other code, it&rsquo;s also designed for comprehensibility. And again, that means the smaller the better (since we can only use masterfully something we deeply understand). Lua is a <a href="/convivial-tool/">convivial tool</a>.</p>
+<p>While most languages are <em>profligate</em>, Lua is <em>parsimonious</em>. The syntax is simple, the semantics straighforward; there few rules and fewer exceptions. The implementation is, by modern standards, tiny: a full host (x86) binary is ~140k bytes. It&rsquo;s straightforward to slim this down to ~40k or less for use on small embedded devices.</p>
+<p>Like all interpreted languages, Lua has the feature that data constructors and function definitions are <em>executable code</em>. This means that configuration files (for instance) are executable code. No longer is it necessary to write parsers for them; simply read them into Lua!</p>
+<p>This fact, coupled with Lua&rsquo;s clever &ndash; and only! &ndash; structured data type &ndash; the <em>table</em> &ndash; makes possible not only self-documenting XML-like structured data, but also data that, when executed, can produce an HTML (or XML &ndash; think RSS!) rendering of itself.</p>
+<hr />
+<p>Resources:</p>
+<ul>
+<li>An <a href="http://www.lua.org/about.html">executive summary</a> of Lua</li>
+<li><a href="http://www.lua.org/pil/">Programming in Lua, first edition</a>. Covers version 5.0. The second edition is out in <a href="http://www.inf.puc-rio.br/~roberto/pil2/">paperback</a>; it covers Lua 5.1.</li>
+<li>Lua 5.1 <a href="http://www.lua.org/manual/5.1/">reference manual</a></li>
+<li>An interesting <a href="http://www.tecgraf.puc-rio.br/~lhf/ftp/doc/hopl.pdf">history</a> of Lua&rsquo;s development</li>
+<li>A description of Lua 5&rsquo;s <a href="http://www.tecgraf.puc-rio.br/~lhf/ftp/doc/jucs05.pdf">innovative virtual machine</a></li>
+<li><a href="http://www.unixreview.com/documents/uni1021991894316/">Two</a> <a href="http://www.unixreview.com/documents/ur0405k/">articles</a> championing its use (same author, different years)</li>
+<li>What <a href="http://www.lua.org/quotes.html">users are saying</a></li>
+<li>Some <a href="http://www.lua.org/uses.html">applications of Lua</a> (lots of computer games!)</li>
+<li>Lua user&rsquo;s <a href="http://lua-users.org/wiki/">wiki</a></li>
+</ul>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Lua%20programming%20language">Send feedback</a> on this page (last edited 2013 January 24 13:14)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

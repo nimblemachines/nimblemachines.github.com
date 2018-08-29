@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/version-control/" />
+<title>Version control &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Version control</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>I used CVS for three years. It was awful. I&rsquo;ve used Subversion for the last two. It&rsquo;s less awful, but I&rsquo;m really starting to feel its warts. Some issues:</p>
+<ul>
+<li>its centralized nature. Recently when my Subversion server was unreachable I wanted to commit some small changes and then push them to the server. Sorry &ndash; that&rsquo;s not how Subversion works.</li>
+<li>requires non-trivial configuration to work well, and depends on the <em>clients</em> to be properly configured (mostly I&rsquo;m thinking of properties here)</li>
+<li>shares CVS&rsquo;s merging problems &ndash; the user is forced to remember which changes have been merged. They made branching easy, but merging is still hard.</li>
+</ul>
+<p>In <a href="http://www.youtube.com/watch?v=4XpnKHJAok8">this talk at Google</a> Linus Torvalds amusingly says that Subversion is a stupid doomed project because it claims to be CVS done right, and there is no way to do that.</p>
+<p>I have to agree. CVS is a kludge around RCS (see <a href="https://www.freebsd.org/cgi/man.cgi?query=rcsintro&sektion=1"><code class="man">rcsintro(1)</code></a>), which versioned <em>files</em> independently. CVS tries hard to treat groups of files as single entities &ndash; which is what you want &ndash; but because each one has its own revision number, and because of the way branching works (inherited from RCS&rsquo;s insanity-provoking way of representing branches in the revision numbers), it becomes a nightmare. Add to this that CVS does not version control <em>directories</em> (because RCS didn&rsquo;t &ndash; <em>sigh</em>) and things become intolerable. Try moving a subdirectory of files in CVS. It&rsquo;s something you <em>never</em> want to do.</p>
+<p>Subversion got some of this right. The revision numbering scheme applies to the whole repository. You check in one file &ndash; or two hundred &ndash; and the whole repo clicks up one revision. Of course each file still knows in which revision it was last modified, but there is one sane numbering scheme.</p>
+<p>Also, directories (and other useful metadata) are under version control in Subversion. And moving things around is relatively easy &ndash; though it can make finding files in the log harder, and can wreak havoc on <em>svndumpfilter</em>. Here is what the <a href="http://svnbook.red-bean.com/nightly/en/">book</a> says:</p>
+<blockquote><p>Also, copied paths can give you some trouble. Subversion supports copy operations in the repository, where a new path is created by copying some already existing path. It is possible that at some point in the lifetime of your repository, you might have copied a file or directory from some location that <em>svndumpfilter</em> is excluding, to a location that it is including. In order to make the dump data self-sufficient, <em>svndumpfilter</em> needs to still show the addition of the new path &ndash; including the contents of any files created by the copy &ndash; and not represent that addition as a copy from a source that won&rsquo;t exist in your filtered dump data stream. But because the Subversion repository dump format only shows what was changed in each revision, the contents of the copy source might not be readily available. If you suspect that you have any copies of this sort in your repository, you might want to rethink your set of included/excluded paths.</p></blockquote>
+<p>Translation: If you <em>ever</em> moved any files or directories, and want to <em>ever</em> use <em>svndumpfilter</em>, your life is going to be terrible. You&rsquo;ll have to find all the place that things got moved and <em>manually</em> add special &ldquo;include&rdquo; and &ldquo;exclude&rdquo; lines.</p>
+<p>I briefly looked at using <em>svndumpfilter</em> &ndash; to split my repo, which contains several projects, into a bunch of repos, each containing one project. After reading about <em>svndumpfilter</em> I gave up on this idea.</p>
+<p>And this is a modest repo with a bunch of small projects. Woe betide anyone with large active projects facing this kind of decision.</p>
+<p>Version control is supposed to help you develop &ndash; code or poetry or whatever. Often you want to do something speculative &ndash; to try out a crazy idea. To do this without disturbing the &ldquo;main&rdquo; line of development (which you might be sharing with others) you want to do this on a <em>branch</em>, and (possibly) later merge it back into the main line. This should be easy &ndash; and yet, arguably Git is the first system to get this right.</p>
+<p>In CVS branching is hard and merging is harder. In Subversion branching is easy, and efficient. But merging is still hard. The user still has to manually keep track (the authors, admitting the brokenness of their tool, suggest doing this in the log message) of which merges from which pieces of which branches have been done already... I&rsquo;ve done very little of this, and on modest projects, and it&rsquo;s still scary. I couldn&rsquo;t <em>imagine</em> trying to merge changes to Linux&rsquo;s SCSI subsystem in this way.</p>
+<p>Again, here is what the Subversion book says:</p>
+<blockquote><p>Ideally, your version control system should prevent the double-application of changes to a branch. It should automatically remember which changes a branch has already received, and be able to list them for you. It should use this information to help automate merges as much as possible.</p></blockquote>
+<blockquote><p>Unfortunately, Subversion is not such a system; it does not yet record any information about merge operations. When you commit local modifications, the repository has no idea whether those changes came from running <em>svn merge</em>, or from just hand-editing the files.</p></blockquote>
+<blockquote><p>What does this mean to you, the user? It means that until the day Subversion grows this feature, you&rsquo;ll have to track merge information yourself. The best place to do this is in the commit log-message. As demonstrated in the earlier example, it&rsquo;s recommended that your log-message mention a specific revision number (or range of revisions) that are being merged into your branch. Later on, you can run <em>svn log</em> to review which changes your branch already contains. This will allow you to carefully construct a subsequent <em>svn merge</em> command that won&rsquo;t be redundant with previously ported changes.</p></blockquote>
+<p>This is what makes Linus laugh out loud. In his Google talk he says something like &ldquo;yeah, they made branching easy, but merging is still hard, and they&rsquo;ve had five years and they still haven&rsquo;t fixed it!&rdquo;</p>
+<p>One last carp about Subversion &ndash; and CVS, and practically every other system out there: it has no notion of <em>data integrity</em>. Files are stored as files &ndash; really as a file and a lot of reverse deltas to other versions &ndash; but there are no hashes, CRCs, or checksums that check that the file I checked in two years ago and the one I checked out today are actually the <em>same file</em>. Memory corruption happens; so does disk corruption. It&rsquo;s not a question of <em>if</em> but of <em>when</em>.</p>
+<p>A version control system is also an archival medium. It&rsquo;s a place to put things that you don&rsquo;t want to lose. So it would be heartening to know that your VCS is doing its best to keep your data safe, right?</p>
+<p>Subversion isn&rsquo;t.</p>
+<p>I was excited about Subversion when I first started using it. &ldquo;CVS done right&rdquo; didn&rsquo;t sound so bad to me. Now I agree with Linus. The abstractions are wrong. The model is wrong. (I should have been worried by the fact that the Subversion developers seem to actually <em>like</em> Apache.)</p>
+<p>And I&rsquo;m not talking about Subversion&rsquo;s central repo nature, but about its data model. (say more about this)</p>
+<p>I&rsquo;m giving up on Subversion. Let&rsquo;s talk about Git instead.</p>
+<h2 id="getting-git"><a href="#getting-git">Getting <em>Git</em></a></h2>
+<p><a href="http://git.or.cz/">Git</a> is Linus Torvalds's new (as of spring 2005) version control system, written when he lost the license to use bit keeper for free.</p>
+<p>A Red Hat engineer talks about <a href="http://hoegsberg.blogspot.com/2007/06/version-control.html">why <em>Git</em> matters</a> to him, and in another <a href="http://hoegsberg.blogspot.com/2007/06/setting-up-cloned-git-repo.html">post</a> he highlights the <em>functional filesystem</em> aspects of <em>Git</em>; that two repos on the same machine can share objects, since objects are immutable.</p>
+<p><a href="http://marc.info/?l=git&amp;m=116129092117475">http://marc.info/?l=git&amp;m=116129092117475</a></p>
+<p>blame is slow in Git, but Linus doesn&rsquo;t use it. doesn&rsquo;t give him the big picture. I agree. You see lines in a file, and who changed them. But you don&rsquo;t see the larger context of the change, and you certainly don&rsquo;t see the lines that <em>aren&rsquo;t</em> in the file.</p>
+<p><a href="http://marc.info/?l=linux-kernel&amp;m=111314792424707">http://marc.info/?l=linux-kernel&amp;m=111314792424707</a></p>
+<p>Also nice that Linus uses the epoch time (count of secs since 1970 Jan 01) as a timestamp &ndash; zero parsing! Why don&rsquo;t more people do this? HTTP, eg.</p>
+<p>From <a href="http://lwn.net/Articles/165202/">http://lwn.net/Articles/165202/</a>:</p>
+<blockquote><p>I&rsquo;d say that the huge advantage of Git over everything is that it&rsquo;s dead simple to interface with. So you can say, &ldquo;I wish I had a revision control system that worked like this,&rdquo; and it&rsquo;s a couple of shell scripts to do, and the results are compatible with everybody else. (For example, I&rsquo;ve got a 237-line Python CGI that lets you edit files in the a Git repository on the web, and then commit sets of changes. This required a dozen-line patch to an obscure part of Git, and that only because I was the first person to try to work with no working tree and no temporary files. Try doing that with cvs, or practically anything else.) More generally, it means you can really integrate revision control into your processes however you want, rather than just following the VCS&rsquo;s idea of how you interact with it.</p></blockquote>
+<p>This matters to me because I (briefly) considered trying to interface to Subversion to get my wiki pages out of it (by talking to the API)... until I read (in the svn book) about how that part of the system is a bit flaky and not as well-tested as the core...</p>
+<p>Lots of interesting links &ndash; I got the mailing list links above from it &ndash; in <a href="https://en.wikipedia.org/wiki/Git_(software)">Git (software)</a>.</p>
+<p>From the Google talk: cryptographic hash (SHA1) guarantees the integrity of your data &ndash; even years later as it has moved from hard disk, to DVD, to some other archive medium.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Version%20control">Send feedback</a> on this page (last edited 2007 June 24 15:58)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2278 @@
+{
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/bin/bash"
+  },
+  "command": null,
+  "height": 37,
+  "title": null,
+  "duration": 103.495726,
+  "width": 127,
+  "stdout": [
+    [
+      0.057839,
+      "[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      0.902306,
+      "#"
+    ],
+    [
+      0.144751,
+      " "
+    ],
+    [
+      0.472159,
+      "L"
+    ],
+    [
+      0.103169,
+      "e"
+    ],
+    [
+      0.134913,
+      "t"
+    ],
+    [
+      0.108825,
+      "'"
+    ],
+    [
+      0.077751,
+      "s"
+    ],
+    [
+      0.112867,
+      " "
+    ],
+    [
+      0.229478,
+      "r"
+    ],
+    [
+      0.163815,
+      "e"
+    ],
+    [
+      0.192124,
+      "g"
+    ],
+    [
+      0.109475,
+      "e"
+    ],
+    [
+      0.131782,
+      "n"
+    ],
+    [
+      0.087132,
+      "e"
+    ],
+    [
+      0.12577,
+      "r"
+    ],
+    [
+      0.109941,
+      "a"
+    ],
+    [
+      0.106417,
+      "t"
+    ],
+    [
+      0.095085,
+      "e"
+    ],
+    [
+      0.071768,
+      " "
+    ],
+    [
+      0.159423,
+      "t"
+    ],
+    [
+      0.055227,
+      "h"
+    ],
+    [
+      0.062527,
+      "e"
+    ],
+    [
+      0.100587,
+      " "
+    ],
+    [
+      0.227946,
+      "s"
+    ],
+    [
+      0.32453,
+      "i"
+    ],
+    [
+      0.11504,
+      "t"
+    ],
+    [
+      0.086597,
+      "e"
+    ],
+    [
+      0.308225,
+      "\r\n"
+    ],
+    [
+      0.00131,
+      "[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      0.990041,
+      "#"
+    ],
+    [
+      0.76444,
+      " "
+    ],
+    [
+      0.200819,
+      "U"
+    ],
+    [
+      0.155038,
+      "S"
+    ],
+    [
+      0.245066,
+      "i"
+    ],
+    [
+      0.046471,
+      "n"
+    ],
+    [
+      0.110248,
+      "g"
+    ],
+    [
+      0.511833,
+      "\b\u001b[K"
+    ],
+    [
+      0.144082,
+      "\b\u001b[K"
+    ],
+    [
+      0.143287,
+      "\b\u001b[K"
+    ],
+    [
+      0.117795,
+      "\b\u001b[K"
+    ],
+    [
+      0.233642,
+      "s"
+    ],
+    [
+      0.199435,
+      "i"
+    ],
+    [
+      0.102944,
+      "n"
+    ],
+    [
+      0.087792,
+      "g"
+    ],
+    [
+      0.073506,
+      " "
+    ],
+    [
+      0.2129,
+      "L"
+    ],
+    [
+      0.122808,
+      "u"
+    ],
+    [
+      0.117131,
+      "a"
+    ],
+    [
+      0.72276,
+      "\r\n[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      0.448176,
+      "l"
+    ],
+    [
+      0.109725,
+      "u"
+    ],
+    [
+      0.042637,
+      "a"
+    ],
+    [
+      0.341654,
+      "\r\n"
+    ],
+    [
+      0.009422,
+      "Lua 5.3.4  Copyright (C) 1994-2017 Lua.org, PUC-Rio\r\n"
+    ],
+    [
+      0.001256,
+      "> "
+    ],
+    [
+      0.864301,
+      "\r\n"
+    ],
+    [
+      0.001916,
+      "[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      0.690275,
+      "l"
+    ],
+    [
+      0.069061,
+      "u"
+    ],
+    [
+      0.063524,
+      "a"
+    ],
+    [
+      0.076572,
+      " "
+    ],
+    [
+      0.199927,
+      "g"
+    ],
+    [
+      0.051435,
+      "e"
+    ],
+    [
+      0.137062,
+      "n"
+    ],
+    [
+      0.127898,
+      "\u0007erate"
+    ],
+    [
+      0.427118,
+      "."
+    ],
+    [
+      0.221675,
+      "lua "
+    ],
+    [
+      0.479294,
+      "a"
+    ],
+    [
+      0.182608,
+      "l"
+    ],
+    [
+      0.166095,
+      "l"
+    ],
+    [
+      0.373045,
+      " "
+    ],
+    [
+      0.154452,
+      "n"
+    ],
+    [
+      0.097419,
+      "i"
+    ],
+    [
+      0.09006,
+      "m"
+    ],
+    [
+      0.19078,
+      "ble/"
+    ],
+    [
+      0.873338,
+      "\r\n"
+    ],
+    [
+      0.014487,
+      "rsync -iur nimble/root/ github-nimble-html\r\n"
+    ],
+    [
+      0.011975,
+      "rsync -iurL --delete nimble/asset/ github-nimble-html/-\r\n"
+    ],
+    [
+      0.034816,
+      ">f+++++++++ asciinema/cast/decimal-binary-foolishness.json\r\n"
+    ],
+    [
+      0.014298,
+      "P page 2005\r\n"
+    ],
+    [
+      0.015874,
+      "    interwiki Wiki http://c2.com/cgi/wiki? WikiReadingHabits\r\n    interwiki Wiki http://c2.com/cgi/wiki? RecentChangesJunkie\r\n"
+    ],
+    [
+      0.007923,
+      "P page 2006\r\n"
+    ],
+    [
+      0.034037,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Ivan_Illich\r\n"
+    ],
+    [
+      0.092093,
+      "P page 2007\r\n"
+    ],
+    [
+      0.194784,
+      "    interwiki Wiki http://c2.com/cgi/wiki? WardsWiki\r\n    interwiki Wiki http://c2.com/cgi/wiki? OrwellsParody\r\n"
+    ],
+    [
+      0.005446,
+      "    interwiki Wiki http://c2.com/cgi/wiki? MinorEdit\r\n    interwiki Wiki http://c2.com/cgi/wiki? WardsWiki\r\n"
+    ],
+    [
+      0.008758,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Trimpin\r\n"
+    ],
+    [
+      0.069131,
+      "    interwiki Wiki http://c2.com/cgi/wiki? CategoryCategory\r\n"
+    ],
+    [
+      0.045006,
+      "P page 2008\r\n"
+    ],
+    [
+      0.070168,
+      "P page 2009\r\n"
+    ],
+    [
+      0.032778,
+      "P page 2010\r\n"
+    ],
+    [
+      0.065416,
+      "P page 2013\r\n"
+    ],
+    [
+      0.032599,
+      "P page 2014\r\n"
+    ],
+    [
+      0.145519,
+      "P page 2015\r\n"
+    ],
+    [
+      0.014526,
+      "P page 2016\r\n"
+    ],
+    [
+      0.122992,
+      "P page 2017\r\n"
+    ],
+    [
+      0.017774,
+      "P page 2018\r\n"
+    ],
+    [
+      0.028038,
+      "P page alan-kay\r\n"
+    ],
+    [
+      0.015716,
+      "P page apache-server-issues\r\n"
+    ],
+    [
+      0.011414,
+      "P page arm-architecture\r\n"
+    ],
+    [
+      0.031865,
+      "P page arm-cortex-m-development-board\r\n"
+    ],
+    [
+      0.005617,
+      "P page arm-development-board\r\n"
+    ],
+    [
+      0.026537,
+      "P page bookmarks-from-delicious\r\n"
+    ],
+    [
+      0.438113,
+      "P page chromebook-diary\r\n"
+    ],
+    [
+      0.121162,
+      "P page cmsis-dap\r\n"
+    ],
+    [
+      0.022207,
+      "P page code-reviews\r\n"
+    ],
+    [
+      0.029233,
+      "P page command-line-considered-friendly\r\n"
+    ],
+    [
+      0.004648,
+      "P page convivial-computing-hardware\r\n"
+    ],
+    [
+      0.006705,
+      "P page convivial-tool\r\n"
+    ],
+    [
+      0.005932,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Ivan_Illich\r\n"
+    ],
+    [
+      0.01488,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Trimpin\r\n"
+    ],
+    [
+      0.021325,
+      "P page david-frech\r\n"
+    ],
+    [
+      0.004775,
+      "P page debugging-ssh-and-bash\r\n"
+    ],
+    [
+      0.046835,
+      "P page demystifying-create-does\r\n"
+    ],
+    [
+      0.047855,
+      "P page dual-purpose-motorcycle\r\n"
+    ],
+    [
+      0.021789,
+      "P page dvorak-keyboard-layout-considered-harmful\r\n"
+    ],
+    [
+      0.014059,
+      "P page eight-bit-microcontrollers-are-obsolete\r\n"
+    ],
+    [
+      0.025326,
+      "P page fig-forth\r\n"
+    ],
+    [
+      0.019294,
+      "P page frdm-k20d50m\r\n"
+    ],
+    [
+      0.008178,
+      "P page frdm-kl25z\r\n"
+    ],
+    [
+      0.033406,
+      "    interwiki Fsc32Bsp http://cache.freescale.com/files/32bit/software/board_support_packages/ FRDM-KL25Z_QSP.zip\r\n"
+    ],
+    [
+      0.003911,
+      "    interwiki Fsc32Bsp http://cache.freescale.com/files/32bit/software/board_support_packages/ FRDM-KL25Z_QSP.zip\r\n"
+    ],
+    [
+      0.005294,
+      "P page frdm-kl46z\r\n"
+    ],
+    [
+      0.035578,
+      "    interwiki Fsc32Bsp http://cache.freescale.com/files/32bit/software/board_support_packages/ FRDM-KL46Z_QSP.exe\r\n"
+    ],
+    [
+      0.005597,
+      "    interwiki Fsc32Bsp http://cache.freescale.com/files/32bit/software/board_support_packages/ FRDM-KL46Z_QSP.exe\r\n"
+    ],
+    [
+      0.005919,
+      "P page freescale\r\n"
+    ],
+    [
+      0.003281,
+      "P page freescale-freedom-board\r\n"
+    ],
+    [
+      0.014678,
+      "P page freescale-hc08\r\n"
+    ],
+    [
+      0.012583,
+      "    interwiki Fsc8 http://cache.freescale.com/files/microcontrollers/doc/ data_sheet/MC68HC908QB8.pdf\r\n"
+    ],
+    [
+      0.011952,
+      "P page freescale-hcs08\r\n"
+    ],
+    [
+      0.020764,
+      "    interwiki Fsc8 http://cache.freescale.com/files/microcontrollers/doc/ ref_manual/HCS08RMV1.pdf\r\n"
+    ],
+    [
+      0.000216,
+      "    interwiki Fsc8 http://cache.freescale.com/files/microcontrollers/doc/ ref_manual/M68HC05TB.pdf\r\n"
+    ],
+    [
+      0.00198,
+      "    interwiki Fsc8 http://cache.freescale.com/files/microcontrollers/doc/ data_sheet/MC68HC908QB.pdf\r\n"
+    ],
+    [
+      0.010474,
+      "P page freescale-s08jm\r\n"
+    ],
+    [
+      0.015691,
+      "P page freescale-s08js\r\n"
+    ],
+    [
+      0.00502,
+      "P page freescale-s08qe\r\n"
+    ],
+    [
+      0.010959,
+      "P page freescale-s08qg\r\n"
+    ],
+    [
+      0.0089,
+      "P page good-first-motorcycle\r\n"
+    ],
+    [
+      0.007773,
+      "P page henry-baker\r\n"
+    ],
+    [
+      0.005784,
+      "P page http-response-codes\r\n"
+    ],
+    [
+      0.013758,
+      "P page http-spec\r\n"
+    ],
+    [
+      0.002751,
+      "P page identicon-demo\r\n"
+    ],
+    [
+      0.338625,
+      "P page in-the-beginning-was-the-command-line\r\n"
+    ],
+    [
+      1.014361,
+      "P page installing-android-platform-tools-the-easy-way\r\n"
+    ],
+    [
+      0.01053,
+      "P page js16-usb-board\r\n"
+    ],
+    [
+      0.004476,
+      "    interwiki Fsc8 http://cache.freescale.com/files/microcontrollers/doc/ data_sheet/MC68HC908QB8.pdf\r\n"
+    ],
+    [
+      0.015892,
+      "P page laxen-meta-compiling-one\r\n"
+    ],
+    [
+      0.061476,
+      "P page laxen-meta-compiling-three\r\n"
+    ],
+    [
+      0.049817,
+      "P page laxen-meta-compiling-two\r\n"
+    ],
+    [
+      0.044632,
+      "P page laxen-multi-tasking-one\r\n"
+    ],
+    [
+      0.065157,
+      "P page laxen-multi-tasking-two\r\n"
+    ],
+    [
+      0.036304,
+      "P page learning-sed\r\n"
+    ],
+    [
+      0.02242,
+      "P page lua-programming-language\r\n"
+    ],
+    [
+      0.019293,
+      "P page nxp-and-freescale-better-together\r\n"
+    ],
+    [
+      0.023725,
+      "P page page-not-found\r\n"
+    ],
+    [
+      0.002223,
+      "P page redirecting-properly-after-http-post\r\n"
+    ],
+    [
+      0.038633,
+      "P page redirecting-uris-with-query-strings\r\n"
+    ],
+    [
+      0.019173,
+      "P page restaurant-range\r\n"
+    ],
+    [
+      0.022491,
+      "P page rs-232-cabling\r\n"
+    ],
+    [
+      0.020982,
+      "P page scooter-mania\r\n"
+    ],
+    [
+      0.018437,
+      "P page sed-manual\r\n"
+    ],
+    [
+      0.032457,
+      "P page spoken-word\r\n"
+    ],
+    [
+      0.029216,
+      "P page stellaris-launchpad\r\n"
+    ],
+    [
+      0.016786,
+      "P page stm32-gpio\r\n"
+    ],
+    [
+      0.020634,
+      "P page stm32f0-discovery\r\n"
+    ],
+    [
+      0.005247,
+      "P page stm32f4-discovery\r\n"
+    ],
+    [
+      0.006312,
+      "P page symmetric-division-considered-harmful\r\n"
+    ],
+    [
+      0.059688,
+      "P page tiva-launchpad\r\n"
+    ],
+    [
+      0.004183,
+      "P page tools-for-conviviality\r\n"
+    ],
+    [
+      0.002676,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Ivan_Illich\r\n"
+    ],
+    [
+      0.006451,
+      "P page tools-for-conviviality-book\r\n"
+    ],
+    [
+      0.005024,
+      "P page unzombify-your-nexus-7\r\n"
+    ],
+    [
+      0.018224,
+      "P page using-git-svn\r\n"
+    ],
+    [
+      0.02348,
+      "P page version-control\r\n"
+    ],
+    [
+      0.051925,
+      "    interwiki Wikipedia http://en.wikipedia.org/wiki/ Git_(software)\r\n"
+    ],
+    [
+      0.001572,
+      "P page why-bsd\r\n"
+    ],
+    [
+      0.026693,
+      "P page why-im-not-using-disqus\r\n"
+    ],
+    [
+      0.039853,
+      "P page you-and-your-research\r\n"
+    ],
+    [
+      0.001448,
+      "P page zinc-abstract-machine\r\n"
+    ],
+    [
+      0.028379,
+      "P page all-pages\r\n"
+    ],
+    [
+      0.009531,
+      "I index.html\r\n"
+    ],
+    [
+      0.003109,
+      "[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      1.539233,
+      "#"
+    ],
+    [
+      0.177902,
+      " "
+    ],
+    [
+      0.241244,
+      "W"
+    ],
+    [
+      0.219291,
+      "h"
+    ],
+    [
+      0.184187,
+      "a"
+    ],
+    [
+      0.296873,
+      "t"
+    ],
+    [
+      0.165001,
+      " "
+    ],
+    [
+      0.178142,
+      "g"
+    ],
+    [
+      0.074589,
+      "e"
+    ],
+    [
+      0.116987,
+      "t"
+    ],
+    [
+      0.112013,
+      "'"
+    ],
+    [
+      0.067403,
+      "s"
+    ],
+    [
+      0.107014,
+      " "
+    ],
+    [
+      0.215544,
+      "c"
+    ],
+    [
+      0.053456,
+      "r"
+    ],
+    [
+      0.069157,
+      "e"
+    ],
+    [
+      0.081493,
+      "a"
+    ],
+    [
+      0.108645,
+      "t"
+    ],
+    [
+      0.092683,
+      "e"
+    ],
+    [
+      0.122121,
+      "d"
+    ],
+    [
+      0.219772,
+      "?"
+    ],
+    [
+      0.662555,
+      "\r\n"
+    ],
+    [
+      0.001083,
+      "[david@acercromie ~/new-nimblemachines-site]$ "
+    ],
+    [
+      0.535738,
+      "c"
+    ],
+    [
+      0.05483,
+      "d"
+    ],
+    [
+      0.12735,
+      " "
+    ],
+    [
+      0.692732,
+      "g"
+    ],
+    [
+      0.09306,
+      "i"
+    ],
+    [
+      0.118824,
+      "t"
+    ],
+    [
+      0.209836,
+      "\u0007"
+    ],
+    [
+      0.000273,
+      "hub-"
+    ],
+    [
+      0.642652,
+      "n"
+    ],
+    [
+      0.218703,
+      "imble-html/"
+    ],
+    [
+      0.675089,
+      "\r\n"
+    ],
+    [
+      0.000814,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.466119,
+      "p"
+    ],
+    [
+      0.524328,
+      "\r\n"
+    ],
+    [
+      0.003751,
+      "\u001b[0m\u001b[01;34m-\u001b[0m/                                 \u001b[01;34mdebugging-ssh-and-bash\u001b[0m/                          \u001b[01;34mlaxen-multi-tasking-one\u001b[0m/\r\n"
+    ],
+    [
+      0.000156,
+      "\u001b[01;34m2005\u001b[0m/                              \u001b[01;34mdemystifying-create-does\u001b[0m/                        \u001b[01;34mlaxen-multi-tasking-two\u001b[0m/\r\n"
+    ],
+    [
+      0.000127,
+      "\u001b[01;34m2006\u001b[0m/                              \u001b[01;34mdual-purpose-motorcycle\u001b[0m/                         \u001b[01;34mlearning-sed\u001b[0m/\r\n"
+    ],
+    [
+      0.000107,
+      "\u001b[01;34m2007\u001b[0m/                              \u001b[01;34mdvorak-keyboard-layout-considered-harmful\u001b[0m/       \u001b[01;34mlua-programming-language\u001b[0m/\r\n"
+    ],
+    [
+      0.000109,
+      "\u001b[01;34m2008\u001b[0m/                              \u001b[01;34meight-bit-microcontrollers-are-obsolete\u001b[0m/         \u001b[01;34mnxp-and-freescale-better-together\u001b[0m/\r\n"
+    ],
+    [
+      0.000141,
+      "\u001b[01;34m2009\u001b[0m/                              \u001b[01;34mfig-forth\u001b[0m/                                       \u001b[01;34mpage-not-found\u001b[0m/\r\n"
+    ],
+    [
+      0.00011,
+      "\u001b[01;34m2010\u001b[0m/                              \u001b[01;34mfrdm-k20d50m\u001b[0m/                                    \u001b[01;34mredirecting-properly-after-http-post\u001b[0m/\r\n"
+    ],
+    [
+      0.000105,
+      "\u001b[01;34m2013\u001b[0m/                              \u001b[01;34mfrdm-kl25z\u001b[0m/                                      \u001b[01;34mredirecting-uris-with-query-strings\u001b[0m/\r\n"
+    ],
+    [
+      0.000101,
+      "\u001b[01;34m2014\u001b[0m/                              \u001b[01;34mfrdm-kl46z\u001b[0m/                                      \u001b[01;34mrestaurant-range\u001b[0m/\r\n"
+    ],
+    [
+      0.000378,
+      "\u001b[01;34m2015\u001b[0m/                              \u001b[01;34mfreescale\u001b[0m/                                       \u001b[00;32mrobots.txt\u001b[0m"
+    ],
+    [
+      0.000103,
+      "\r\n"
+    ],
+    [
+      0.000116,
+      "\u001b[01;34m2016\u001b[0m/                              \u001b[01;34mfreescale-freedom-board\u001b[0m/                         \u001b[01;34mrs-232-cabling\u001b[0m/\r\n"
+    ],
+    [
+      0.000133,
+      "\u001b[01;34m2017\u001b[0m/                              \u001b[01;34mfreescale-hc08\u001b[0m/                                  \u001b[01;34mscooter-mania\u001b[0m/\r\n"
+    ],
+    [
+      0.000111,
+      "\u001b[01;34m2018\u001b[0m/                              \u001b[01;34mfreescale-hcs08\u001b[0m/                                 \u001b[01;34msed-manual\u001b[0m/\r\n"
+    ],
+    [
+      0.000102,
+      "\u001b[01;36m404.html\u001b[0m@                          \u001b[01;34mfreescale-s08jm\u001b[0m/                                 \u001b[01;34mspoken-word\u001b[0m/\r\n"
+    ],
+    [
+      0.000139,
+      "CNAME                              \u001b[01;34mfreescale-s08js\u001b[0m/                                 \u001b[01;34mstellaris-launchpad\u001b[0m/\r\n"
+    ],
+    [
+      0.000102,
+      "\u001b[01;34malan-kay\u001b[0m/                          \u001b[01;34mfreescale-s08qe\u001b[0m/                                 \u001b[01;34mstm32-gpio\u001b[0m/\r\n"
+    ],
+    [
+      0.000106,
+      "\u001b[01;34mall-pages\u001b[0m/                         \u001b[01;34mfreescale-s08qg\u001b[0m/                                 \u001b[01;34mstm32f0-discovery\u001b[0m/\r\n"
+    ],
+    [
+      0.000103,
+      "\u001b[01;34mapache-server-issues\u001b[0m/              \u001b[01;34mgood-first-motorcycle\u001b[0m/                           \u001b[01;34mstm32f4-discovery\u001b[0m/\r\n"
+    ],
+    [
+      0.000112,
+      "\u001b[01;34marm-architecture\u001b[0m/                  \u001b[01;34mhenry-baker\u001b[0m/                                     \u001b[01;34msymmetric-division-considered-harmful\u001b[0m/\r\n"
+    ],
+    [
+      0.000134,
+      "\u001b[01;34marm-cortex-m-development-board\u001b[0m/    \u001b[01;34mhttp-response-codes\u001b[0m/                             \u001b[01;34mtiva-launchpad\u001b[0m/\r\n"
+    ],
+    [
+      0.000107,
+      "\u001b[01;34marm-development-board\u001b[0m/             \u001b[01;34mhttp-spec\u001b[0m/                                       \u001b[01;34mtools-for-conviviality\u001b[0m/\r\n"
+    ],
+    [
+      0.000101,
+      "\u001b[01;34mbookmarks-from-delicious\u001b[0m/          \u001b[01;34midenticon-demo\u001b[0m/                                  \u001b[01;34mtools-for-conviviality-book\u001b[0m/\r\n"
+    ],
+    [
+      0.0001,
+      "\u001b[01;34mchromebook-diary\u001b[0m/                  \u001b[01;34min-the-beginning-was-the-command-line\u001b[0m/           \u001b[01;34munzombify-your-nexus-7\u001b[0m/\r\n"
+    ],
+    [
+      0.000129,
+      "\u001b[01;34mcmsis-dap\u001b[0m/                         index.html                                       \u001b[01;34musing-git-svn\u001b[0m/\r\n"
+    ],
+    [
+      0.000102,
+      "\u001b[01;34mcode-reviews\u001b[0m/                      \u001b[01;34minstalling-android-platform-tools-the-easy-way\u001b[0m/  \u001b[01;34mversion-control\u001b[0m/\r\n"
+    ],
+    [
+      0.000102,
+      "\u001b[01;34mcommand-line-considered-friendly\u001b[0m/  \u001b[01;34mjs16-usb-board\u001b[0m/                                  \u001b[01;34mwhy-bsd\u001b[0m/\r\n"
+    ],
+    [
+      0.000102,
+      "\u001b[01;34mconvivial-computing-hardware\u001b[0m/      \u001b[01;34mlaxen-meta-compiling-one\u001b[0m/                        \u001b[01;34mwhy-im-not-using-disqus\u001b[0m/\r\n"
+    ],
+    [
+      0.000103,
+      "\u001b[01;34mconvivial-tool\u001b[0m/                    \u001b[01;34mlaxen-meta-compiling-three\u001b[0m/                      \u001b[01;34myou-and-your-research\u001b[0m/\r\n"
+    ],
+    [
+      0.0001,
+      "\u001b[01;34mdavid-frech\u001b[0m/                       \u001b[01;34mlaxen-meta-compiling-two\u001b[0m/                        \u001b[01;34mzinc-abstract-machine\u001b[0m/\r\n"
+    ],
+    [
+      0.001278,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      2.687218,
+      "#"
+    ],
+    [
+      0.191498,
+      " "
+    ],
+    [
+      0.227481,
+      "T"
+    ],
+    [
+      0.351308,
+      "h"
+    ],
+    [
+      0.173302,
+      "i"
+    ],
+    [
+      0.097862,
+      "s"
+    ],
+    [
+      0.099939,
+      " "
+    ],
+    [
+      0.1905,
+      "i"
+    ],
+    [
+      0.083245,
+      "s"
+    ],
+    [
+      0.074811,
+      " "
+    ],
+    [
+      0.278234,
+      "t"
+    ],
+    [
+      0.059906,
+      "h"
+    ],
+    [
+      0.181344,
+      "e"
+    ],
+    [
+      0.169824,
+      " "
+    ],
+    [
+      0.294739,
+      "d"
+    ],
+    [
+      0.075474,
+      "i"
+    ],
+    [
+      0.124988,
+      "r"
+    ],
+    [
+      0.112722,
+      "e"
+    ],
+    [
+      0.09591,
+      "c"
+    ],
+    [
+      0.558855,
+      "t"
+    ],
+    [
+      0.122535,
+      "o"
+    ],
+    [
+      0.167578,
+      "r"
+    ],
+    [
+      0.186162,
+      "y"
+    ],
+    [
+      0.102344,
+      " "
+    ],
+    [
+      0.189384,
+      "t"
+    ],
+    [
+      0.080437,
+      "h"
+    ],
+    [
+      0.134325,
+      "a"
+    ],
+    [
+      0.076432,
+      "t"
+    ],
+    [
+      0.076107,
+      " "
+    ],
+    [
+      0.243483,
+      "g"
+    ],
+    [
+      0.075876,
+      "e"
+    ],
+    [
+      0.141437,
+      "t"
+    ],
+    [
+      0.126557,
+      "s"
+    ],
+    [
+      0.683811,
+      "\r\n[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.781681,
+      "#"
+    ],
+    [
+      0.223822,
+      " "
+    ],
+    [
+      0.644583,
+      "p"
+    ],
+    [
+      0.172305,
+      "u"
+    ],
+    [
+      0.080447,
+      "s"
+    ],
+    [
+      0.071779,
+      "h"
+    ],
+    [
+      0.213048,
+      "e"
+    ],
+    [
+      0.124341,
+      "d"
+    ],
+    [
+      0.127825,
+      " "
+    ],
+    [
+      0.180435,
+      "t"
+    ],
+    [
+      0.073918,
+      "o"
+    ],
+    [
+      0.141999,
+      " "
+    ],
+    [
+      0.279886,
+      "G"
+    ],
+    [
+      0.319518,
+      "i"
+    ],
+    [
+      0.101112,
+      "t"
+    ],
+    [
+      0.205239,
+      "h"
+    ],
+    [
+      0.126771,
+      "u"
+    ],
+    [
+      0.106507,
+      "b"
+    ],
+    [
+      0.197137,
+      " "
+    ],
+    [
+      0.297206,
+      "P"
+    ],
+    [
+      0.192906,
+      "a"
+    ],
+    [
+      0.336022,
+      "g"
+    ],
+    [
+      0.120089,
+      "e"
+    ],
+    [
+      0.143525,
+      "s"
+    ],
+    [
+      0.417906,
+      "."
+    ],
+    [
+      0.818637,
+      "\r\n"
+    ],
+    [
+      0.00144,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.855111,
+      "#"
+    ],
+    [
+      0.147383,
+      " "
+    ],
+    [
+      0.209778,
+      "T"
+    ],
+    [
+      0.146075,
+      "h"
+    ],
+    [
+      0.143615,
+      "a"
+    ],
+    [
+      0.443724,
+      "\b\u001b[K"
+    ],
+    [
+      0.140039,
+      "\b\u001b[K"
+    ],
+    [
+      0.135067,
+      "\b\u001b[K"
+    ],
+    [
+      0.264113,
+      "W"
+    ],
+    [
+      0.12077,
+      "h"
+    ],
+    [
+      0.100941,
+      "a"
+    ],
+    [
+      0.085926,
+      "t"
+    ],
+    [
+      0.139822,
+      "'"
+    ],
+    [
+      0.040907,
+      "s"
+    ],
+    [
+      0.094631,
+      " "
+    ],
+    [
+      0.430533,
+      "c"
+    ],
+    [
+      0.051719,
+      "h"
+    ],
+    [
+      0.091925,
+      "a"
+    ],
+    [
+      0.094023,
+      "n"
+    ],
+    [
+      0.121232,
+      "g"
+    ],
+    [
+      0.051745,
+      "e"
+    ],
+    [
+      0.182697,
+      "d"
+    ],
+    [
+      0.249031,
+      "?"
+    ],
+    [
+      0.573156,
+      "\r\n"
+    ],
+    [
+      0.000667,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.321164,
+      "g"
+    ],
+    [
+      0.092489,
+      "i"
+    ],
+    [
+      0.115152,
+      "t"
+    ],
+    [
+      0.285533,
+      " "
+    ],
+    [
+      0.177691,
+      "s"
+    ],
+    [
+      0.073984,
+      "t"
+    ],
+    [
+      0.115549,
+      "a"
+    ],
+    [
+      0.122631,
+      "t"
+    ],
+    [
+      0.145674,
+      "u"
+    ],
+    [
+      0.120629,
+      "s"
+    ],
+    [
+      0.494576,
+      "\r\n"
+    ],
+    [
+      0.04794,
+      "On branch master\r\nYour branch is up to date with 'origin/master'.\r\n\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git checkout -- <file>...\" to discard changes in working directory)\r\n\r\n\tmodified:   2018/index.html\r\n\tmodified:   all-pages/index.html\r\n\r\nUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\r\n\t-/asciinema/\r\n\r\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\n"
+    ],
+    [
+      0.000306,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      1.485065,
+      "#"
+    ],
+    [
+      0.156219,
+      " "
+    ],
+    [
+      0.221564,
+      "H"
+    ],
+    [
+      0.552819,
+      "m"
+    ],
+    [
+      0.160208,
+      "m"
+    ],
+    [
+      0.646968,
+      ","
+    ],
+    [
+      0.133273,
+      " "
+    ],
+    [
+      0.413465,
+      "s"
+    ],
+    [
+      0.086968,
+      "o"
+    ],
+    [
+      0.096014,
+      "m"
+    ],
+    [
+      0.083714,
+      "e"
+    ],
+    [
+      0.115958,
+      " "
+    ],
+    [
+      0.506141,
+      "t"
+    ],
+    [
+      0.091993,
+      "h"
+    ],
+    [
+      0.057044,
+      "i"
+    ],
+    [
+      0.069901,
+      "n"
+    ],
+    [
+      0.075026,
+      "g"
+    ],
+    [
+      0.337202,
+      "s"
+    ],
+    [
+      0.15695,
+      " "
+    ],
+    [
+      0.181695,
+      "t"
+    ],
+    [
+      0.095678,
+      "o"
+    ],
+    [
+      0.093524,
+      " "
+    ],
+    [
+      0.223489,
+      "a"
+    ],
+    [
+      0.143095,
+      "d"
+    ],
+    [
+      0.151784,
+      "d"
+    ],
+    [
+      1.510734,
+      "\r\n"
+    ],
+    [
+      0.001485,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      1.422627,
+      "g"
+    ],
+    [
+      0.05341,
+      "i"
+    ],
+    [
+      0.118502,
+      "t"
+    ],
+    [
+      0.12026,
+      " "
+    ],
+    [
+      0.122236,
+      "a"
+    ],
+    [
+      0.111732,
+      "d"
+    ],
+    [
+      0.144006,
+      "d"
+    ],
+    [
+      0.195048,
+      " "
+    ],
+    [
+      0.683573,
+      "-"
+    ],
+    [
+      0.175003,
+      "-"
+    ],
+    [
+      0.178346,
+      " "
+    ],
+    [
+      0.724659,
+      "s"
+    ],
+    [
+      0.62325,
+      "\b\u001b[K"
+    ],
+    [
+      0.307538,
+      "-"
+    ],
+    [
+      0.374199,
+      "/"
+    ],
+    [
+      0.79042,
+      "a"
+    ],
+    [
+      0.126554,
+      "s"
+    ],
+    [
+      0.249672,
+      "c"
+    ],
+    [
+      0.189417,
+      "iinema/"
+    ],
+    [
+      1.106341,
+      "\r\n"
+    ],
+    [
+      0.065357,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      1.439672,
+      "g"
+    ],
+    [
+      0.07541,
+      "i"
+    ],
+    [
+      0.112344,
+      "t"
+    ],
+    [
+      0.075117,
+      " "
+    ],
+    [
+      0.37035,
+      "a"
+    ],
+    [
+      0.104567,
+      "d"
+    ],
+    [
+      0.14053,
+      "d"
+    ],
+    [
+      0.104841,
+      " "
+    ],
+    [
+      0.614769,
+      "-"
+    ],
+    [
+      0.145881,
+      "u"
+    ],
+    [
+      0.392142,
+      "\r\n"
+    ],
+    [
+      0.019385,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.447258,
+      "g"
+    ],
+    [
+      0.091365,
+      "i"
+    ],
+    [
+      0.117902,
+      "t"
+    ],
+    [
+      0.155184,
+      " "
+    ],
+    [
+      0.15808,
+      "s"
+    ],
+    [
+      0.064618,
+      "t"
+    ],
+    [
+      0.091708,
+      "a"
+    ],
+    [
+      0.155585,
+      "t"
+    ],
+    [
+      0.09447,
+      "u"
+    ],
+    [
+      0.102151,
+      "s"
+    ],
+    [
+      0.248217,
+      "\r\n"
+    ],
+    [
+      0.031797,
+      "On branch master\r\n"
+    ],
+    [
+      0.000129,
+      "Your branch is up to date with 'origin/master'.\r\n\r\nChanges to be committed:\r\n  (use \"git reset HEAD <file>...\" to unstage)\r\n\r\n\tnew file:   -/asciinema/asciinema-player.css\r\n\tnew file:   -/asciinema/asciinema-player.js\r\n\tnew file:   -/asciinema/cast/asciinema.org/108469.json\r\n"
+    ],
+    [
+      7.9e-05,
+      "\tnew file:   -/asciinema/cast/decimal-binary-foolishness.json\r\n\tnew file:   -/asciinema/cast/site-gen-demo.json\r\n\tnew file:   -/asciinema/cast/this-is-a-chromebook.json\r\n\tmodified:   2018/index.html\r\n"
+    ],
+    [
+      6.9e-05,
+      "\tmodified:   all-pages/index.html\r\n\r\n"
+    ],
+    [
+      0.001373,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      4.825476,
+      "g"
+    ],
+    [
+      0.070224,
+      "i"
+    ],
+    [
+      0.102561,
+      "t"
+    ],
+    [
+      0.118188,
+      " "
+    ],
+    [
+      0.170928,
+      "c"
+    ],
+    [
+      0.071899,
+      "o"
+    ],
+    [
+      0.121576,
+      "m"
+    ],
+    [
+      0.152548,
+      "m"
+    ],
+    [
+      0.136111,
+      "i"
+    ],
+    [
+      0.205326,
+      "t"
+    ],
+    [
+      1.395818,
+      "\r\n"
+    ],
+    [
+      0.123273,
+      "\u001b[?1000h\u001b[?2004h\u001b[?1049h\u001b[?1h\u001b=\u001b[?2004h"
+    ],
+    [
+      0.001705,
+      "\u001b[1;37r\u001b[?12h\u001b[?12l\u001b[27m\u001b[23m\u001b[29m\u001b[m\u001b[H\u001b[2J\u001b[?25l\u001b[37;1H\"~/new-nimblemachines-site/github-nimble-html/.git/COMMIT_EDITMSG\""
+    ],
+    [
+      0.000251,
+      " 17L, 623C"
+    ],
+    [
+      0.028153,
+      "\u001b[2;1H▽\u001b[6n\u001b[2;1H  \u001b[1;1H"
+    ],
+    [
+      0.000124,
+      "\u001b[27m\u001b[23m\u001b[29m\u001b[m\u001b[H\u001b[2J\u001b[?25h"
+    ],
+    [
+      0.000512,
+      "\u001b[>c\u001b]11;?\u0007"
+    ],
+    [
+      0.03684,
+      "\u001b[?25l\u001b[2;1H\u001b[1m\u001b[36m# Please enter the commit message for your changes. Lines starting\r\n# with '#' will be ignored, and an empty message aborts the commit.\r\n#\r\n# On branch \u001b[m\u001b[1m\u001b[31mmaster\u001b[m\r\n\u001b[1m\u001b[36m# Your branch is up to date with '\u001b[m\u001b[1m\u001b[31morigin/master\u001b[m\u001b[1m\u001b[36m'.\r\n#\r\n# \u001b[m\u001b[1m\u001b[34mChanges to be committed:\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/asciinema-player.css\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/asciinema-player.js\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/cast/asciinema.org/108469.json\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/cast/decimal-binary-foolishness.json\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/cast/site-gen-demo.json\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mnew file\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  -/asciinema/cast/this-is-a-chromebook.json\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mmodified\u001b[m\u001b[1m\u001b[36"
+    ],
+    [
+      0.000178,
+      "m: \u001b[m\u001b[1m\u001b[35m  2018/index.html\u001b[m\r\n\u001b[1m\u001b[36m#       \u001b[m\u001b[1m\u001b[32mmodified\u001b[m\u001b[1m\u001b[36m: \u001b[m\u001b[1m\u001b[35m  all-pages/index.html\u001b[m\r\n\u001b[1m\u001b[36m#\u001b[m\r\n\u001b[1m\u001b[34m~                                                                                                                              \u001b[19;1H~                                                                                                                              \u001b[20;1H~                                                                                                                              \u001b[21;1H~                                                                                                                              \u001b[22;1H~                                                                                                                              \u001b[23;1H~                                                                                                                              \u001b[24;1H~                                                                   "
+    ],
+    [
+      9e-05,
+      "                                                           \u001b[25;1H~                                                                                                                              \u001b[26;1H~                                                                                                                              \u001b[27;1H~                                                                                                                              \u001b[28;1H~                                                                                                                              \u001b[29;1H~                                                                                                                              \u001b[30;1H~                                                                                                                              \u001b[31;1H~                                                                                                                              \u001b[32;1H~                   "
+    ],
+    [
+      7.1e-05,
+      "                                                                                                           \u001b[33;1H~                                                                                                                              \u001b[34;1H~                                                                                                                              \u001b[35;1H~                                                                                                                              \u001b[36;1H~                                                                                                                              \u001b[m\u001b[37;110H1,0-1\u001b[9CAll\u001b[1;1H\u001b[?25h\u001bP+q436f\u001b\\\u001bP+q6b75\u001b\\\u001bP+q6b64\u001b\\\u001bP+q6b72\u001b\\\u001bP+q6b6c\u001b\\\u001bP+q2332\u001b\\\u001bP+q2334\u001b\\\u001bP+q2569\u001b\\\u001bP+q2a37\u001b\\\u001bP+q6b31\u001b\\\u001b[?1000l\u001b[?1002h\u001b[?12$p"
+    ],
+    [
+      1.092269,
+      "\u001b[?25l\u001b[37;100Hi\u001b[1;1H\u001b[37;100H \u001b[1;1H\u001b[37;1H\u001b[1m-- INSERT --\u001b[m\u001b[37;110H\u001b[K\u001b[37;110H1,1\u001b[11CAll"
+    ],
+    [
+      0.000152,
+      "\u001b[1;1H\u001b[?25h"
+    ],
+    [
+      0.358556,
+      "\u001b[?25l\u001b[1m\u001b[33mA\u001b[m\u001b[37;112H2\u001b[1;2H\u001b[?25h"
+    ],
+    [
+      0.204716,
+      "\u001b[?25l\u001b[1m\u001b[33md\u001b[m\u001b[37;112H3\u001b[1;3H\u001b[?25h"
+    ],
+    [
+      0.160011,
+      "\u001b[?25l\u001b[1m\u001b[33md\u001b[m\u001b[37;112H4\u001b[1;4H\u001b[?25h"
+    ],
+    [
+      0.098487,
+      "\u001b[?25l\u001b[1m\u001b[33me\u001b[m\u001b[37;112H5\u001b[1;5H\u001b[?25h"
+    ],
+    [
+      0.094877,
+      "\u001b[?25l\u001b[1m\u001b[33md\u001b[m\u001b[37;112H6\u001b[1;6H\u001b[?25h"
+    ],
+    [
+      0.109144,
+      "\u001b[?25l\u001b[1m\u001b[33m \u001b[m\u001b[37;112H7\u001b[1;7H\u001b[?25h"
+    ],
+    [
+      0.233308,
+      "\u001b[?25l\u001b[1m\u001b[33ma\u001b[m\u001b[37;112H8\u001b[1;8H\u001b[?25h"
+    ],
+    [
+      0.118568,
+      "\u001b[?25l\u001b[1m\u001b[33ms\u001b[m\u001b[37;112H9\u001b[1;9H\u001b[?25h"
+    ],
+    [
+      0.580385,
+      "\u001b[?25l\u001b[1m\u001b[33mc\u001b[m\u001b[37;112H10\u001b[1;10H\u001b[?25h"
+    ],
+    [
+      0.133241,
+      "\u001b[?25l\u001b[1m\u001b[33mi\u001b[m\u001b[37;113H1\u001b[1;11H\u001b[?25h"
+    ],
+    [
+      0.145875,
+      "\u001b[?25l\u001b[1m\u001b[33mi\u001b[m\u001b[37;113H2\u001b[1;12H\u001b[?25h"
+    ],
+    [
+      0.112877,
+      "\u001b[?25l\u001b[1m\u001b[33mn\u001b[m\u001b[37;113H3\u001b[1;13H\u001b[?25h"
+    ],
+    [
+      0.09408,
+      "\u001b[?25l\u001b[1m\u001b[33me\u001b[m\u001b[37;113H4\u001b[1;14H\u001b[?25h"
+    ],
+    [
+      0.283358,
+      "\u001b[?25l\u001b[1m\u001b[33mm\u001b[m\u001b[37;113H5\u001b[1;15H\u001b[?25h"
+    ],
+    [
+      0.32042,
+      "\u001b[?25l\u001b[1m\u001b[33ma\u001b[m\u001b[37;113H6\u001b[1;16H\u001b[?25h"
+    ],
+    [
+      0.573313,
+      "\u001b[?25l\u001b[1m\u001b[33m \u001b[m\u001b[37;113H7\u001b[1;17H\u001b[?25h"
+    ],
+    [
+      0.197602,
+      "\u001b[?25l\u001b[1m\u001b[33ma\u001b[m\u001b[37;113H8\u001b[1;18H\u001b[?25h"
+    ],
+    [
+      0.156437,
+      "\u001b[?25l\u001b[1m\u001b[33ms\u001b[m\u001b[37;113H9\u001b[1;19H\u001b[?25h"
+    ],
+    [
+      0.126623,
+      "\u001b[?25l\u001b[1m\u001b[33ms\u001b[m\u001b[37;112H20\u001b[1;20H\u001b[?25h"
+    ],
+    [
+      0.125316,
+      "\u001b[?25l\u001b[1m\u001b[33me\u001b[m\u001b[37;113H1\u001b[1;21H\u001b[?25h"
+    ],
+    [
+      0.123848,
+      "\u001b[?25l\u001b[1m\u001b[33mt\u001b[m\u001b[37;113H2\u001b[1;22H\u001b[?25h"
+    ],
+    [
+      0.165312,
+      "\u001b[?25l\u001b[1m\u001b[33ms\u001b[m\u001b[37;113H3\u001b[1;23H\u001b[?25h"
+    ],
+    [
+      0.922419,
+      "\u001b[?25l\u001b[1m\u001b[33m \u001b[m\u001b[37;113H4\u001b[1;24H\u001b[?25h"
+    ],
+    [
+      0.212296,
+      "\u001b[?25l\u001b[1m\u001b[33ma\u001b[m\u001b[37;113H5\u001b[1;25H\u001b[?25h"
+    ],
+    [
+      0.101672,
+      "\u001b[?25l\u001b[1m\u001b[33mn\u001b[m\u001b[37;113H6\u001b[1;26H\u001b[?25h"
+    ],
+    [
+      0.094736,
+      "\u001b[?25l\u001b[1m\u001b[33md\u001b[m\u001b[37;113H7\u001b[1;27H\u001b[?25h"
+    ],
+    [
+      0.101977,
+      "\u001b[?25l\u001b[1m\u001b[33m \u001b[m\u001b[37;113H8\u001b[1;28H\u001b[?25h"
+    ],
+    [
+      0.19293,
+      "\u001b[?25l\u001b[1m\u001b[33me\u001b[m\u001b[37;113H9\u001b[1;29H\u001b[?25h"
+    ],
+    [
+      0.110605,
+      "\u001b[?25l\u001b[1m\u001b[33mx\u001b[m\u001b[37;112H30\u001b[1;30H\u001b[?25h"
+    ],
+    [
+      0.213866,
+      "\u001b[?25l\u001b[1m\u001b[33ma\u001b[m\u001b[37;113H1\u001b[1;31H\u001b[?25h"
+    ],
+    [
+      0.191052,
+      "\u001b[?25l\u001b[1m\u001b[33mm\u001b[m\u001b[37;113H2\u001b[1;32H\u001b[?25h"
+    ],
+    [
+      0.125946,
+      "\u001b[?25l\u001b[1m\u001b[33mp\u001b[m\u001b[37;113H3\u001b[1;33H\u001b[?25h"
+    ],
+    [
+      0.102772,
+      "\u001b[?25l\u001b[1m\u001b[33ml\u001b[m\u001b[37;113H4\u001b[1;34H\u001b[?25h"
+    ],
+    [
+      0.111279,
+      "\u001b[?25l\u001b[1m\u001b[33me\u001b[m\u001b[37;113H5\u001b[1;35H\u001b[?25h"
+    ],
+    [
+      0.102989,
+      "\u001b[?25l\u001b[1m\u001b[33m \u001b[m\u001b[37;113H6\u001b[1;36H\u001b[?25h"
+    ],
+    [
+      0.221019,
+      "\u001b[?25l\u001b[1m\u001b[33mp\u001b[m\u001b[37;113H7\u001b[1;37H\u001b[?25h"
+    ],
+    [
+      0.151514,
+      "\u001b[?25l\u001b[1m\u001b[33mo\u001b[m\u001b[37;113H8\u001b[1;38H\u001b[?25h"
+    ],
+    [
+      0.083187,
+      "\u001b[?25l\u001b[1m\u001b[33ms\u001b[m\u001b[37;113H9\u001b[1;39H\u001b[?25h"
+    ],
+    [
+      0.085113,
+      "\u001b[?25l\u001b[1m\u001b[33mt\u001b[m\u001b[37;112H40\u001b[1;40H\u001b[?25h"
+    ],
+    [
+      0.68432,
+      "\u001b[?25l\u001b[2;36r\u001b[2;1H\u001b[L\u001b[1;37r\u001b[37;110H\u001b[K\u001b[37;110H2,1\u001b[11CAll\u001b[2;1H\u001b[?25h"
+    ],
+    [
+      0.95532,
+      "\u001b[37;1H\u001b[K\u001b[2;1H\u001b[?25l\u001b[37;100H^[\u001b[2;1H"
+    ],
+    [
+      0.100157,
+      "\u001b[37;100H  \u001b[2;1H\u001b[37;110H2,0-1\u001b[9CAll\u001b[2;1H\u001b[?25h"
+    ],
+    [
+      0.213104,
+      "\u001b[?25l\u001b[37;100H:\u001b[2;1H"
+    ],
+    [
+      0.000303,
+      "\u001b[37;100H\u001b[K\u001b[37;1H:"
+    ],
+    [
+      0.000207,
+      "\u001b[?2004h"
+    ],
+    [
+      0.000198,
+      "\u001b[?25h"
+    ],
+    [
+      0.268878,
+      "w"
+    ],
+    [
+      0.097107,
+      "q"
+    ],
+    [
+      0.311586,
+      "\r"
+    ],
+    [
+      0.000201,
+      "\u001b[?25l\u001b[?1002l\u001b[?2004l"
+    ],
+    [
+      0.000145,
+      "\".git/COMMIT_EDITMSG\""
+    ],
+    [
+      0.011538,
+      " 18L, 663C written"
+    ],
+    [
+      0.105927,
+      "\r\r\r\n\u001b[?2004l\u001b[?1l\u001b>\u001b[?25h\u001b[?1049l"
+    ],
+    [
+      0.010004,
+      "[master 98816ba] Added asciinema assets and example post\r\n"
+    ],
+    [
+      0.007962,
+      " 8 files changed, 10554 insertions(+), 3 deletions(-)\r\n create mode 100644 -/asciinema/asciinema-player.css\r\n create mode 100644 -/asciinema/asciinema-player.js\r\n create mode 100644 -/asciinema/cast/asciinema.org/108469.json\r\n create mode 100644 -/asciinema/cast/decimal-binary-foolishness.json\r\n"
+    ],
+    [
+      0.000127,
+      " create mode 100644 -/asciinema/cast/site-gen-demo.json\r\n create mode 100644 -/asciinema/cast/this-is-a-chromebook.json\r\n"
+    ],
+    [
+      0.001193,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      0.641067,
+      "g"
+    ],
+    [
+      0.04653,
+      "i"
+    ],
+    [
+      0.115866,
+      "t"
+    ],
+    [
+      0.111244,
+      " "
+    ],
+    [
+      0.060211,
+      "p"
+    ],
+    [
+      0.18621,
+      "u"
+    ],
+    [
+      0.090621,
+      "s"
+    ],
+    [
+      0.065873,
+      "h"
+    ],
+    [
+      0.988353,
+      "\r\n"
+    ],
+    [
+      0.891631,
+      "Counting objects: 16, done.\r\n"
+    ],
+    [
+      0.000984,
+      "Delta compression using up to 4 threads.\r\n"
+    ],
+    [
+      0.000272,
+      "Compressing objects:   7% (1/13)   \rCompressing objects:  15% (2/13)   \r"
+    ],
+    [
+      0.001898,
+      "Compressing objects:  23% (3/13)   \r"
+    ],
+    [
+      0.001752,
+      "Compressing objects:  30% (4/13)   \r"
+    ],
+    [
+      0.000892,
+      "Compressing objects:  38% (5/13)   \rCompressing objects:  46% (6/13)   \rCompressing objects:  53% (7/13)   \r"
+    ],
+    [
+      0.002087,
+      "Compressing objects:  61% (8/13)   \r"
+    ],
+    [
+      0.000985,
+      "Compressing objects:  69% (9/13)   \r"
+    ],
+    [
+      0.000149,
+      "Compressing objects:  76% (10/13)   \r"
+    ],
+    [
+      0.000367,
+      "Compressing objects:  84% (11/13)   \r"
+    ],
+    [
+      0.000371,
+      "Compressing objects:  92% (12/13)   \r"
+    ],
+    [
+      0.000241,
+      "Compressing objects: 100% (13/13)   \r"
+    ],
+    [
+      0.000476,
+      "Compressing objects: 100% (13/13), done.\r\n"
+    ],
+    [
+      0.00085,
+      "Writing objects:   6% (1/16)   \r"
+    ],
+    [
+      0.000338,
+      "Writing objects:  12% (2/16)   \r"
+    ],
+    [
+      0.000191,
+      "Writing objects:  18% (3/16)   \r"
+    ],
+    [
+      0.000386,
+      "Writing objects:  25% (4/16)   \r"
+    ],
+    [
+      0.002967,
+      "Writing objects:  31% (5/16)   \r"
+    ],
+    [
+      0.050916,
+      "Writing objects:  37% (6/16)   \r"
+    ],
+    [
+      0.000357,
+      "Writing objects:  43% (7/16)   \r"
+    ],
+    [
+      0.000227,
+      "Writing objects:  50% (8/16)   \r"
+    ],
+    [
+      0.003942,
+      "Writing objects:  56% (9/16)   \r"
+    ],
+    [
+      0.001782,
+      "Writing objects:  62% (10/16)   \r"
+    ],
+    [
+      0.001536,
+      "Writing objects:  68% (11/16)   \r"
+    ],
+    [
+      0.001435,
+      "Writing objects:  75% (12/16)   \r"
+    ],
+    [
+      0.000383,
+      "Writing objects:  81% (13/16)   \r"
+    ],
+    [
+      0.00025,
+      "Writing objects:  87% (14/16)   \r"
+    ],
+    [
+      0.000324,
+      "Writing objects:  93% (15/16)   \r"
+    ],
+    [
+      0.000169,
+      "Writing objects: 100% (16/16)   \r"
+    ],
+    [
+      0.000462,
+      "Writing objects: 100% (16/16), 167.07 KiB | 2.49 MiB/s, done.\r\n"
+    ],
+    [
+      0.000153,
+      "Total 16 (delta 5), reused 0 (delta 0)\r\n"
+    ],
+    [
+      0.508589,
+      "remote: Resolving deltas:   0% (0/5)   \u001b[K\rremote: Resolving deltas:  20% (1/5)   \u001b[K\rremote: Resolving deltas:  40% (2/5)   \u001b[K\rremote: Resolving deltas:  60% (3/5)   \u001b[K\rremote: Resolving deltas:  80% (4/5)   \u001b[K\r"
+    ],
+    [
+      0.000141,
+      "remote: Resolving deltas: 100% (5/5)   \u001b[K\rremote: Resolving deltas: 100% (5/5), completed with 4 local objects.\u001b[K\r\n"
+    ],
+    [
+      3.484116,
+      "To github.com:nimblemachines/nimblemachines.github.io.git\r\n"
+    ],
+    [
+      0.000355,
+      "   88bfec1..98816ba  "
+    ],
+    [
+      0.000155,
+      "master -> master"
+    ],
+    [
+      0.000132,
+      "\r\n"
+    ],
+    [
+      0.004213,
+      "[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ],
+    [
+      1.04035,
+      "#"
+    ],
+    [
+      0.137278,
+      " "
+    ],
+    [
+      0.183573,
+      "P"
+    ],
+    [
+      0.387732,
+      "u"
+    ],
+    [
+      0.080736,
+      "b"
+    ],
+    [
+      0.146785,
+      "l"
+    ],
+    [
+      0.072027,
+      "i"
+    ],
+    [
+      0.133916,
+      "s"
+    ],
+    [
+      0.073347,
+      "h"
+    ],
+    [
+      0.082481,
+      "e"
+    ],
+    [
+      0.161713,
+      "d"
+    ],
+    [
+      0.311117,
+      "!"
+    ],
+    [
+      0.470894,
+      "\r\n[david@acercromie ~/new-nimblemachines-site/github-nimble-html]$ "
+    ]
+  ],
+  "version": 1
+}

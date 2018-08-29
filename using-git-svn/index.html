@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/using-git-svn/" />
+<title>Using git svn &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Using git svn</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>By using <a href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a> I was able to convert my Subversion repo &ndash; which contains several projects, some with multiple branches &ndash; into Git repos, one per project. This page details the history of that effort, and the Git config setup that is necessary for success.</p>
+<p>Using git-svnimport was hopeless. Its use is now deprecated by the Git authors as well. <em>As of 2009 September 11 16:02, it&rsquo;s gone.</em></p>
+<p>Using my Lua code &ndash; to parse the dump file created by running &ldquo;svnadmin dump&rdquo; on my repo and feed a stream of commands to <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fast-import.html">git-fast-import</a> &ndash; showed promise and ran extremely fast (30 commits/s), but because of the twisted structure of my Subversion repository, and because of the way that paths are represented in the dump, it finally became obvious that that approach wasn&rsquo;t going to work.</p>
+<p>It was quite depressing to realise this. I liked my Lua code, and I had almost enjoyed trying to understand the Subversion dump file format. git-fast-import is cool too. Oh well.</p>
+<p>git-svn actually rocks. It is intended to be used as a two-way conduit between Subversion and Git. The idea is that a Git user could work on a Subversion-hosted project by using git-svn to clone the repo into Git, and by carefully creating only linear history on the Git side (by rebasing and not doing git-style merges), make local commits to Git that can subsequently be pushed to the Subversion repo. This kind of usage has lots of advantages, not least of which is that the entire history of the Subversion repo is available in the local Git repo, <em>and</em> commits to the local repo can be made offline and later pushed. Subversion users have neither of these &ndash; they are tethered to the central repo for both browsing history and committing.</p>
+<p>However, these lovely features of git-svn were irrelevant to me, as I was trying to get my code out of Subversion so I can leave Subversion behind, forever.</p>
+<p>git-svn works well, but setting it up is a bit strange. The documentation suggests that it can understand and parse a Subversion repo (or project in a subdirectory) with the &ldquo;standard&rdquo; layout: trunk/, branches/, tags/. I was unable to get this to work, at least with the <a href="https://muforth.nimblemachines.com/">muforth</a> code, which has been moved around a lot &ndash; checked into CVS, moved around; converted to Subversion, and then moved around some more, partly to fix how <em>cvs2svn</em> interpreted by repo, and partly to fix mistakes I had made along the way.</p>
+<p>Using git-svn to &ldquo;clone&rdquo; single branches worked perfectly, though. So I simply set up <em>by hand</em> all the branches that I wanted, and then one by one did</p>
+<pre>
+  git svn fetch &lt;branch>
+</pre>
+<p>The whole process went something like this. First I made a new Git repo for the project.</p>
+<pre>
+  mkdir muforth
+  cd muforth
+  git init
+</pre>
+<p>If you want decent commit messages with real email addresses you need to create an &ldquo;authors&rdquo; file that maps Subversion user names to email addresses. It looks like this:</p>
+<pre>
+  david   = David Frech &lt;david@example.com>
+  john    = John Deere &lt;john@example.com>
+  (no author) = some lousy conversion tool &lt;none>
+</pre>
+<p>The "(no author)" entry is necessary because <em>cvs2svn</em> and also some Subversion tools create log entries like that. Yes, it&rsquo;s lame.</p>
+<p>There are two ways to tell git-svn about our authors file. I created an entry in my global Git config (ie, the file <em>.gitconfig</em> in my home directory), like this:</p>
+<pre>
+  [svn]
+        authorsfile = /home/david/.svn-authors-for-git
+</pre>
+<p>I did this so I wouldn&rsquo;t forget to set the right command line switches; but it&rsquo;s also possible on each invocation of git-svn to specify</p>
+<pre>
+  -A&lt;filename>
+</pre>
+<p>or</p>
+<pre>
+  --authors-file=&lt;filename>
+</pre>
+<p>on the command line.</p>
+<p>After playing around with <em>git-svn init</em> to see what kind of config entries it creates, I manually edited muforth/.git/config and added lines like these, one per branch:</p>
+<pre>
+  [svn-remote "trunk"]
+        url = file:///home/david/tashtego/svn/muforth/trunk
+        fetch = :refs/remotes/muforth-trunk
+  [svn-remote "itc"]
+        url = file:///home/david/tashtego/svn/muforth/branches/itc
+        fetch = :refs/remotes/muforth-itc
+  [svn-remote "x86-native"]
+        url = file:///home/david/tashtego/svn/muforth/branches/x86_native
+        fetch = :refs/remotes/muforth-x86-native
+</pre>
+<p>I used <em>file://</em> URIs because the Subversion repo was local, but any scheme that Subversion understands will work. (You can also write file URIs as /path/to/some/file. I&rsquo;ve been doing more of that since I wrote this.)</p>
+<p>The &ldquo;fetch =" lines tell Git where to put the heads for the imported branches.</p>
+<p>With the above config I then did:</p>
+<pre>
+  git svn fetch trunk
+  git svn fetch itc
+  git svn fetch x86-native
+</pre>
+<p>I probably then did something like</p>
+<pre>
+  git branch master muforth-trunk
+</pre>
+<p>to create a local master branch based on muforth-trunk.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Using%20git%20svn">Send feedback</a> on this page (last edited 2009 September 11 16:04)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

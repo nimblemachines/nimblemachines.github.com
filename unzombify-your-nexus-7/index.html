@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="Android,Nexus 7,re-flash,Jelly Bean" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/unzombify-your-nexus-7/" />
+<title>Unzombify your Nexus 7 &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Unzombify your Nexus 7</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>If you have a Nexus 7 (2012) that you are frustrated with because it has become impossibly slow, I suggest you flash back to a previous Android release. For the uninitiated, here are the steps:</p>
+<ul>
+<li><a href="/installing-android-platform-tools-the-easy-way/">Install the Android platform tools</a> on your computer. (You need <code>fastboot</code> and you may find <code>adb</code> useful.)</li>
+<li>Back up your tablet! Unfortunately, the process of reflashing an earlier release will erase <em>everything</em> on the device. The first step in the reflashing process is to unlock the bootloader, and, for security reasons, this erases everything. Android devices show up as MTP devices rather than USB drives with FAT filesystems. This is fine on Windows, but since I was backing up to a Mac I used <a href="https://www.android.com/filetransfer/">Android File Transfer</a>, which works if you&rsquo;re patient but it can be a bit flaky. Not sure what one uses on Linux. It&rsquo;s also possible to use <code>adb&nbsp;pull</code> but this is involved enough to require a post of its own... However you do it, copy the files you want off the device and onto your computer. Make sure that Gmail, Contacts, Calendar, Chrome, etc have all synced their data and settings to the cloud.</li>
+<li>Download a zip file of the release that you want, and unzip it on your computer. There are separate factory images for the <a href="https://developers.google.com/android/nexus/images#nakasi">Nexus 7 WiFi (nakasi)</a>, and <a href="https://developers.google.com/android/nexus/images#nakasig">Nexus 7 Mobile (nakasig)</a>. Make sure to get the right one for your device. I&rsquo;m biased, but I suggest 4.3 (the JWR66Y build).</li>
+<li>Reboot your tablet into fastboot mode. You can do this in two ways. Either:</li>
+<li>Power down the tablet (by holding the power key until the dialog appears and then tapping &ldquo;Power down&rdquo;), and then reboot into the bootloader (by holding the Volume down button and the Power button simultaneously until you get to the bootloader screen). OR:</li>
+<li>Put your tablet into developer mode by going to <strong>Settings > About tablet</strong> and tapping the build number seven times. In <strong>Settings > Developer options</strong> turn on USB debugging. Then, open a command line and type <code>adb&nbsp;devices</code> to check the connection, and then type <code>adb&nbsp;reboot&nbsp;bootloader</code> to reboot into fastboot mode.</li>
+<li>If you&rsquo;re not already there, open a command line window and type <code>fastboot&nbsp;oem&nbsp;unlock</code>. This will unlock the bootloader and erase your device.</li>
+<li>cd into your unzipped release directory. Run the <code>flashall.sh</code> command (OSX and Linux) or <code>flashall.bat</code> command (Windows). You&rsquo;ll see a bunch of commands flash by (hah), then the tablet should reboot into a brand-new system.</li>
+</ul>
+<p>Your bootloader is still unlocked, so sometime soon (you don&rsquo;t have to do it immediately) you reboot into fastboot mode and run <code>fastboot&nbsp;oem&nbsp;lock</code> to re-secure your device. This prevents a hacker from bypassing the password or pattern login by unlocking and then rebooting your device into a mode where they can read its contents.</p>
+<p>Restore your backup by copying files using MTP or by using <code>adb&nbsp;push</code>.</p>
+<p>I hope this helps! There are other, more complicated things you can do (like flashing custom &ldquo;ROMS&rdquo;) but I prefer to stick with the vanilla Nexus images.</p>
+<p>Good luck!</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Unzombify%20your%20Nexus%207">Send feedback</a> on this page (last edited 2016 August 11 22:42)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

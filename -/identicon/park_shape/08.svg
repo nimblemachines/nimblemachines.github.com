@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC
+   "-//W3C//DTD SVG 1.1/EN"
+   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="120" height="120" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <title>a boring SVG shape</title>
+  <desc>
+    Lua generator commit: 2472d776
+    Generated from hex: nil nil
+    park_shape 08
+  </desc>
+  <path d="M 0 0 L 120 60 L 60 120 Z" fill="#104090" />
+</svg>

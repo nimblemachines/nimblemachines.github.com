@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC
+   "-//W3C//DTD SVG 1.1/EN"
+   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="480" height="480" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <title>a boring SVG shape</title>
+  <desc>
+    Lua generator commit: 2472d776
+    Generated from hex: efeb4507 0393ce6e
+    1 1 shape=8 turn=0 invert=0
+    2 1 shape=8 turn=1 invert=0
+    2 2 shape=8 turn=2 invert=0
+    1 2 shape=8 turn=3 invert=0
+    0 0 shape=11 turn=0 invert=0
+    3 0 shape=11 turn=1 invert=0
+    3 3 shape=11 turn=2 invert=0
+    0 3 shape=11 turn=3 invert=0
+    1 0 shape=14 turn=1 invert=0
+    2 0 shape=16 turn=3 invert=1
+    3 1 shape=14 turn=2 invert=0
+    3 2 shape=16 turn=4 invert=1
+    2 3 shape=14 turn=3 invert=0
+    1 3 shape=16 turn=5 invert=1
+    0 2 shape=14 turn=4 invert=0
+    0 1 shape=16 turn=6 invert=1
+  </desc>
+  <path d="M 120 120 L 180 120 L 180 180 L 240 180 L 180 240 L 120 180 Z" fill="#e0f0e0" />
+  <path d="M 360 120 L 360 180 L 300 180 L 300 240 L 240 180 L 300 120 Z" fill="#e0f0e0" />
+  <path d="M 360 360 L 300 360 L 300 300 L 240 300 L 300 240 L 360 300 Z" fill="#e0f0e0" />
+  <path d="M 120 360 L 120 300 L 180 300 L 180 240 L 240 300 L 180 360 Z" fill="#e0f0e0" />
+  <path d="M 0 0 L 60 0 L 60 60 L 0 60 Z" fill="#e0f0e0" />
+  <path d="M 480 0 L 480 60 L 420 60 L 420 0 Z" fill="#e0f0e0" />
+  <path d="M 480 480 L 420 480 L 420 420 L 480 420 Z" fill="#e0f0e0" />
+  <path d="M 0 480 L 0 420 L 60 420 L 60 480 Z" fill="#e0f0e0" />
+  <path d="M 240 0 L 240 120 L 210 30 L 120 0 Z" fill="#e0f0e0" />
+  <path d="M 240 0 L 330 30 L 360 120 L 240 0 L 270 90 L 360 120 L 240 120 Z M 240 120 L 360 120 L 360 0 L 240 0 Z" fill="#e0f0e0" />
+  <path d="M 480 240 L 360 240 L 450 210 L 480 120 Z" fill="#e0f0e0" />
+  <path d="M 480 240 L 450 330 L 360 360 L 480 240 L 390 270 L 360 360 L 360 240 Z M 360 240 L 360 360 L 480 360 L 480 240 Z" fill="#e0f0e0" />
+  <path d="M 240 480 L 240 360 L 270 450 L 360 480 Z" fill="#e0f0e0" />
+  <path d="M 240 480 L 150 450 L 120 360 L 240 480 L 210 390 L 120 360 L 240 360 Z M 240 360 L 120 360 L 120 480 L 240 480 Z" fill="#e0f0e0" />
+  <path d="M 0 240 L 120 240 L 30 270 L 0 360 Z" fill="#e0f0e0" />
+  <path d="M 0 240 L 30 150 L 120 120 L 0 240 L 90 210 L 120 120 L 120 240 Z M 120 240 L 120 120 L 0 120 L 0 240 Z" fill="#e0f0e0" />
+</svg>

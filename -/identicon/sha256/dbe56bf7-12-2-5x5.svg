@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC
+   "-//W3C//DTD SVG 1.1/EN"
+   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="600" height="600" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <title>a boring SVG shape</title>
+  <desc>
+    Lua generator commit: 2472d776
+    Generated from hex: e88c1df3 e0041f47
+    2 2 shape=5 turn=0 invert=0
+    1 1 shape=15 turn=1 invert=1
+    3 1 shape=15 turn=2 invert=1
+    3 3 shape=15 turn=3 invert=1
+    1 3 shape=15 turn=4 invert=1
+    2 1 shape=8 turn=0 invert=0
+    3 2 shape=8 turn=1 invert=0
+    2 3 shape=8 turn=2 invert=0
+    1 2 shape=8 turn=3 invert=0
+    0 0 shape=8 turn=2 invert=0
+    4 0 shape=8 turn=3 invert=0
+    4 4 shape=8 turn=4 invert=0
+    0 4 shape=8 turn=5 invert=0
+    2 0 shape=15 turn=1 invert=1
+    4 2 shape=15 turn=2 invert=1
+    2 4 shape=15 turn=3 invert=1
+    0 2 shape=15 turn=4 invert=1
+    1 0 shape=1 turn=0 invert=1
+    3 0 shape=1 turn=1 invert=1
+    4 1 shape=1 turn=1 invert=1
+    4 3 shape=1 turn=2 invert=1
+    3 4 shape=1 turn=2 invert=1
+    1 4 shape=1 turn=3 invert=1
+    0 3 shape=1 turn=3 invert=1
+    0 1 shape=1 turn=0 invert=1
+  </desc>
+  <path d="M 300 240 L 360 300 L 300 360 L 240 300 Z" fill="#e81030" />
+  <path d="M 240 240 L 120 240 L 120 120 L 150 180 L 240 120 L 180 210 Z M 240 120 L 120 120 L 120 240 L 240 240 Z" fill="#e81030" />
+  <path d="M 360 240 L 360 120 L 480 120 L 420 150 L 480 240 L 390 180 Z M 480 240 L 480 120 L 360 120 L 360 240 Z" fill="#e81030" />
+  <path d="M 360 360 L 480 360 L 480 480 L 450 420 L 360 480 L 420 390 Z M 360 480 L 480 480 L 480 360 L 360 360 Z" fill="#e81030" />
+  <path d="M 240 360 L 240 480 L 120 480 L 180 450 L 120 360 L 210 420 Z M 120 360 L 120 480 L 240 480 L 240 360 Z" fill="#e81030" />
+  <path d="M 240 120 L 300 120 L 300 180 L 360 180 L 300 240 L 240 180 Z" fill="#e81030" />
+  <path d="M 480 240 L 480 300 L 420 300 L 420 360 L 360 300 L 420 240 Z" fill="#e81030" />
+  <path d="M 360 480 L 300 480 L 300 420 L 240 420 L 300 360 L 360 420 Z" fill="#e81030" />
+  <path d="M 120 360 L 120 300 L 180 300 L 180 240 L 240 300 L 180 360 Z" fill="#e81030" />
+  <path d="M 120 120 L 60 120 L 60 60 L 0 60 L 60 0 L 120 60 Z" fill="#e81030" />
+  <path d="M 480 120 L 480 60 L 540 60 L 540 0 L 600 60 L 540 120 Z" fill="#e81030" />
+  <path d="M 480 480 L 540 480 L 540 540 L 600 540 L 540 600 L 480 540 Z" fill="#e81030" />
+  <path d="M 120 480 L 120 540 L 60 540 L 60 600 L 0 540 L 60 480 Z" fill="#e81030" />
+  <path d="M 360 120 L 240 120 L 240 0 L 270 60 L 360 0 L 300 90 Z M 360 0 L 240 0 L 240 120 L 360 120 Z" fill="#e81030" />
+  <path d="M 480 360 L 480 240 L 600 240 L 540 270 L 600 360 L 510 300 Z M 600 360 L 600 240 L 480 240 L 480 360 Z" fill="#e81030" />
+  <path d="M 240 480 L 360 480 L 360 600 L 330 540 L 240 600 L 300 510 Z M 240 600 L 360 600 L 360 480 L 240 480 Z" fill="#e81030" />
+  <path d="M 120 240 L 120 360 L 0 360 L 60 330 L 0 240 L 90 300 Z M 0 240 L 0 360 L 120 360 L 120 240 Z" fill="#e81030" />
+  <path d="M 120 0 L 240 0 L 240 120 L 120 120 Z M 120 0 L 120 120 L 240 120 L 240 0 Z" fill="#e81030" />
+  <path d="M 480 0 L 480 120 L 360 120 L 360 0 Z M 480 0 L 360 0 L 360 120 L 480 120 Z" fill="#e81030" />
+  <path d="M 600 120 L 600 240 L 480 240 L 480 120 Z M 600 120 L 480 120 L 480 240 L 600 240 Z" fill="#e81030" />
+  <path d="M 600 480 L 480 480 L 480 360 L 600 360 Z M 600 480 L 600 360 L 480 360 L 480 480 Z" fill="#e81030" />
+  <path d="M 480 600 L 360 600 L 360 480 L 480 480 Z M 480 600 L 480 480 L 360 480 L 360 600 Z" fill="#e81030" />
+  <path d="M 120 600 L 120 480 L 240 480 L 240 600 Z M 120 600 L 240 600 L 240 480 L 120 480 Z" fill="#e81030" />
+  <path d="M 0 480 L 0 360 L 120 360 L 120 480 Z M 0 480 L 120 480 L 120 360 L 0 360 Z" fill="#e81030" />
+  <path d="M 0 120 L 120 120 L 120 240 L 0 240 Z M 0 120 L 0 240 L 120 240 L 120 120 Z" fill="#e81030" />
+</svg>

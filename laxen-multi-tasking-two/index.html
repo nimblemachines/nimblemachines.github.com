@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/laxen-multi-tasking-two/" />
+<title>Laxen multi-tasking two &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Laxen multi-tasking two</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Original article appeared in <a href="http://www.forth.org/fd/FD-V5N5.pdf">Fourth Dimensions Volume V, Issue 5</a></p>
+<p>Other articles in this series: <a href="/laxen-multi-tasking-one/">Laxen multi-tasking one</a></p>
+<h2 id="multi-tasking-part-ii"><a href="#multi-tasking-part-ii">Multi-Tasking, Part II</a></h2>
+<p><em>Henry Laxen; Berkeley, California</em></p>
+<p>Last time, we saw how to implement the low-level portion of a multi-tasker. We learned that, in Forth, tasks must cooperate with each other and give up control of the CPU at various points. We saw how the <code class="forth">PAUSE</code> and <code class="forth">RESTART</code> words work and how they very efficiently save the status of a task and restore it. This time, we will take a look at how to create tasks and, once started, how to manage them.</p>
+<p>Just for the record, let me restate that tasks are linked together in a circular list via the <code class="forth">LINK</code> user variable. A task is active if the <code class="forth">ENTRY</code> user variable contains an RST instruction, and is inactive if it contains a JMP instruction.</p>
+<p>The human (I want to say user but will refrain) interface to this mechanism is displayed in figure one. Let&rsquo;s take a look at what each word does and how it works. First, <code class="forth">LOCAL</code> is a tool that allows one to access a user variable within a specified task. It just computes the actual address of a user variable, given the starting address of the required task. <code class="forth">SLEEP</code> installs a NOP instruction into byte zero of the <code class="forth">ENTRY</code> user variable. Since byte one contains a JMP instruction, the effect of <code class="forth">SLEEP</code> is to guarantee that the next task will get control immediately without this task doing anything. Notice that there is only one instruction (a JMP) executed for each inactive task. This is extremely low overhead. The <code class="forth">WAKE</code> word is he inverse of <code class="forth">SLEEP</code>. It installs an RST instruction into byte zero of <code class="forth">ENTRY</code>. This will eventually cause the <code class="forth">RESTART</code> word to be executed, and awaken this task. Finally, the <code class="forth">STOP</code> word simply puts the current task to sleep and passes control to the next task. <code class="forth">WAKE</code> and <code class="forth">SLEEP</code> both require an argument, which is a pointer to the task that they are to act on, while <code class="forth">STOP</code> acts on the current task and, hence, requires no argument. The names for these functions are extremely apt and I wish the credit for them was mine; but I am afraid they belong to Charles Moore. Thank you, Chuck.</p>
+<div class="voiceforth">
+<pre>
+  [Figure One]
+  : LOCAL (S base addr -- addr' )
+     UP @ -   + ;
+  : SLEEP (S addr -- )
+     0 ( NOP ) SWAP ENTRY LOCAL C! ;
+  : WAKE  (S addr -- )
+     207 ( RST ) SWAP ENTRY LOCAL C! ;
+  : STOP  (S -- )
+     UP @ SLEEP   PAUSE ;
+</pre>
+</div>
+
+<p>Now that we know how to start a and stop tasks once they exist, let&rsquo;s take a look at what must be done to set up a task in the first place. The code associated with this appears in figure two. The <code class="forth">TASK:</code> word sets up a task of a specified size. The <code class="forth">SET-TASK</code> word initializes a task so that it is ready to run and the <code class="forth">ACTIVATE</code> word allows you to associate a high-level definition with the task. Let&rsquo;s look at each word in more detail.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Two]
+  : TASK: (S size -- )
+     CREATE   TOS HERE #USER @ CMOVE   ( Copy the User Area )
+     HERE ENTRY LOCAL LINK !   ( I point to him )
+     ENTRY   UP @ -ROT   HERE UP !  LINK !   ( He points to me )
+     DUP HERE +   DUP RP0 !   100 - SP0 !   SWAP UP !
+     ( Reserve space for return stack )
+     HERE #USER @ +   HERE DP LOCAL !
+     HERE SLEEP   ALLOT ;
+</pre>
+<pre>
+  : SET-TASK (S ip task -- )
+     DUP SP0 LOCAL @   ( top of stack )
+     2- ROT OVER !   ( Initial IP )
+     2- OVER RP0 LOCAL @ OVER !   ( Initial RP )
+     SWAP TOS LOCAL ! ;
+</pre>
+<pre>
+  : ACTIVATE (S task -- )
+     R> OVER SET-TASK  WAKE ;
+</pre>
+</div>
+
+<p>Tasks are allocated as part of the dictionary. Also, each task must have its own user area, return stack, parameter stack and dictionary space. This setup is handled in <code class="forth">TASK:</code> which is a defining word that creates a task with a given name and of a specified size. When the name of the task is executed, it returns a pointer to itself. A simple <code class="forth">CREATE</code> suffices for this function, since the word it defines returns its parameter field address.</p>
+<p>Next, a copy of the current task&rsquo;s <code class="forth">USER</code> area is copied to the new task. On line two we set up the current task&rsquo;s <code class="forth">LINK</code> pointer to point to the new task, and on line three we make the new task point to the old entry point of the current task. We also save a pointer to the current task on the stack. On line five we set up the size of the return stack and the empty parameter stack of the new task, and restore the user pointer to point to the current task. On line size we initialize the new task&rsquo;s dictionary pointer and, finally, on line seven we put the new task to sleep and allocate space for it in the dictionary of the current task.</p>
+<p><code class="forth">SET-TASK</code> sets up a task for its first execution. It place the initial values of the IP and the return stack pointer onto the new task&rsquo;s parameter stack, and stuffs the new task&rsquo;s initial parameter stack value into the <code class="forth">TOS</code> user variable for the new task. In essence, <code class="forth">SET-TASK</code> behaves as though the new task has just done a <code class="forth">PAUSE</code>, and is ready to do a <code class="forth">RESTART</code>. This is what you would expect. Finally, <code class="forth">ACTIVATE</code> uses <code class="forth">SET-TASK</code> to make the new task point to the code following the activate word, and <code class="forth">WAKE</code>s up the new task.</p>
+<p>Last but not least, let&rsquo;s see how we actually set up another task. Figure three illustrates this. On the first line we define a <code class="forth">COUNTING</code> task and allocate 400 bytes for its use. On the next line we simply define a variable called <code class="forth">#TIMES</code>. which will hold the number of times we have counted. Then we define a word called <code class="forth">COUNTER</code> which specifies that the <code class="forth">COUNTING</code> task is to be <code class="forth">ACTIVATE</code>d by explicit use of the <code class="forth">PAUSE</code> word. This is absolutely vital, since this task performs no I/O, hence it must explicitly give up control of the CPU at specified moments. To start running the task, simply execute the word <code class="forth">COUNTER</code>. Now you can watch the behavior of the task by periodically displaying the contents of the variable <code class="forth">#TIMES</code>. You will be able to see it incrementing very rapidly. If you want to stop the new task from executing, you need only type <code class="forth">COUNTING SLEEP</code>. Again, you can query the value of <code class="forth">#TIMES</code> and, indeed, verify that the task has suspended operation. To start it up again, just type <code class="forth">COUNTING WAKE</code> and you will once again be able to see the variable <code class="forth">#TIMES</code> incrementing.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Three]
+  400 TASK: COUNTING
+  VARIABLE #TIMES
+  : COUNTER COUNTING ACTIVATE BEGIN  1 #TIMES +!  PAUSE AGAIN ;
+  COUNTER
+</pre>
+</div>
+
+<p>This has been an extremely simple example of a background task. Other applications can be far more useful. For example, you can use the multi-tasker as a mechanism for implementing print spooling and windowing, as well as pipes and filters. I hope these two articles on multi-tasking are a starting point for your own experimentation. Until next time, may the Forth be with you.</p>
+<hr />
+<p>Copyright &copy; 1983 by Henry Laxen. All rights reserved.</p>
+<p>Other articles in this series: <a href="/laxen-multi-tasking-one/">Laxen multi-tasking one</a></p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Laxen%20multi-tasking%20two">Send feedback</a> on this page (last edited 2006 April 15 08:20)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

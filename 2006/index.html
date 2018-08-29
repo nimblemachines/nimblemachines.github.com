@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2006/" />
+<title>2006 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2006 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="december-17-18:32"><a href="#december-17-18:32">2006 December 17 18:32</a></h3>
+<p>Been thinking a lot about the PIC. I&rsquo;ve decided to try the PIC on some projects. I&rsquo;m going to spend some time learning the so-called &ldquo;midrange&rdquo; (14-bit instruction) PIC architecture. Programmming it in a structured way is going to be a bit of a challenge, but I&rsquo;m liking the simplicity and directness of the design.</p>
+<p>The <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1406&amp;dDocName=en023805">PICkit 2 Starter Kit</a> seems like a good way to jump in. This is a USB programmer bundled with a project board that will accept 8, 14, and 20 pin parts. The project board includes a (socketed) <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1335&amp;dDocName=en023112">16F690</a> &ndash; a quite capable 20 pin PIC. There is another board coming available, also compatible with the PICkit 2, that will accept 28 pin parts.</p>
+<p>The <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1406&amp;dDocName=en010053">PICkit 1 Starter Kit</a> is still available, and is a bit cheaper ($36 rather than $50), but it&rsquo;s not as flexible and can only program baseline and midrange parts (the 10F, 12F, and 16F families). The PICkit 2 can program practically any PIC.</p>
+<p>For both kits the bundled programming software is Windows-only, but the source code for the firmware of both programmers is available, so using either with non-Windows programming software is a possibility.</p>
+<p>Both kits include introductory lessons in doing things the PIC way. These make the chips quite approachable for beginners.</p>
+<p>Now I have to decide which parts I want to play with...</p>
+<hr />
+<h3 id="december-13-23:37"><a href="#december-13-23:37">2006 December 13 23:37</a></h3>
+<p>I spent much of yesterday and today reading and thinking about microcontrollers. I&rsquo;m going around and around and around about which families I want to invest time and money in. The money isn&rsquo;t much &ndash; $50 per type, roughly &ndash; but the time can be enormous. They are all very different, appealing, and appalling, in idiosyncratic ways. I change my mind daily about which one seems like a good fit with my needs, interests, and aesthetics.</p>
+<p>Right now the big three are</p>
+<ul>
+<li><a href="http://atmel.com/">Atmel</a> <a href="http://atmel.com/products/avr/">AVR</a></li>
+<li><a href="http://www.freescale.com/">Freescale</a> <a href="http://www.freescale.com/webapp/sps/site/overview.jsp?nodeId=01624684491437">HCS08</a></li>
+<li><a href="http://www.microchip.com/">Microchip</a> <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=74">PIC</a></li>
+</ul>
+<p>I&rsquo;ve added my thoughts about these three families to microcontroller shootout.</p>
+<p>I&rsquo;d like to find one family that can do most of the things I&rsquo;m currently thinking of, and perhaps re-doing some of what I&rsquo;ve done with Trimpin:</p>
+<ul>
+<li>scan keyboards or switch arrays</li>
+<li>control lots of solenoids, using PWM, either based on internal patterns or an input MIDI stream</li>
+<li>blink lots of moving LEDs, making patterns or text (persistence of vision, or POV, tricks) &ndash; see <a href="/spoken-word/">Spoken Word</a> for an example</li>
+<li>blink a small number of LEDs in an interesting way, to get attention (for a bicycle safety flasher)</li>
+<li>capture &ldquo;real world&rdquo; data, perhaps converting it to MIDI</li>
+<li>capture gestures using optical encoders, and generate an interesting, musical MIDI stream</li>
+</ul>
+<p>Once I figure out a good way to wire and power both worn and bicycle-mounted lighting, I&rsquo;m sure I&rsquo;ll need some microcontrollers to control it all, and to deal with battery charging.</p>
+<hr />
+<h3 id="november-15-14:36"><a href="#november-15-14:36">2006 November 15 14:36</a></h3>
+<p>Last night, thinking a bit more about Lua (and why I like it so much), I realized the answer: Lua is a <a href="/convivial-tool/">convivial tool</a>.</p>
+<p>That term is probably unfamiliar to you. In his landmark 1973 book <a href="/tools-for-conviviality-book/"><em>Tools for conviviality</em></a> <a href="https://en.wikipedia.org/wiki/Ivan_Illich">Ivan Illich</a> mounted a compelling critique of industrial society. He claimed that we cannot have a society of authentic human relations unless the tools for production of the artifacts needed by that society are <em>under the control of the people using them</em>. Here is a quote to whet your appetite:</p>
+<blockquote><p>I choose the term &ldquo;conviviality&rdquo; to designate the opposite of industrial productivity. I intend it to mean autonomous and creative intercourse among persons, and the intercourse of persons with their environment; and this in contrast with the conditioned response of persons to the demands made upon them by others, and by a man-made environment. I consider conviviality to be individual freedom realized in personal interdependence and, as such, an intrinsic ethical value. I believe that, in any society, as conviviality is reduced below a certain level, no amount of industrial productivity can effectively satisfy the needs it creates among society&rsquo;s members.</p></blockquote>
+<p>This fits nicely with what I (when I remember to!) consider part of the &ldquo;mission&rdquo; of Nimble Machines: <em>liberation</em>. Not necessarily, or simply, liberation <em>from</em> technology, but perhaps liberation through <em>convivial</em> technology. As much as I might like to be, I am not a Luddite; technology fascinates me. But I cannot stomach technologies whose production <em>or consumption</em> is inimical to personal freedom, expression, and relatedness.</p>
+<p>He tells the story better than I ever could. <a href="/tools-for-conviviality-book/">Read the book.</a></p>
+<p>Then you can read why I think Lua and Forth are <a href="/convivial-tool/">convivial tool</a>s.</p>
+<hr />
+<h3 id="november-15-01:30"><a href="#november-15-01:30">2006 November 15 01:30</a></h3>
+<p>I&rsquo;ve made this page the &ldquo;front page&rdquo; of the site. It&rsquo;s also no longer called Davids notes; it&rsquo;s now called, simply, <a href="/">Nimble Machines</a>. Why Nimble Machines still explains the site&rsquo;s name, and recent changes logs recent activity, as ever.</p>
+<div class="voice2">
+<p>Since this page is now all about <strong>you</strong> :-) and effectively your blog, I wonder whether putting my comments directly on the <em>same</em> page is (still) the right thing to do? --Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>It&rsquo;s not so different than having comments enabled on a blog. I thought about this. I&rsquo;m not so worried about it, esp when it&rsquo;s clear which are my thoughts and which belong to others.</p>
+</div>
+<hr />
+<h3 id="november-14-14:24"><a href="#november-14-14:24">2006 November 14 14:24</a></h3>
+<p>I&rsquo;ve spent the last few days recasting my rendering code into Lua, and trying to radically restructure it. It&rsquo;s been an interesting challenge; it seems more subtle than it &ldquo;should&rdquo; be, though perhaps I am simply getting old and slow.</p>
+<p>I&rsquo;m also interested in having the generated XHTML conform to <a href="http://www.w3.org/TR/xhtml-basic">XHTML Basic</a> rather than <a href="http://www.w3.org/TR/xhtml1">XHTML 1.0 Strict</a>. <a href="http://www.w3.org/">W3C</a> have <a href="http://www.w3.org/TR/2006/WD-xhtml-modularization-20060705/">modularized the XHTML specs</a>, to create a family of specs; Basic is a strict subset (of XHTML 1.0) that is intended to render anywhere (ie, on mobile devices and handhelds as well as desktops). It excludes <em>presentation</em> markup but keeps all the semantic (text) markup. It leaves out frames (yay!), and implements slightly simplified models for <em>forms</em> and <em>tables</em>, but I think my generated code will fit the simpler models.</p>
+<p>The only element that I generate that XHTML Basic leaves out is <strong>hr</strong>; it is considered <em>presentation</em> (like <strong>i</strong>, <strong>b</strong>, and <strong>tt</strong>) and is thereby anathema. However, I think I can generate an empty <strong>div</strong> and style it with one edge of its box solid. So, no worries there.</p>
+<div class="voice2">
+<p>Actually, you don&rsquo;t have to. If you choose <a href="http://www.w3.org/TR/2006/REC-xhtml-print-20060920/">XHTML Print</a> instead of XHTML Basic, you get the <a href="http://www.w3.org/TR/2006/REC-xhtml-print-20060920/#s1.3.2">Presentation module</a> back. --Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>But I&rsquo;m not sure I want it. I <em>like</em> the idea of using the most parsimonious markup. <strong>hr</strong> isn&rsquo;t strictly necessary, esp if I can get it by styling, say, the toplevel headings. This would make "----" even easier to use, since you wouldn&rsquo;t ever have to decide when to use it, or even to type it! (In other words, "----" goes away completely. ;-)</p>
+</div>
+<hr />
+<h3 id="november-05-17:11"><a href="#november-05-17:11">2006 November 05 17:11</a></h3>
+<p>I spent all day (16 hrs) on Friday and several hours yesterday and today converting the &ldquo;wiki markup engine&rdquo; from Perl to PHP. It works &ndash; the PHP code generates the same XHTML as the Perl code &ndash; but in the process I realized just how awful PHP is.</p>
+<p>I wanted to like PHP. Leading up to actually doing this I had been reading the PHP documentation and finding irritating gotchas, idiosyncrasies, nonlinearities, and special cases. Every time I thought about starting on this project, I would feel a little bit nauseated. Finally, on Friday, I just jumped in. I enjoyed myself well enough, but discovered lots of language misfeatures, and found that I spent a lot of time struggling with the documentation. There is lots of it, but it&rsquo;s hard to find anything. It describes things, but gives no sense of their underlying meaning or structure. Or subtle semantics. And it seems there is lots of subtle semantics in PHP. It is impossible to get a strong intuitive understanding of PHP from its documentation.</p>
+<p>Having completed this task, I&rsquo;m tempted to ignore PHP for as long as possible. Hopefully for ever.</p>
+<p>Late last night, after my PHP struggles, I read a few pages of the <a href="http://www.inf.puc-rio.br/~roberto/pil2/">new Lua book</a> (the &ldquo;blue PiL&rdquo;) and remembered how simple, elegant, and beautiful Lua is. While I feel glum and oppressed reading the PHP documentation, I get excited reading about Lua. It seems to have no warts; every feature carries its weight, and there is nothing in the language that doesn&rsquo;t belong; and the documentation (esp <em>Programming in Lua</em>, both 1ed and 2ed (PiL)) is clearly written and a delight to read.</p>
+<p>I&rsquo;d like to think that I can do everything in Lua. Let&rsquo;s see: I&rsquo;ll start by converting my pages into Lua tables, so I can use Lua as a data structure parser. Then rewrite the markup engine in Lua, using its simple pattern matcher, and maybe writing a little parser. Then write a web app to publish it. Perhaps <a href="http://keplerproject.org">Kepler</a> can help.</p>
+<p>I need a name. Hmm... Maybe &ldquo;Orbit&rdquo;?</p>
+<hr />
+<h3 id="november-03-16:53"><a href="#november-03-16:53">2006 November 03 16:53</a></h3>
+<p>Thinking again, after 18 months or so, about restructuring and rewriting this web engine.</p>
+<hr />
+<h3 id="november-03-00:02"><a href="#november-03-00:02">2006 November 03 00:02</a></h3>
+<p>Now all off-site links are constructed as calls to a tiny PHP script (out.php) that simply redirects to the target URI (in the query string). This way I can see how people are leaving the site. Not that anyone is actually <em>reading</em> it...</p>
+<p>I still need to figure out a clean way to hide the ".php&rdquo; in off-site URIs. This was a simple hack to get more interesting logs. Now to refine it.</p>
+<p>(a bit later) Ok. Fixed. I added the following into the .htaccess file:</p>
+<pre>
+ # So we can access "out" (a php file) w/out its extension.
+ &lt;Files out>
+   ForceType application/x-httpd-php
+ &lt;/Files>
+</pre>
+<hr />
+<h3 id="october-01-17:16"><a href="#october-01-17:16">2006 October 01 17:16</a></h3>
+<p>Just now, while reading this <a href="http://geekz.co.uk/lovesraymond">online comic</a> I was laughing so hard tears were streaming down my face. If you know about GNU and Linux, and know who Richard Stallman, Linus Torvalds, Er<span class="empty"></span>ic<span class="empty"></span> R<span class="empty"></span>ay<span class="empty"></span>mo<span class="empty"></span>nd<span class="empty"></span>, Bruce Perens, and Mark Shuttleworth are, you should enjoy it.</p>
+<p>Be prepared for tears!</p>
+<p>(BTW: if you look at the HTML for this page, you won&rsquo;t see Er<span class="empty"></span>ic<span class="empty"></span> R<span class="empty"></span>'s name in it, so Google won&rsquo;t index it. I added markup that inserts empty <strong>span</strong> elements, and used this to break his name into pieces. The more invisible we can make him, the better.)</p>
+<hr />
+<h3 id="october-01-15:37"><a href="#october-01-15:37">2006 October 01 15:37</a></h3>
+<p>One thing leads to another!</p>
+<p>Today while thinking more about free and open source software, I thought it would be interesting to read Richard Stallman's thoughts about the differences between &ldquo;free&rdquo; and &ldquo;open source&rdquo;. Ages ago (late &rsquo;80s?) I read with interest the <a href="http://www.gnu.org/gnu/manifesto.html">GNU Manifesto</a>, and agreed passionately with his philosophy. I&rsquo;ve changed my mind somewhat since then, but I wanted to revisit his story, his motivations for starting the <a href="http://fsf.org/">Free Software Foundation (FSF)</a> and the <a href="http://gnu.org/">GNU Project</a>, and the differences among all the current &ldquo;free&rdquo; and &ldquo;open source&rdquo; software licenses.</p>
+<p>It&rsquo;s a complicated world!</p>
+<p>So now I have to do the following:</p>
+<ul>
+<li>choose a new license for <a href="https://muforth.nimblemachines.com/">muforth</a> (again: it went from GNU GPL to Apache v2; now I want a modern (advertising-clause-free) BSD-style (perhaps MIT) license; the Apache license mentions patents unnecessarily);</li>
+<li>implement the change of license for <a href="https://muforth.nimblemachines.com/">muforth</a> (<em>sed</em> hackery!);</li>
+<li>document the differences in philosophy between the &ldquo;free&rdquo; and &ldquo;open source&rdquo; software communities (or at least point to Richard Stallman's careful writings on the subject);</li>
+<li>talk about how influenced and moved I was initially by the philosophy behind the GNU GPL (copyleft!), but how I now believe in more permissive licenses;</li>
+<li>take some time to go outside and enjoy a bit of sunshine!</li>
+</ul>
+<p>Lots to do.</p>
+<hr />
+<h3 id="september-30-16:15"><a href="#september-30-16:15">2006 September 30 16:15</a></h3>
+<p>I was reading (on <a href="http://yarivsblog.com/">this blog</a>) about <a href="http://erlang.org/">Erlang</a> last night, and it struck me that O&rsquo;Reilly books dont interest me. While supposedly about technologies for early adopters, their books are mostly about free and open source software that is a product of the church of ad hockery. And to make money, O&rsquo;Reilly has to publish <em>popular</em> books &ndash; so they can hardly be on the leading-edge of adoption.</p>
+<p>Should my O&rsquo;Reilly rant instead be called O&rsquo;Reilly is irrelevant?</p>
+<hr />
+<h3 id="september-29-02:54"><a href="#september-29-02:54">2006 September 29 02:54</a></h3>
+<p>A new look for the site! Comments?</p>
+<hr />
+<h3 id="september-26-03:52"><a href="#september-26-03:52">2006 September 26 03:52</a></h3>
+<p>Changed the wiki code to generate more &ldquo;typeset&rdquo; output for quotes and dashes. This means that pasting code from the web into an editor causes trouble, but it&rsquo;s much nicer to read. (Sorry, Michael!)</p>
+<p>I also added a &ldquo;comment&rdquo; link to the footer of every page that is viewed readonly. Right now it is a mailto: link; it could later be a simple web-form that sends email to the configured webmaster.</p>
+<hr />
+<h3 id="september-14-08:31"><a href="#september-14-08:31">2006 September 14 08:31</a></h3>
+<p>Added <a href="/spoken-word/">Spoken Word</a> &ndash; project page for my bicycle wheel text flasher/speller thingy.</p>
+<hr />
+<h3 id="september-02-21:27"><a href="#september-02-21:27">2006 September 02 21:27</a></h3>
+<p>Change &ldquo;voices&rdquo; styles so that any voice other than the first (default) voice is shifted to the right (3pc left indent, -3pc right indent).</p>
+<p>What do you think?</p>
+<div class="voice2">
+<p>I think it looks a bit odd. Other voices are not quotations, but now somehow look like they are. I am also not sure (meaning I haven&rsquo;t looked for pages with many voice changes) how a switch back to the first voice is handled. The different color makes the voices stand out enough, IMO.</p>
+<p>(BTW, I think the right indent doesn&rsquo;t work.)</p>
+</div>
+<div class="voice3">
+<p>Actually it does. I drew colored boxes around the div&rsquo;s and you can see that it goes further to the right, but because the <em>text</em> is ragged right, it&rsquo;s harder to see.</p>
+</div>
+<div class="voice2">
+<p>What I would like to see is a way of having a discussion with multiple voices, with a second &ldquo;default&rdquo; voice for the original author that is used to distinguish his replies to other voices from the original text of the page. How should that be displayed? --Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>Well, what&rsquo;s wrong with what we&rsquo;re doing now, using voices two and three? I think it looks fine, and it&rsquo;s easy enough.</p>
+</div>
+<hr />
+<h3 id="september-02-20:37"><a href="#september-02-20:37">2006 September 02 20:37</a></h3>
+<p>Excited about the <a href="/lua-programming-language/">Lua programming language</a>!</p>
+<hr />
+<h3 id="june-17-15:40"><a href="#june-17-15:40">2006 June 17 15:40</a></h3>
+<p>So, I finally put together &ndash; but not with the &ldquo;final&rdquo; parts &ndash; my Motobecane fixie (fixed gear bicycle) project. Last night at 1:30am I rode it for the first time. It was weird. Starting and stopping is hard; balancing and riding slowly is easy.</p>
+<p>Today I rode around in tight circles, clockwise and anticlockwise. I was also trying to do trackstands; I can do one for about five seconds. The record is held by an Italian track racer, who apparently did a trackstand for an hour and five minutes!</p>
+<hr />
+<h3 id="may-09-13:19"><a href="#may-09-13:19">2006 May 09 13:19</a></h3>
+<p>My latest obsession (taking a break from microcontrollers): the fixed gear bicycle. Why would you want to ride a one-speed bicycle that won&rsquo;t let you coast? Hmm...</p>
+<hr />
+<h3 id="april-24-11:27"><a href="#april-24-11:27">2006 April 24 11:27</a></h3>
+<p>Since I&rsquo;m thinking about using the <a href="/freescale/">Freescale</a> 908QB8 in some projects, I thought I&rsquo;d make a quick link here. (I&rsquo;ve decided to use the 9S08QG8 instead &ndash; a newer variant.) There is more info in the microcontroller shootout.</p>
+<hr />
+<h3 id="april-09-13:02"><a href="#april-09-13:02">2006 April 09 13:02</a></h3>
+<p>Reading about the MSP430 instruction set makes me want to write the real story of carry and borrow. Like the 6502 and the ARM, the MSP430 implements a &ldquo;natural&rdquo; borrow (logically &ldquo;not carry&rdquo;), rather than a synthesized borrow. I appreciate architectures that do this.</p>
+<hr />
+<h3 id="april-08-12:01"><a href="#april-08-12:01">2006 April 08 12:01</a></h3>
+<p>Yesterday, after ordering an Olimex <a href="/arm-development-board/">ARM development board</a>, I spent some time figuring out <a href="/rs-232-cabling/">RS-232 cabling</a>, and wanted to document my findings.</p>
+<hr />
+<h3 id="april-06-16:49"><a href="#april-06-16:49">2006 April 06 16:49</a></h3>
+<p>Ok, so that&rsquo;s fixed. Phew. I captured the modtimes of the old pages files, applied them as properties to the new pages, checked them in, and modified the wiki script to use the &ldquo;modtime&rdquo; property from Subversion when it makes the &ldquo;last edited&rdquo; link. Everything works fine.</p>
+<hr />
+<h3 id="april-06-15:54"><a href="#april-06-15:54">2006 April 06 15:54</a></h3>
+<p>Well, this sucks. Every time I ran <em>svn update</em> on the pages directory, it touched all the files, making them appear as if they had been recently edited. Now the &ldquo;last edited&rdquo; link at the bottom of every page is wrong.</p>
+<p>I suppose, since I&rsquo;m now using Subversion, that I could attach a <em>property</em> to the page with its last edited time. Seems redundant, but maybe that&rsquo;s the best &amp; most robust solution.</p>
+<hr />
+<h3 id="april-06-01:47"><a href="#april-06-01:47">2006 April 06 01:47</a></h3>
+<p>Add ARM development boards, <a href="/fig-forth/">fig-FORTH</a>, and <a href="/demystifying-create-does/">demystifying create does</a>.</p>
+<hr />
+<h3 id="april-05-22:30"><a href="#april-05-22:30">2006 April 05 22:30</a></h3>
+<p>One more thing. Added code to the wiki so that newly-added pages get added to svn.</p>
+<hr />
+<h3 id="april-05-17:16"><a href="#april-05-17:16">2006 April 05 17:16</a></h3>
+<p>Built a new repo and migrated the wiki pages. Let&rsquo;s try this again...</p>
+<p>That sort of worked. It checked into the repo, but the command returned some junk that confused the wiki script. Now we&rsquo;re concatenating the command output to a log file...</p>
+<p>Actually running svn --quiet seems to work. But now I can&rsquo;t get decent info at the command line from svn log...</p>
+<p>Never mind. It&rsquo;s working fine. Just Subversion confusion: in order to see the latest log entries you have to <em>svn update</em> first.</p>
+<hr />
+<h3 id="april-05-16:39"><a href="#april-05-16:39">2006 April 05 16:39</a></h3>
+<p>Ok. Testing the svn ci tweak. That didn&rsquo;t work. I just realized that the <em>www</em> user does not have write permission to the Subversion repo, and that&rsquo;s <em>not</em> something I want to change... So I&rsquo;ll have to make a www-only repo with the pages in it.</p>
+<hr />
+<h3 id="april-05-14:18"><a href="#april-05-14:18">2006 April 05 14:18</a></h3>
+<p>That worked beautifully! Now I can use</p>
+<pre>
+  svn st pages
+</pre>
+<p>to see what has changed (status), and</p>
+<pre>
+  svn di pages
+</pre>
+<p>to see (diff) the changes, and</p>
+<pre>
+  svn ci pages
+</pre>
+<p>to check them in! Maybe later today I can fix the wiki script to check-in automagically...</p>
+<hr />
+<h3 id="april-05-14:14"><a href="#april-05-14:14">2006 April 05 14:14</a></h3>
+<p>This is a test.</p>
+<p>I checked the wiki pages into Subversion as a separate &ldquo;project&rdquo; from the wiki code itself. This way two things are possible:</p>
+<ul>
+<li>working on the wiki code without a heap of pages that you don&rsquo;t care about;</li>
+<li>using Subversion to track changes to the pages, by simply adding</li>
+</ul>
+<pre>
+  svn ci -m "page edited"
+</pre>
+<p>to the wiki script! This makes the page archive directory obsolete.</p>
+<p>As soon as I figure out how to do diffs nicely using Subversion I&rsquo;ll deprecate (ie, <em>delete</em>) the archive entirely.</p>
+<hr />
+<h3 id="march-29-18:09"><a href="#march-29-18:09">2006 March 29 18:09</a></h3>
+<p>Thinking again what would be a <a href="/good-first-motorcycle/">good first motorcycle</a>. Mostly I found some nice pictures of the Kawasaki Ninja 500R (aka EX500R) and wanted a place to put them.</p>
+<hr />
+<h3 id="march-29-14:56"><a href="#march-29-14:56">2006 March 29 14:56</a></h3>
+<p>Made a wikified copy of Neal Stephenson&rsquo;s <a href="/in-the-beginning-was-the-command-line/">in the beginning was the command line</a>. The original .zip file is available <a href="http://www.cryptonomicon.com/beginning.html">here</a>.</p>
+<hr />
+<h3 id="march-27-23:50"><a href="#march-27-23:50">2006 March 27 23:50</a></h3>
+<p>A (dumbish) idea: a latest pix page! There you can find a flickr badge with my latest pix, should I ever either:</p>
+<ol>
+<li>get in the habit of taking pictures and uploading them regularly; or</li>
+<li>get a camera phone, and take &amp; upload pictures regularly.</li>
+</ol>
+<p>;-)</p>
+<hr />
+<h3 id="march-22-00:42"><a href="#march-22-00:42">2006 March 22 00:42</a></h3>
+<p>Looking at my weblogs. Wow! People are actually finding the site on Google! A few people searched for Rivendell Bicycle Works, for &ldquo;klr motard&rdquo;, for &ldquo;dual-purpose motorcycle&rdquo;, and for &ldquo;muforth&rdquo; and found me! Cool!</p>
+<p>In particular I wanted to put up a <a href="https://muforth.nimblemachines.com/">muforth</a> page so that I could mention the program there, and solicit comments.</p>
+<hr />
+<h3 id="march-21-14:09"><a href="#march-21-14:09">2006 March 21 14:09</a></h3>
+<p>Adding markup for obfuscated <em>mailto</em> links. Like so:</p>
+<pre>
+  [[mailto:johndoe@example.com email me]]
+</pre>
+<p>renders as <a href="mailto:%6a%6f%68%6e%64%6f%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202006%20journal">email me</a>. The link text is necessary, and should be something other than your email address!</p>
+<p>I added this as a way for people to contact me thru the wiki.</p>
+<hr />
+<h3 id="march-21-12:25"><a href="#march-21-12:25">2006 March 21 12:25</a></h3>
+<p>After the relative pain of adding the flickr markup to the wiki codebase &ndash; Perl bites! &ndash; I&rsquo;m thinking again, seriously, of rewriting this beast in a nicer language, and one that I would enjoy more. The main contenders, as usual, are:</p>
+<ul>
+<li>Python</li>
+<li>OCaml</li>
+<li>Haskell</li>
+</ul>
+<p>It would be a good learning experience, the same way that writing this wiki helped me learn (and learn to <em>hate</em>) Perl.</p>
+<hr />
+<h3 id="march-20-18:13"><a href="#march-20-18:13">2006 March 20 18:13</a></h3>
+<p>Trying out my flickr badge experiment:</p>
+<div class="flickr_badge">
+  <script type="text/javascript" src="https://www.flickr.com/badge_code_v2.gne?count=5&amp;display=random&amp;layout=x&amp;size=t&amp;source=user&amp;user=52541558%40N00"></script>
+</div>
+<p>I tried to put the images on a colored background, but I was unable to get it to style properly. Either the band of color was a little strip (the height, interestingly, of a line of <em>text</em>), and was the right <em>width</em>, or it was the right height (tall enough for the tallest image) but the width of the page.</p>
+<p>It&rsquo;s not important &ndash; I think it looks nice without a background &ndash; but does anyone know how to style this (I tried wrapping in another div, but to no avail) to make this work?</p>
+<p><em>Amusing footnote.</em> I changed the script to use public photos tagged with &ldquo;nimble&rdquo; and &ldquo;machine&rdquo;. Guess what? In flickr&rsquo;s millions of photos, <em>there isn&rsquo;t a single one</em> tagged that way.</p>
+<hr />
+<h3 id="march-03-21:58"><a href="#march-03-21:58">2006 March 03 21:58</a></h3>
+<p>When good enough isnt good enough. ;-)</p>
+<hr />
+<p>Read the <a href="/2005/">2005 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202006%20journal">Send feedback</a> on this page (last edited 2014 February 26 17:21)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

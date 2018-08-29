@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/learning-sed/" />
+<title>Learning sed &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Learning sed</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Today (2006 January 04 20:57) I finished a small <em>sed</em> project: converting the 5000-line body of an html page to a form that was much more useful (to me). It was a good excuse to put <em>sed</em> through its paces, and to finally learn about its hidden nooks and crannies. The main feature I missed: the ability to set variables and to copy their values into RHSs of <em>s</em> (substitution) commands. As it was, I got to practice my Forth programming: moving strings between the pattern (stack) and hold (return stack) spaces. ;-)</p>
+<p>Unfortunately the FreeBSD man page is an awful tutorial (and a mediocre reference). After getting quite frustrated with it I searched and found some more useful sources. The <a href="http://www.faqs.org/faqs/editor-faq/sed/index.html">FAQ</a> was a good start. But the gold mine I found <a href="http://sed.sourceforge.net/grabbag/tutorials/sed_mcmahon.txt">here</a>: the original manual that the original <em>sed</em> author &ndash; Lee McMahon &ndash; wrote for the original version. (Here is the <a href="http://plan9.bell-labs.com/7thEdMan/vol2/sed">original troff source</a>.)</p>
+<p>As is often the case, the first telling of the story is clearer, crisper, and gentler than all its successors.</p>
+<p>I have edited out the page headers and footers (which were printed inline), and have removed (and added) a few blank lines, for clarity.</p>
+<p>Ladies and gentlemen, please give a warm welcome to...</p>
+<hr />
+<pre>
+               SED -- A Non-interactive Text Editor
+ 
+                          Lee E. McMahon
+ 
+                      AT&amp;T Bell Laboratories
+                   Murray Hill, New Jersey 07974
+ 
+                             ABSTRACT
+ 
+           Sed  is a non-interactive context editor that runs
+      on the UNIX operating system.  Sed is  designed  to  be
+      especially useful in three cases:
+ 
+           1)  To edit files too large for comfortable inter-
+                active editing;
+           2) To edit any size  file  when  the  sequence  of
+                editing  commands  is  too  complicated to be
+                comfortably typed in interactive mode.
+           3) To perform multiple `global' editing  functions
+                efficiently in one pass through the input.
+</pre>
+<hr />
+<p>I&rsquo;ve moved the text of the <a href="/sed-manual/">sed manual</a> elsewhere, to give more room on this page for discussion.</p>
+<hr />
+<div class="voice2">
+<p>It&rsquo;s amazing what you can do with just the basic tools: ed, sed, lex, yacc, awk, cat, dd, rm, ls, mv, sh, cp, &amp; grep.</p>
+<p>Neddy Seagoon</p>
+</div>
+<div class="voice3">
+<p>Why was it necessary to use <em>sed</em>? Personally, I find <em>awk</em> more <em>user friendly</em> &ndash; and it works for most of the things I need. And I can remember all (well, most) of its builtins. --Michael Pruemm</p>
+</div>
+
+<p>The way I had to tear apart and rebuild the text seemed much harder in awk. I wasn&rsquo;t breaking things up by spaces; instead I relied entirely on REs, and I didn&rsquo;t see a clean way to do this in awk. I didn&rsquo;t want to use <em>substr</em> and friends: REs were a much better match.</p>
+<p>Am I mistaken here?</p>
+<div class="voice3">
+<p>Awk has <em>match</em>, <em>sub</em> and <em>gsub</em> functions that take regular expressions. Also, <em>split</em> and the field and record separators can be regular expressions. So I would say, yes, you can do all that in awk and it is probably more readable.</p>
+<p>Note that this applies to what is sometimes called <em>new awk</em> as described in the book <em><a href="http://cm.bell-labs.com/cm/cs/awkbook/">The AWK Programming language</a></em> by Aho, Weinberger and Kernighan. Some (older) systems have <em>awk</em> and <em>nawk</em> executables where the latter supports the new features described in the book. The programs <em>gawk</em> and <em>mawk</em> always did, as does the version that is available from the book page, <em>the one true awk</em>.</p>
+<p>A small example of what you wanted to do might be helpful for further discussion.</p>
+</div>
+
+<p>Well, I had an HTML file full of references (inside a table) of the form:</p>
+<pre>
+ &lt;td width="60">1/4/05&lt;/td>
+ &lt;td width="120">This is a title&lt;/td>
+ &lt;td width="480">This is a long description, probably several lines long,  
+     describing the object&lt;/td>
+</pre>
+<p>There were several hundred of these triples, and a bunch of other junk. The first thing I did was to throw away everything that didn&rsquo;t match one of the three lines. Then I canonicalized the date formats &ndash; they needed to be mm/dd/yyyy so I could later generate link names of the form <em>yyyymmdd-special</em>.</p>
+<p>Then, for each triple I generated (roughly, given the above &ldquo;example&rdquo;):</p>
+<pre>
+ &lt;h2>&lt;em>2005.01.04&lt;/em>.
+ &lt;a href="http://example.com/20050104-special">This is a title&lt;/a>&lt;/h2>
+ &lt;p>This is a long ... object&lt;/p>
+</pre>
+<p>Not complicated, mind, and quite easy to do in <em>sed</em>, but only <em>once I had concatenated the three things into one long line</em> (using <em>h</em> and <em>H</em>) so I could match all three parts in one long RE to build the final HTML.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Learning%20sed">Send feedback</a> on this page (last edited 2006 January 16 01:32)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

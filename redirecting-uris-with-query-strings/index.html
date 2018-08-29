@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/redirecting-uris-with-query-strings/" />
+<title>Redirecting URIs with query strings &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Redirecting URIs with query strings</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>My old wiki code used query strings to identify resources &ndash; not exactly kosher, according the the <a href="/http-spec/">HTTP spec</a>. I remember reading, in those early days (;-), some of Google&rsquo;s &ldquo;notes to webmasters&rdquo;, in which they claimed that Google might not properly index a site that used query strings. I think they didn&rsquo;t want to spider a potentially infinite space of dynamic pages.</p>
+<p>And, in fact, the first few months my site was up, Google was fetching the robots.txt and the front page, but not digging any deeper. I fiddled around with various things, and ended up <em>removing</em> a big meta keywords element. After that, causally or not, Google started spidering me.</p>
+<p>But I never liked the query string URIs. After a couple of attempts I&rsquo;ve finally replaced them with pathinfo-style URIs.</p>
+<p>I want the old URIs to continue to work, however, since there are going to be lots of cached links (at Google at least) and I don&rsquo;t want everything to immediately break.</p>
+<p>Essentially the task is to forward</p>
+<pre>
+  /wiki?show=&lt;pagename>
+</pre>
+<p>to</p>
+<pre>
+  /show/&lt;pagename>
+</pre>
+<p>That seems pretty easy, right? Since I&rsquo;m using Apache as a &ldquo;dispatcher&rdquo; &ndash; the &ldquo;show&rdquo; in that URI is actually a script &ndash; I figured it would be easy to do this using RedirectMatch. After some befuddlement I realized that the query string &ndash; like the pathinfo string &ndash; doesn&rsquo;t show up in the URI that the Apache directives get to work with. The query string and pathinfo parts of the request URI have already been written to environment variables. Since those directives don&rsquo;t have access to the envvars representing an HTTP request, I had two choices:</p>
+<ul>
+<li>have &ldquo;wiki&rdquo; be a small redirector script that extracts the query string and generates an HTTP Redirect to the new URI; or</li>
+<li>try using the rewrite engine (mod_rewrite).</li>
+</ul>
+<p>I&rsquo;ve looked at mod_rewrite in the past and found it to be a huge messy powerful kludge. It&rsquo;s ugly. And the documentation is appalling. Actually, the Apache server documentation in general is appalling. A perfect example of this is that <em>nowhere</em> do they say that query strings and pathinfo parts are stripped out of the URI before matching with Alias, AliasMatch, Redirect, and RedirectMatch.</p>
+<p>Even though I had essentially the code to do the redirect (my wiki code has to parse the query string, and I wrote a redirector to solve another problem), I decided to try mod_rewrite. It wasn&rsquo;t too bad &ndash; except for one thing: the way that you tell it to elide the query string in the rewritten URI is <em>completely retarded</em>.</p>
+<p>Here is the config snippet:</p>
+<pre>
+  RewriteEngine On
+  RewriteCond   %{QUERY_STRING}  show=(.+)
+  RewriteRule   ^/(browse|wiki)  /show/%1? [last,redirect=301]
+</pre>
+<p>It&rsquo;s pretty simple: turn on the engine. Match a URI with a query string of the form &ldquo;show=&lt;page>". Capture the &lt;page> in %1. Now rewrite /browse or /wiki URIs with this query string to "/show/&lt;page>". The trailing "?&rdquo; is the &ldquo;clue&rdquo; to the rewriter to null out the query string. Since the rewritten URI can include a query string, it seems to me to make more sense that simply leaving it blank (which is what I did at first) would be the sensible thing. If I want to keep it I should have to write it on the right side.</p>
+<p>The "[last,redirect=301]" bit is a note to</p>
+<ul>
+<li>not match any more rules, and</li>
+<li>send a Permanent Redirect (301) to the client.</li>
+</ul>
+<p>Since these URIs are history I figured 301 (permanent) made more sense than 302 (temporary).</p>
+<p>That&rsquo;s it! It works great.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Redirecting%20URIs%20with%20query%20strings">Send feedback</a> on this page (last edited 2007 November 16 21:30)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

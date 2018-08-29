@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/debugging-ssh-and-bash/" />
+<title>Debugging ssh and bash &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Debugging ssh and bash</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Have you ever had problems using <em>ssh</em> to run commands on a remote machine? Ever wondered, eg, why the <code>PATH</code> on the remote machine wasn&rsquo;t getting set properly?</p>
+<p>Some time ago (2007-ish) I ran into this problem while debugging <code>svn+ssh</code> URLs on Subversion. Since I no longer use Subversion, and because I buried the nuggets of gold that I found in an excessively prolix description of my methods of deduction, I&rsquo;ve decided to rewrite this page to put the <em>really useful</em> bits at the top, and move the long, verbose version to the end.</p>
+<p>I&rsquo;m going to assume that you&rsquo;re running Bash on the remote machine. All of the tests that I orginally did were to determine the behaviour of Bash. <code>sh</code>, <code>zsh</code>, <code>csh</code> and others might be susceptible to the same analysis, but the details will surely differ.</p>
+<h2 id="short-version"><a href="#short-version">Short version</a></h2>
+<p>To begin to debug <code>PATH</code> (and other environment variable) problems, do this:</p>
+<pre>
+  ssh &lt;remote> env | sort | less
+</pre>
+<p>This will run <em>env</em> on the remote machine and sort and display the results. Is the <code>PATH</code> correct? If not, you are probably setting it in your <code>.bash_login</code> or <code>.profile</code> on the remote machine, but this won&rsquo;t work! Why? <em>Because Bash doesn&rsquo;t source those files when run by sshd.</em> (To find out where this is &ldquo;documented&rdquo;, skip to the <a href="#long-ago-version">long version of this story</a>, below.</p>
+<p>An incredibly useful tool for debugging this is to set (and export) environment variables in the remote machine&rsquo;s Bash startup files to see which files are actually getting sourced when Bash is run by <em>sshd</em>. So, put</p>
+<pre>
+  export DOTBASHRC=1
+</pre>
+<p>into the remote machine&rsquo;s <code>.bashrc</code>,</p>
+<pre>
+  export DOTBASH_LOGIN=1
+</pre>
+<p>into <code>.bash_login</code>, and</p>
+<pre>
+  export DOTPROFILE=1
+</pre>
+<p>into <code>.profile</code>.</p>
+<p>Now try running</p>
+<pre>
+  ssh &lt;remote> env | sort | less
+</pre>
+<p>What did you get? When I did this, I got this:</p>
+<pre>
+  DOTBASHRC=1
+</pre>
+<p>Moral: Set all of your important environment variables in the <code>.bashrc</code> file, and source it from <code>.bash_login</code> (or <code>.profile</code>, if you use that). This way the variables get set, no matter what.</p>
+<p>That was easy, right?</p>
+<p>Now read about the painful process I went through while trying to figure all this out!</p>
+<h2 id="long-ago-version"><a href="#long-ago-version">Long (ago) version</a></h2>
+<p><em>Situation: I was setting up a Mac mini (OSX 10.4) to host Subversion repos, transitioning from FreeBSD.</em></p>
+<p>In the commands that follow, <code>osxbox</code> represents the name of the OSX machine, and <code>bsdbox</code> the FreeBSD machine.</p>
+<p>After building Subversion on OSX, and installing a separate (and newer) version (of Subversion), I wondered which one I would get using the svn+ssh scheme:</p>
+<pre>
+  svn ls svn+ssh://osxbox/home/svn
+</pre>
+<p>This was the result:</p>
+<pre>
+  bash: line 1: svnserve: command not found
+  svn: Connection closed unexpectedly
+</pre>
+<p><em>svnserve</em> is the protocol server that gets run on the remote end when you use svn+ssh.</p>
+<p>Running</p>
+<pre>
+   ssh osxbox env
+</pre>
+<p>yielded this:</p>
+<pre>
+  PATH=/usr/bin:/bin:/usr/sbin:/sbin
+</pre>
+<p>The older Subversion was in /usr/local/bin; the newer one in /usr/local/subversion-1.4/bin. Neither was on this <code>PATH</code>.</p>
+<p>I use Bash &ndash; both on the OSX server-to-be and on the FreeBSD box I&rsquo;m ssh&rsquo;ing from. I had to figure out how to debug which Bash startup files get sourced when logging in via <em>ssh</em>. I spent a long time reading the <em>ssh</em>, <em>sshd</em>, <em>ssh_config</em>, and <em>sshd_config</em> man pages, but they said nothing about shell startup files. I knew I didn&rsquo;t have a <code>.ssh/environment</code> file &ndash; which is a way to set enviroment variables on the remote machine &ndash; and I wasn&rsquo;t passing environment variables over the ssh link. So where were they getting set?</p>
+<p>This used to work on FreeBSD. Somehow on FreeBSD Bash&rsquo;s <code>PATH</code> was set to include /usr/local/bin, which is where the Subversion binaries &ndash; in particular <em>svnserve</em> &ndash; live. In contrast, on OSX, the <code>PATH</code> is rather minimal.</p>
+<p>Why the difference? The Mac runs a newer version of <em>sshd</em> than my FreeBSD box. But the <em>sshd</em> man pages weren&rsquo;t significantly different. I didn&rsquo;t think that the <em>sshd</em> on FreeBSD was doing something special with the <code>PATH</code>.</p>
+<p>After some digging, I found an interesting difference between FreeBSD and OSX: FreeBSD has <em>login classes</em>, and the standard login class sets a <code>PATH</code> that includes /usr/local/bin &ndash; which is where &ldquo;add-on&rdquo; software, such as Subversion, gets installed. OSX lacks login classes, so the <code>PATH</code> needs to be set by a shell startup script. On FreeBSD running</p>
+<pre>
+  ssh bsdbox env
+</pre>
+<p>yields</p>
+<pre>
+  PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:\
+       /usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:\
+       /home/david/bin
+</pre>
+<p>Conclusion: On OSX we need to set the <code>PATH</code> ourselves. The big question is: Where? When you ssh into a remote machine where you run Bash, which startup scripts get sourced? Any guesses? Here are a few possibilities:</p>
+<pre>
+  /etc/profile
+  $HOME/.profile
+  $HOME/.bashrc
+  $HOME/.bash_login
+  $HOME/.bash_profile
+</pre>
+<p>I read the Bash man page (which is really confusing). Depending on whether the shell is a <em>login</em> shell, an <em>interactive</em> shell, or both, it sources different files. So what kind of Bash are we getting over ssh, when we request command execution rather than a login? (Remember, svn+ssh runs <em>svnserve</em> on the remote end, rather than running a login shell.)</p>
+<p>I tried this (after first failing because I used double-quotes &ndash; sigh):</p>
+<pre>
+  ssh osxbox 'echo $BASH $0 $*'
+</pre>
+<p>and it yielded</p>
+<pre>
+  /bin/bash bash
+</pre>
+<p>which tells us the complete path to bash, and how bash was invoked. (Well, sort of. We can&rsquo;t see bash&rsquo;s options, but we can see its parameters &ndash; none, in this case.) ssh&rsquo;ing into the FreeBSD box things are similar, but bash is in a different place:</p>
+<pre>
+  ssh bsdbox 'echo $BASH $0 $*'
+</pre>
+<p>yields</p>
+<pre>
+  /usr/local/bin/bash bash
+</pre>
+<p>When I first tried this (with the wrong quotes) I got a confusing answer:</p>
+<pre>
+  ssh osxbox "echo $BASH $0 $*"
+</pre>
+<p>gives</p>
+<pre>
+  /usr/local/bin/bash -bash
+</pre>
+<p>which is confusing for two reasons:</p>
+<ul>
+<li>-bash is a login shell, but we&rsquo;re not logging in, and;</li>
+<li>/usr/local/bin/bash is where the <em>local</em> bash is (I ran this <em>on</em> bsdbox, sshing <em>into</em> osxbox)</li>
+</ul>
+<p>and that&rsquo;s how I knew my quotes were wrong. So now I knew how Bash was getting run. Here&rsquo;s what the man page says:</p>
+<pre>
+  A  login shell is one whose first character of argument zero is a -, or
+  one started with the --login option.
+</pre>
+<p>Our shell is &ldquo;bash&rdquo; and not "-bash&rdquo;, but we don&rsquo;t know if it&rsquo;s being given -l or --login &ndash; we can&rsquo;t see that. So it <em>could</em> be a login shell.</p>
+<pre>
+  An interactive shell is one started without  non-option  arguments  and
+  without the -c option whose standard input and error are both connected
+  to terminals (as determined by isatty(3)), or one started with  the  -i
+  option.   PS1 is set and $- includes i if bash is interactive, allowing
+  a shell script or a startup file to test this state.
+</pre>
+<p>Again, we can&rsquo;t tell what option arguments were given to bash, and how to tell if we are connected to terminals? What does $- contain?</p>
+<pre>
+  ssh osxbox 'echo $BASH $0 $* $-'
+</pre>
+<p>gives</p>
+<pre>
+  /bin/bash bash hBc
+</pre>
+<p>Hmm. No &ldquo;i&rdquo; in there, so bash thinks it&rsquo;s <em>not</em> interactive. The &ldquo;h&rdquo; means &ldquo;hashall&rdquo; and the &ldquo;B&rdquo; means &ldquo;brace expansion&rdquo;. There is no mention of &ldquo;c&rdquo;, but I think it has to do with being passed commands via -c:</p>
+<pre>
+  bash -c 'echo $BASH $0 $* $-'
+</pre>
+<p>yields</p>
+<pre>
+  /bin/bash bash hBc
+</pre>
+<p>on OSX. We seem to be getting a non-interactive shell, but we can&rsquo;t be sure it&rsquo;s not a login shell. It probably isn&rsquo;t. It <em>shouldn&rsquo;t</em> be. And remember that if I run</p>
+<pre>
+  echo "$BASH $0 $* $-"
+</pre>
+<p>in an interactive, login shell I get</p>
+<pre>
+  /bin/bash -bash  himBH
+</pre>
+<p>The &ldquo;i&rdquo; in the options means interactive; the "-bash&rdquo; means login.</p>
+<p><em>Aside: One reason, perhaps, for preferring csh over bash is that it&rsquo;s trivially easy to make this distinction in csh: it sets the variable $loginsh for login shells.</em></p>
+<p>Let&rsquo;s assume our shell is a non-interactive, non-login shell. What scripts would it source? Here is what the man page says:</p>
+<pre>
+  When bash is started non-interactively, to  run  a  shell  script,  for
+  example, it looks for the variable BASH_ENV in the environment, expands
+  its value if it appears there, and uses the expanded value as the  name
+  of  a  file to read and execute.  Bash behaves as if the following com-
+  mand were executed:
+         if [ -n "$BASH_ENV" ]; then . "$BASH_ENV"; fi
+  but the value of the PATH variable is not used to search for  the  file
+  name.
+</pre>
+<p><code>BASH_ENV</code> is unset, so nothing happens here. It would seem that it doesn&rsquo;t source <em>any</em> files. Ah, but there is one last piece, a gross hack:</p>
+<pre>
+  Bash attempts to determine when it is being run  by  the  remote  shell
+  daemon,  usually  rshd.  If bash determines it is being run by rshd, it
+  reads and executes commands from ~/.bashrc, if that file exists and  is
+  readable.  It will not do this if invoked as sh.  The --norc option may
+  be used to inhibit this behavior, and the --rcfile option may  be  used
+  to  force  another  file to be read, but rshd does not generally invoke
+  the shell with those options or allow them to be specified.
+</pre>
+<p>Our shell is being started by <em>sshd</em> rather than <em>rshd</em>, but Bash might be able to figure this out.</p>
+<p>In order to be <em>absolutely sure</em> of what was going on, I finally lit on a simple but powerful idea: set and export a variable in each startup script so I can tell if it has been sourced. <code>.bashrc</code> will set <code>DOTBASHRC=1</code>; <code>.profile</code> will set <code>DOTPROFILE=1</code>, etc.</p>
+<p>With this set up, I ran</p>
+<pre>
+  ssh macosx env
+</pre>
+<p>and got this:</p>
+<pre>
+  DOTBASHRC=1
+</pre>
+<p>Ah, empiricism!</p>
+<p>Problem solved. In order to get <code>PATH</code> set the way you want it for remote ssh command execution, you have to set it in your <code>.bashrc</code> on the remote machine.</p>
+<p>Phew!</p>
+<p>(Extra credit homework: What does csh do?)</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Debugging%20ssh%20and%20bash">Send feedback</a> on this page (last edited 2016 April 27 16:23)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

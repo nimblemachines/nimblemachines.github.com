@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC
+   "-//W3C//DTD SVG 1.1/EN"
+   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="360" height="360" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <title>a boring SVG shape</title>
+  <desc>
+    Lua generator commit: 2472d776
+    Generated from hex: 3e66b6a2 eb0a62e0
+    1 1 shape=1 turn=0 invert=0
+    0 0 shape=5 turn=2 invert=1
+    2 0 shape=5 turn=3 invert=1
+    2 2 shape=5 turn=4 invert=1
+    0 2 shape=5 turn=5 invert=1
+    1 0 shape=14 turn=1 invert=0
+    2 1 shape=14 turn=2 invert=0
+    1 2 shape=14 turn=3 invert=0
+    0 1 shape=14 turn=4 invert=0
+  </desc>
+  <path d="M 120 120 L 240 120 L 240 240 L 120 240 Z" fill="#38c898" />
+  <path d="M 60 120 L 0 60 L 60 0 L 120 60 Z M 120 120 L 120 0 L 0 0 L 0 120 Z" fill="#38c898" />
+  <path d="M 240 60 L 300 0 L 360 60 L 300 120 Z M 240 120 L 360 120 L 360 0 L 240 0 Z" fill="#38c898" />
+  <path d="M 300 240 L 360 300 L 300 360 L 240 300 Z M 240 240 L 240 360 L 360 360 L 360 240 Z" fill="#38c898" />
+  <path d="M 120 300 L 60 360 L 0 300 L 60 240 Z M 120 240 L 0 240 L 0 360 L 120 360 Z" fill="#38c898" />
+  <path d="M 240 0 L 240 120 L 210 30 L 120 0 Z" fill="#38c898" />
+  <path d="M 360 240 L 240 240 L 330 210 L 360 120 Z" fill="#38c898" />
+  <path d="M 120 360 L 120 240 L 150 330 L 240 360 Z" fill="#38c898" />
+  <path d="M 0 120 L 120 120 L 30 150 L 0 240 Z" fill="#38c898" />
+</svg>

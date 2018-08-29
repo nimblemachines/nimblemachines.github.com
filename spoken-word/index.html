@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/spoken-word/" />
+<title>Spoken Word &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Spoken Word</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>A silly pun. This is the provisional name I&rsquo;m giving to my bicycle wheel LED persistence of vision (POV) project. The idea is put a row of LEDs controlled by a microcontroller onto the wheel, and have it spell things out as you ride, as a safety feature (making you much more visible from the side), a propaganda tool, and for fun.</p>
+<p>Other possible names:</p>
+<ul>
+<li>Spoken words</li>
+<li>Spoken text</li>
+<li>Velolover&rsquo;s Revolver</li>
+<li>Revolutionary words</li>
+<li>Revolutionary text</li>
+<li>Speak-n-spoke</li>
+</ul>
+<p>etc. You get the idea.</p>
+<p>Similar projects (and my inspiration) are <a href="http://www.ladyada.net/make/spokepov/index.html">here</a> and <a href="https://drewish.com/projects/2-sided-pov/">here</a>.</p>
+<hr />
+<h2 id="technology"><a href="#technology">Technology</a></h2>
+<p>Update: I&rsquo;ve changed my mind about this again, but I&rsquo;m embarrassed to say when. I will admit that in late 2008, when I started working in earnest on <a href="https://muforth.nimblemachines.com/">muforth</a> support for the <a href="/freescale/">Freescale</a> <a href="/freescale-hcs08/">S08</a> series of 8-bit microcontrollers, I fell in love with them.</p>
+<p>The QG series has some problems, however. There is at least one serious erratum about the ICS &ndash; internal clock source &ndash; preventing it from running reliably at 10 MHz. The workaround is to run it at only 5 MHz. This seems rather ... sad.</p>
+<p>The QE series &ndash; which also comes in DIP 16 packages and 8 KiB flash versions &ndash; is very similar, and is actually a slight upgrade from the QG. It&rsquo;s probably what I would use if I could ever get traction on this project...</p>
+<hr />
+<p>As of 2006 December 18 03:24, I&rsquo;ve changed my mind on this. I was planning on using a <a href="/freescale/">Freescale</a> <a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MC9S08QG8&amp;nodeId=016246844914370726">MC9S08QG8</a> (part of the <a href="http://www.freescale.com/webapp/sps/site/overview.jsp?nodeId=01624684491437">HCS08 family</a>). This chip has 8k of Flash, 512 bytes of RAM, lots of peripherals, just enough I/O, and comes in a handy (for me) 16 pin DIP package.</p>
+<p>This is a nice enough chip, but there are other options, and for various (mostly hysterically non-rational) reasons I&rsquo;ve decided to start out using a Microchip PIC instead. Probably a 14 pin midrange part &ndash; either the <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1335&amp;dDocName=en010214">16F684</a> or <a href="http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1335&amp;dDocName=en010215">16F688</a>. I won&rsquo;t have as much Flash to work with (2k and 4k words, resp.), and I can&rsquo;t store bitmaps or character strings as efficiently &ndash; because of the Harvard architecture I can only put 8 bits of data in each 14 bit program word &ndash; but I think there is room to have fun. If I really need more space I can put an 8 bit EEPROM in the circuit and store the bitmaps and strings there, like <a href="http://www.ladyada.net/make/spokepov/">Limor, aka ladyada</a>, does.</p>
+<hr />
+<div class="voice2">
+<p>Another option is the Freescale <a href="http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MC908QB8&amp;nodeId=016246844976630029">MC908QB8</a>, a member of the (slightly older) <a href="http://www.freescale.com/webapp/sps/site/overview.jsp?nodeId=01624684497663">HC08</a> family. The 9S08QG8 and 908QB8 are broadly similar: both have 16 pins and 8k of Flash, and similar peripherals, but there are both subtle and significant differences:</p>
+<ul>
+<li>the HCS08 CPU core has extra addressing mode encodings for LDHX and STHX that the HC08 lacks; these are very useful for Forth;</li>
+<li>the HCS08 CPU is pipelined and has a faster top clock speed;</li>
+<li>the HCS08 CPU will run at 1.8 to 3.6 volts; the HC08 runs at 2.7 to 5.5v; as I plan to run my gizmo from two 1.2v NiMH AA cells, I need to be able to run at 2.4v;</li>
+<li>the HCS08 CPU has a background debug mode (BDM) which requires only one pin and allows for fancy debugging, but requires specialized hardware (a $50 evaluation board) and software (Windows only!), while the HC08 has a built-in ROM bootloader which talks over the serial port, and will work with any host;</li>
+<li>the 908QB8 has &ldquo;only&rdquo; 256 bytes of RAM, compared with the 9S08GQ8&rsquo;s 512 bytes.</li>
+</ul>
+<p>I have five free samples of each part to play with.</p>
+</div>
+
+<hr />
+<p>The HC08/HCS08 is the latest &ldquo;incarnation&rdquo; of the 6800. Hmm, but <a href="/eight-bit-microcontrollers-are-obsolete/">eight bit microcontrollers are obsolete</a>, aren&rsquo;t they? Maybe, but they come in small packages, and these were free (samples).</p>
+<p>I chose the HC08 partly out of nostalgia: the very first &ldquo;computer&rdquo; I ever laid hands on was a 6800 evaluation board (the kind with a hex keypad, 7-segment displays, and 128 bytes of RAM) that I helped to build. This was 1975 or &rsquo;76. I wrote a program that animated a single segment running around the outside of the display.</p>
+<p>For this project I wanted to use Forth, for which these processors aren&rsquo;t well suited. Unlike the 6809, which has four 16-bit index registers, the HC08 has only two, and one is in use as the hardware stack pointer. Using the other for the Forth stack makes it hard to access memory. I made it work, and it&rsquo;s not terrible, but for this project I may work in assembler. The code isn&rsquo;t going to be that large.</p>
+<p>My other choice was the <a href="http://atmel.com/">Atmel</a> <a href="http://atmel.com/products/avr/">AVR</a>, but the specific chip I wanted to use &ndash; the <a href="http://atmel.com/dyn/products/product_card.asp?part_id=3829">ATtiny84</a> (a 14pin DIP package, 8k of Flash) &ndash; I could neither buy nor get samples of.</p>
+<p>The AVR architecture is a <em>really nice</em> fit with Forth, however. I&rsquo;m sure I&rsquo;ll be trying it out on future projects.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Spoken%20Word">Send feedback</a> on this page (last edited 2013 August 20 23:41)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

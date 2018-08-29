@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/symmetric-division-considered-harmful/" />
+<title>Symmetric division considered harmful &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Symmetric division considered harmful</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Since its 1983 standard (Forth-83), Forth has implemented floored division as standard. Interestingly, almost all processor architectures natively implement <em>symmetric</em> division.</p>
+<p>What is the difference between the two types? In floored division, the quotient is truncated toward minus infinity (remember, this is <em>integer</em> division we&rsquo;re talking about). In symmetric division, the quotient is truncated toward <em>zero</em>, which means that depending on the sign of the dividend, the quotient can be truncated in different directions. This is the source of its evil.</p>
+<p>I&rsquo;ve thought about this a lot and have come to the conclusion that symmetric division should be considered harmful.</p>
+<p>There are two reasons that I think this: symmetric division yields results different from arithmetic right shifts (which <em>floor</em>), and both the quotient and remainder have singularities around zero.</p>
+<p>If you&rsquo;re interested in the (gory) details, read on.</p>
+<hr />
+<p>First let&rsquo;s look at symmetric division. Here is a picture of quotients (Q) and remainders (R) (on Y) plotted against dividends (on X); the divisor is 3.</p>
+<pre>
+                                      |
+                                     +3                                   Q
+                                      |
+                                     +2                       Q   Q   Q
+                                      |
+                                     +1           Q   Q   Q
+                                      |
+ -+---+---+---+---+---+---+---Q---Q---Q---Q---Q---+---+---+---+---+---+---+---
+ -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8   9
+                  Q   Q   Q          -1
+                                      |
+      Q   Q   Q                      -2
+                                      |
+ Q                                   -3
+                                      |
+</pre>
+<pre>
+                                      |
+                                     +2       R           R           R 
+                                      |
+                                     +1   R           R           R
+                                      |
+ -R---+---+---R---+---+---R---+---+---R---+---+---R---+---+---R---+---+---R---
+ -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8   9
+          R           R           R  -1
+                                      |
+      R           R           R      -2
+                                      |
+</pre>
+<p>You can clearly see the &ldquo;singularities&rdquo; around zero, both for the quotient and the remainder.</p>
+<p>So, why does the remainder change sign? Let&rsquo;s look at a data sheet. The x86 programmer&rsquo;s manual says this about IDIV: &ldquo;Non-integral results are truncated (chopped) towards 0. The sign of the remainder is always the same as the sign of the dividend.&rdquo;</p>
+<p>We see on our graph the sign of the remainder following that of the dividend. But why? Well, if you truncate the quotient toward zero, you have to &ldquo;take up the slack&rdquo; in the remainder. Remember, quotient and remainder are defined such that</p>
+<pre>
+  quot * divisor + rem = dividend.
+</pre>
+<p>There are several cases to consider.</p>
+<p>If rem == 0, then</p>
+<pre>
+  quot * divisor = dividend,
+</pre>
+<p>and there is no error. This is true regardless of the sign of the quotient. When rem != 0, things become interesting.</p>
+<p>If rem != 0, and quotient is >= 0 and truncated toward zero, then</p>
+<pre>
+  quot * divisor &lt; dividend,
+</pre>
+<p>so rem has to be > 0 to compensate.</p>
+<p>If rem != 0, and quotient is &lt; 0 and truncated toward zero, then</p>
+<pre>
+  quot * divisor > dividend,
+</pre>
+<p>so rem has to be &lt; 0 to compensate.</p>
+<p>So it&rsquo;s the truncation of the quotient toward zero that forces the sign of the remainder to follow that of the dividend.</p>
+<p>Now let&rsquo;s see the graphs for floored division. Again, dividend on X; quotient Q and modulus M (remainder) on Y. Divisor is 3.</p>
+<pre>
+                                      |
+                                     +3                                   Q
+                                      |
+                                     +2                       Q   Q   Q
+                                      |
+                                     +1           Q   Q   Q
+                                      |
+ -+---+---+---+---+---+---+---+---+---Q---Q---Q---+---+---+---+---+---+---+---
+ -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8   9
+                          Q   Q   Q  -1
+                                      |
+              Q   Q   Q              -2
+                                      |
+  Q   Q   Q                          -3
+                                      |
+</pre>
+<pre>
+                                      |
+          M           M           M  +2       M           M           M
+                                      |
+      M           M           M      +1   M           M           M
+                                      |
+ -M---+---+---M---+---+---M---+---+---M---+---+---M---+---+---M---+---+---M--- 
+ -9  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8   9
+                                     -1
+                                      |
+                                     -2
+                                      |
+</pre>
+<p>This time there are no singularities! And we see that the sign of the modulus (what the remainder is called when doing floored division) is the same as the sign of the <em>divisor</em>; it does not &ldquo;cross over&rdquo; as the dividend becomes negative.</p>
+<p>Let&rsquo;s look at the different cases as we did for symmetric division.</p>
+<p>If mod == 0, then</p>
+<pre>
+  quot * divisor = dividend,
+</pre>
+<p>and there is no error. This is true regardless of the sign of the quotient. When mod != 0, things become interesting.</p>
+<p>If mod != 0 and quotient >=0 and truncated toward -infinity, then</p>
+<pre>
+  quot * divisor &lt; dividend,
+</pre>
+<p>so mod must be > 0 to compensate.</p>
+<p>If mod != 0 and quotient &lt; 0 and truncated toward -infinity, then</p>
+<pre>
+  quot * divisor &lt; dividend,
+</pre>
+<p>so mod must be > 0 to compensate.</p>
+<p>These two cases are the same, unlike in the &ldquo;symmetric&rdquo; case!</p>
+<p>This explains why the &ldquo;error&rdquo; that mod represents does not need to change direction when the dividend becomes negative because the direction of truncation (of the quotient) is always &ldquo;leftward&rdquo; (towards -infinity).</p>
+<p>It&rsquo;s relatively easy to see from these graphs how to fix symmetric division to make it flooring instead. Where the remainder/modulus is zero, both systems yield the same quotient, so there is nothing to do. Where the quotients differ, they differ by 1: the symmetric quotient is more positive than it should be. Where the remainder and modulus differ they differ by exactly the value of the <em>divisor</em>: the remainder being more <em>negative</em> by that amount.</p>
+<p>The differences in quotient and mod/rem between symmetric and floored division are related. We want</p>
+<pre>
+   symm_quot * divisor + rem =
+  floor_quot * divisor + mod = dividend.
+</pre>
+<p>When rem == 0, the quotients are equal, and so mod == 0 as well.</p>
+<p>If the quotients differ, then</p>
+<pre>
+  floor_quot = symm_quot - 1.
+</pre>
+<p>This will happen when rem != 0 &amp;&amp; sign(divisor) != sign(dividend). In order to compensate, we must have</p>
+<pre>
+   mod = rem + divisor.
+</pre>
+<p>Doing the substitution to check our math:</p>
+<pre>
+   floor_quot * divisor + mod = (symm_quot - 1) * divisor + (rem + divisor)
+                              = symm_quot * divisor + rem
+                              = dividend.
+</pre>
+<p>In conclusion, to fix symmetric division we must calulate</p>
+<pre>
+  floor_quot = symm_quot - 1
+         mod = rem + divisor
+</pre>
+<p>when rem != 0 &amp;&amp; sign(divisor) != sign(dividend).</p>
+<hr />
+<p>Here is C code to implement this.</p>
+<pre>
+ struct qm
+ {
+     int quot;
+     int mod;
+ };
+</pre>
+<pre>
+ struct qm div_mod(int dend, int dsor)
+ {
+     struct qm res;
+</pre>
+<pre>
+     res.quot = dend / dsor;
+     res.mod  = dend % dsor;
+</pre>
+<pre>
+ #ifdef DIVISION_IS_SYMMETRIC
+     /*
+      * We now have the results of a stupid symmetric division, which we
+      * must convert to floored. We only do this if the modulus was non-zero
+      * and if the dividend and divisor had opposite signs.
+      */
+     if (res.mod != 0 &amp;&amp; (dend ^ dsor) &lt; 0)
+     {
+         res.quot -= 1;
+         res.mod  += dsor;
+     }
+ #endif
+</pre>
+<pre>
+     return res;
+ }
+</pre>
+<hr />
+<p>Let&rsquo;s now turn our attention to arithmetic right shift, which Guy Steele, Jr., &ldquo;considered harmful&rdquo;. I&rsquo;d like to turn his argument around and argue that FORTRAN-style (symmetric) division should be &ldquo;considered harmful&rdquo;.</p>
+<p>If you arithmetic right shift a non-negative number by 1 bit, you get a quotient and a modulus. The quotient is number/2; the mod is 1 or 0. These values correspond exactly to what you would get doing floored <em>or</em> symmetric division.</p>
+<p>If you arithmetic right shift a negative number by 1 bit, you get a quotient and a modulus. But in this case you get &ldquo;funny&rdquo; answers. Shifting -1 yields -1; shifting -3 yields -2, etc. This is, in some sense, &ldquo;not what we expect&rdquo;. Why not?</p>
+<p>First, let&rsquo;s look at the sign of the modulus. The bit shifted out is 1 or 0 &ndash; it is non-negative, <em>regardless</em> of the sign of the &ldquo;dividend&rdquo;. Since the modulus is taking the sign of the divisor (+2) rather than our negative dividend, we must be doing floored division!</p>
+<p>What about multi-bit shifts? Let&rsquo;s shift by 3 bits. We&rsquo;ll shift out 3 bits; together they form a non-negative number from 0 to 7. This is our modulus. Again, note that it is non-negative, always! (Note that the easiest way to get the 3 bit modulus is to do copy our initial value and do an AND operation on it, rather than accumulating the bits shifted out.)</p>
+<p>By our &ldquo;compensation&rdquo; rules above, this forces the shift operation to floor the quotient.</p>
+<p>We see now that using ASR and AND as synonyms for DIV and MOD (when our divisor is a power of 2) corresponds <em>exactly</em> if and only if DIV and MOD implement floored division.</p>
+<p>But what about &ldquo;symmetric division considered harmful&rdquo;? Perhaps a concrete example will illustrate.</p>
+<p>Let&rsquo;s say we&rsquo;re indexing into an array, and for whatever reason(s), negative indices make sense. We have an array of objects, each 8 bytes long. Someone hands us a byte offset (possibly negative) into our array, and we&rsquo;d like to convert it to an (array index, offset) pair. (This is a contrived example, but similar mechanics could arise in real code.) What do we do?</p>
+<p>Recognizing the power-of-2-ness of 8, we arithmetic right shift. This yields two values: an index (possibly negative), and an offset into the object indexed. (Note that the 3 bits shifted out are a <em>non-negative</em> offset from the beginning of the object.) This will always work, and will always yield useful and correct values, regardless of the sign of the original byte offset.</p>
+<p>Now let&rsquo;s assume our objects are 12 bytes long. Now what do we do? We <em>divide</em>, and our processor&rsquo;s &ldquo;native&rdquo; symmetric division yields useless and erroneous answers. For non-negative indices everything is fine, but for negative indices we get as our two values the index of the item <em>following</em> the one we want (the result of truncating the quotient toward zero) and a <em>negative</em> offset from the following item, back to the byte originally pointed to. Given the argument that symmetric division yields &ldquo;intuitive&rdquo; answers, I would have to disagree!</p>
+<p>You can imagine that in most kinds of number crunching, graphics, and control applications symmetric division would almost <em>never</em> give you the right answer!</p>
+<hr />
+<div class="voice2">
+<p>There was a time when I would have agreed with you. But now I think differently.</p>
+<p>Symmetric division has a property that you completely forget to mention:</p>
+<pre>
+  divisor / dividend = (- divisor) / (- dividend)
+</pre>
+<p>which is not the case for flored division as you can easily see from the diagrams above. The graph for symmetric division is point symmetric around (0, 0) [I hope &ldquo;point symmetric&rdquo; is the right English term for this, it is &ldquo;punkt-symmetrisch&rdquo; in German], but the one for floored division is not.</p>
+<p>I agree with you that you want a true modulus (which is always positive) for array indexing as in your example. However, in most cases where that is needed, you try to do something like:</p>
+<pre>
+  a[ (index - x) mod size ]   where 0 &lt;= x &lt; size
+</pre>
+<p>This can be easily changed to:</p>
+<pre>
+  a[ (index + size - x) mod size ]
+</pre>
+<p>which will give the correct answer even if your division is symmetric. And in most cases <em>x</em> is a constant so that (<em>size &ndash; x</em>) can be precalculated.</p>
+<p>The <em>real problem</em> are actually the CPU manufacturers and language designers. They use a symmetric division, but include a <strong>mod</strong> function which would better be called <strong>rem</strong> for remainder. It would be nice, though, to also have a true <strong>mod</strong> function that always returns a positive answer.</p>
+<p>--Michael Pruemm</p>
+</div>
+<div class="voice3">
+<p>I think the real problem is that most people don&rsquo;t know this distinction even exists (between symmetric and floored division), and most languages (Python and Haskell are exceptions) are ignorant as well. For instance, the C standard(s) basically say: &ldquo;There are a couple of different answers you might get when you divide; I hope that&rsquo;s OK&rdquo;.</p>
+<p>I have to disagree with your statement above that</p>
+<pre>
+  divisor / dividend = (- divisor) / (- dividend)
+</pre>
+<p>only for symmetric division. In fact we only floor the quotient (when converting from symmetric to floored) when <em>the divisor and dividend have opposite signs</em>. My graphs only show what happens with a <em>positive</em> divisor when the <em>dividend</em> changes sign, not when both change sign together. In that case, by definition (mine), the symmetric quotient will equal the floored quotient, and the symmetric remainder will equal the floored modulus.</p>
+</div>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Symmetric%20division%20considered%20harmful">Send feedback</a> on this page (last edited 2007 June 09 03:08)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

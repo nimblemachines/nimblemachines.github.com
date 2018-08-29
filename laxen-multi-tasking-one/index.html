@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/laxen-multi-tasking-one/" />
+<title>Laxen multi-tasking one &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Laxen multi-tasking one</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Original article appeared in <a href="http://www.forth.org/fd/FD-V5N4.pdf">Fourth Dimensions Volume V, Issue 4</a></p>
+<p>Other articles in this series: <a href="/laxen-multi-tasking-two/">Laxen multi-tasking two</a></p>
+<h2 id="multi-tasking-part-i"><a href="#multi-tasking-part-i">Multi-Tasking, Part I</a></h2>
+<p><em>Henry Laxen; Berkeley, California</em></p>
+<p>Multi-tasking has long been one of the biggest benefits of Forth and one of its most closely guarded secrets. The fact that even crippled processors like 8080 can be made to run four or five tasks simultaneously with little performance degradation is a testament to the efficiency both of Forth itself and of the techniques involved in implementing a multi-tasking kernel. It is time to reveal the techniques used in most Forth multi-tasking systems and to allow the user to benefit from the power such knowledge can bestow.</p>
+<p>Now for the disclaimers. First, I am only going to discuss multi-tasking, and not multi-user, Forth systems. The difference is that in a multi-tasking Forth there is but one terminal attached to the system, hence only one person at a time is interpreting or compiling. This is considerably simpler than a multi-user Forth system with several terminals (each perhaps with its own unique characteristics), all interpreting and compiling at the same time. In our multi-tasking system, the user will be able to have several tasks running simultaneously, perhaps communicating with each other and with the terminal, but I will not get into the subtleties associated with turning it into a true multi-user environment. The second disclaimer is that in order to get some efficiency out of the system, the techniques used to implement multi-tasking are generally very machine dependent. Since my machine is an 8080, and it is me writing this article, you will either have to bear with me or ignore the article. The choice is yours.</p>
+<p>This first installment will deal with the low-level mechanism involved in task switching, and the structures that must be in place in Forth in order to make multi-tasking possible. The second article on this subject will talk about creating manipulating tasks. While the code I present is oriented toward an 8080, I will describe its function. You should be able to translate it into code for your processor without much pain.</p>
+<p>Now then, let me first describe the philosophy behind multi-tasking in Forth. Unlike traditional multi-tasking systems, which interrupt the currently running task at a completely arbitrari time and initiate another task unbeknownst to the first one, Forth requires tasks to cooperate. While each task does not know details about the other tasks, it must at least be aware of them, or else the system will revert to a single-task existence. Each task must explicitly give up control of the CPU at certain points while it is running. The Forth kernel does so whenever it is about to perform an I/O operation, such as reading or writing to the terminal or mass storage device. If the user creates a task that does no I/O of its own, then he must explicitly give up control or else as soon as that task is activated, it will take total control of the machine. Each of the two approaches mentioned above has merit, and I will briefly discuss the good and bad points of each.</p>
+<p>The main advantage of traditional multi-tasking systems is that the programmer does not need to be aware of their existence. As far as he is concerned, the program he writes is just running slower. He does not need to modify it in any way from a single-user environment. There is, of course, a cost associated with this benefit, and that is one of performance. Since the operating system must absolutely guarantee that the state of the system is undisturbed between one running of the task and another, an extremely complex process usually is required to save and restore a task. Since the task is unaware that it is being removed from control, the operating system may grab it at a particularly inopportune moment, and the amount of information that must be saved and restored can be staggering. This is why performance on such systems typically degrades rather dramatically as soon as several tasks are running concurrently. The main advantage of the Forth approach to multi-tasking is that the overhead of task switching is extremely small.</p>
+<p>Thus, many tasks can be run simultaneously with little performance degradation. The disadvantage is that an additional burden is placed on the programmer. He must follow some rules that apply only in multi-tasking systems, as well as, perhaps, modify his code to take advantage of multi-tasking. My conclusion from this synopsis is that traditional multi-tasking is great on very large systems where tens or hundred tasks are running simultaneously and the computer hardware helps you. On microcomputers and small systems, the traditional approach simply does not apply, and the benefits of the Forth approach greatly outweigh the drawbacks.</p>
+<p>The basic mechanism Forth uses is simply to define an ordinary Forth word, usually called <code class="forth">PAUSE</code>, which relinquishes control of the CPU from the currently running task and gives it to the next task that is ready to run. <code class="forth">PAUSE</code> takes nothing from the stack and returns nothing, and disturbs the system in a well-defined way of which the user must be aware. What <code class="forth">PAUSE</code> actually does is to examine a linked list of tasks that may or may not be ready to run. The first ready task it finds is given control of the CPU and is allowed to run until it executes a <code class="forth">PAUSE</code> of its own. The linked list is circular, so eventually we will get back to the first task in the list and run it again, with execution continuing immediately after the <code class="forth">PAUSE</code> word. By agreement, tasks shall not disturb the state of the system except with regard to block buffers. Thus, each task may not assume that the buffer it is using is still present after a <code class="forth">PAUSE</code> has been executed. This minor restriction greatly simplifies the job of saving and restoring the state of the system between task activations.</p>
+<p>Wait a minute, you say, what about the many system variables that tasks may use while they are running? For example, if a background task is doing print spooling while you are editing a screen, both tasks are accessing variable such as <code class="forth">OUT</code>, <code class="forth">BASE</code>, <code class="forth">HLD</code>, etc. Things would get very confusing if each task could change these and affect other tasks. Fortunately, there is an extremely elegant way task to prevent this which has traditionally been known as <code class="forth">USER VARIABLE</code> in Forth. The idea is simple, namely, just group together those variables which each task must have to itself. These variables become offsets from some base address. When these variables are executed, they must add their offset to the base address of the current task. Thus, to switch tasks on need only change the base address from whence these variables originate, instead of copying the values themselves to some safe area. The portion of memory reserved for these variables is called the <code class="forth">USER</code> area. There are many different ways of implementing this concept, and I would like to present a new one here which I believe has great merit. Traditionally, <code class="forth">USER</code> was a defining word which took as an argument an offset from the base address and assigned a name to that offset. At run-time, the offset was added to the base of the current user area, which was contained in a regular variable, and that address was placed onto the parameter stack. This is simple, but has some disadvantages. It is difficult to insert a new <code class="forth">USER</code> variable into the middle of existing ones with this implementation. It also forces the user to be aware and do arithmetic in order to maintain the user area. The old implementation was as shown in figure one.</p>
+<div class="voiceforth">
+<pre>
+  [Figure One]
+  VARIABLE UP ( Points to the currently active user base address )
+  : USER   CREATE ,   DOES>   @ UP @ + ;
+</pre>
+</div>
+
+<p>A much more flexible approach is to make <code class="forth">USER</code> a vocabulary, and redefine those words which may be needed on a task level. Consider the implementation in figure two.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Two]
+  VARIABLE #USER   ( Holds the size of the user area )   0 #USER !
+  VOCABULARY USER   USER DEFINITIONS
+  : CREATE   CREATE #USER @ ,   DOES>   @ UP @ + ;
+  : ALLOT    #USER +! ;
+  : VARIABLE CREATE  2 ALLOT ;
+  FORTH DEFINITIONS
+</pre>
+</div>
+
+<p>Now you need no longer keep track of where each variable is going and how much space has been used. Also, arrays are much easier to create, and I think it reads much more nicely. With the old approach, you would have to say <code class="forth">34 USER BASE</code> to define a user variable called &ldquo;base&rdquo;, and you must know that location 34 is available for use. With the new scheme, you simply type <code class="forth">USER VARIABLE BASE</code>, which reads very nicely indeed.</p>
+<p>Now then, suppose we have such things as <code class="forth">USER</code> variables, regardless of exactly how they were defined. In particular, I will need three such variables as follows:</p>
+<p><code class="forth">USER VARIABLE TOS</code> holds top of stack when switching tasks.</p>
+<p><code class="forth">USER VARIABLE ENTRY</code> contains machine code and task status.</p>
+<p><code class="forth">USER VARIABLE LINK</code> points to next task in circular list.</p>
+<p>Let&rsquo;s examine the role of each of these a little more closely. <code class="forth">TOS</code> is simply going to hold the value of the top of the parameter stack for this task, when it gives up control of the CPU to the next task. Since each task must have its own local stack in order to do just about anything, this value must be saved and restored between successive activations of a task. <code class="forth">ENTRY</code> in our implementation will contain machine code that will either jump to the next task in the list if the current one is not ready to run yet, or it will jump to some activation code that will bring this task to life once again. Finally, <code class="forth">LINK</code> points to the <code class="forth">ENTRY</code> field of the next task in the circular list. The only tricky part of this is how to fit the code that decides whether or not to activate this task and either continue or restore all of the task&rsquo;s parameters, in the two bytes reserved for <code class="forth">ENTRY</code>. It just so happens that, on the 8080, two bytes is more than enough and, in fact, one would suffice.</p>
+<p>The 8080 has several one-byte instructions called RST instructions. When these are executed, they push the value of the program counter on the stack and jump to a specified location in low memory. Thus, the trick on the 8080 is to put either an RST or a JMP into the <code class="forth">ENTRY</code> point. An RST instruction will cause this task to be activated, while a JMP instruction will jump immediately to the <code class="forth">ENTRY</code> point of the next task in the list. Remember that the contents of <code class="forth">LINK</code> point to the <code class="forth">ENTRY</code> point of the next task in the list. So to make a task active, an RST instruction is placed into <code class="forth">ENTRY</code> while to deactivate a task an NOP instruction is placed into <code class="forth">ENTRY</code>. The JMP instruction is always present in <code class="forth">ENTRY + 1</code>. This is wasteful, I know, but what the hell. Now then, all we have to do is understand what exactly happens when we do a <code class="forth">PAUSE</code> and a task activation. Let&rsquo;s look at what <code class="forth">PAUSE</code> does on the 8080. (See figure three.)</p>
+<div class="voiceforth">
+<pre>
+  [Figure Three, Pause on the 8080]
+  CODE PAUSE (S -- )
+     IP PUSH  ( Push the current interpreter pointer onto stack )
+     RP LHLD  H PUSH   ( and the current return stack pointer )
+     0 H LXI  SP DAD  XCHG   ( Stack pointer now in DE )
+     UP LHLD  ( Points to TOS, which is first entry )
+     E M MOV  H INX  D M MOV  H INX   ( Move stack pointer to TOS )
+     H INX  PCHL   ( Jump to next task )   C;
+</pre>
+</div>
+
+<p><code class="forth">PAUSE</code> is in charge of saving the current task&rsquo;s status and jumping to the next task in the circular list. Notice how little information needs to be saved during a task switch. Only the current value of the IP, the return stack depth, and the parameter stack depth is saved. Note that the IP and the return stack depth have been pushed onto the parameter stack, so it will be the duty of the <code class="forth">RESTART</code> word to pop these off so that the stack depth is unchanged. Now let&rsquo;s take a look at <code class="forth">RESTART</code> in figure four, which must restart a task where it left off, namely just after executing a <code class="forth">PAUSE</code>.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Four]
+  CODE RESTART (S -- )
+     ( Since a RST instruction has just been executed, the address
+       UP + 3 is now on the stack )
+  -3 H LXI  D POP  D DAD  UP SHLD  ( Set up new USER area )
+  M E MOV  H INX  M D MOV  XCHG  SPHL  ( Restore parameter stack )
+  H POP  RP SHLD   ( Restore return stack pointer )
+  IP POP   ( Restore the IP )   NEXT JMP   C;
+</pre>
+</div>
+
+<p>Remember that the RST instruction is a one-byte call to a fixed address. Thus, it pushes the address of the current user area plus three onto the current stack. This information is used to restore the user area for the task that is now being restarted. Once the base of the user area is computed, the parameter stack is restored and then the return stack and the interpretive pointer. Thus, <code class="forth">RESTART</code> has undone what was done by <code class="forth">PAUSE</code>, and resumed execution with the word following <code class="forth">PAUSE</code>, as though nothing has happened.</p>
+<p>I hope this has shed a little light on what goes on in a multi-tasking system. Next time, we will explore how to create and manipulate tasks, now that we understand the task-switching mechanisms involved. Until then, good luck, and may the Forth be with you.</p>
+<hr />
+<p>Copyright &copy; 1983 by Henry Laxen. All rights reserved.</p>
+<p>Other articles in this series: <a href="/laxen-multi-tasking-two/">Laxen multi-tasking two</a></p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Laxen%20multi-tasking%20one">Send feedback</a> on this page (last edited 2006 April 15 08:21)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

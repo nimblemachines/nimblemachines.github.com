@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/laxen-meta-compiling-one/" />
+<title>Laxen meta-compiling one &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Laxen meta-compiling one</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Original article appeared in <a href="http://www.forth.org/fd/FD-V4N6.pdf">Fourth Dimensions Volume IV, Issue 6</a></p>
+<p>Other articles in this series: <a href="/laxen-meta-compiling-two/">Laxen meta-compiling two</a> .. <a href="/laxen-meta-compiling-three/">Laxen meta-compiling three</a></p>
+<h2 id="meta-compiling-i"><a href="#meta-compiling-i">Meta Compiling I</a></h2>
+<p><em>Henry Laxen</em></p>
+<p>Meta-compiling is an often heard term in Forth, and yet most people approach it with fear and anxiety. This is unfortunate since it is really not that difficult and it is extremely powerful. Many purposes have been attributed to meta-compiling, such as generating new Forth systems, creating a custom application, cross compiling code for a different target machine, removing the names (headers) from the code, and generating ROMable code. All of these are different benefits of the meta-compiling process, but they may or may not be the only way to accomplish the task. For example FIG allowed people to create new Forth systems by supplying assembly language listings of Forth which people could enter into their computer and assemble with their assembler. No meta-compiler ever entered the picture. Before exploring meta-compiling in detail, let&rsquo;s first look at the dictionary definition of the word META.</p>
+<blockquote><p><strong>meta</strong> a prefix meaning 1. changed, transposed [metamorphosis, metathesis]; 2. after, beyond, higher [metaphysics]</p></blockquote>
+<p>Meta-compiling in Forth combines attributes of both of the above definitions. It occurs on a &ldquo;higher level&rdquo; from ordinary compiling and involves a change from one environment to another. In one sentence, meta-compiling in Forth is a process in which Forth code is compiled in one environment and executed in another. The environment in which the code is compiled is called the <em>host system</em>. The environment in which the code compiled by the meta-compiler will finally execute is called the <em>target system</em>. One of the main difficulties encountered in meta-compiling is the confusion that naturally arises out of the interactions between the different environments. Many words in the meta-compiler have totally different meanings depending on the context in which they are used.</p>
+<p>In the first part of this exposition we will look in detail at one of the central issues of meta-compiling, namely that of storage allocation. We will leave the issue of context for the next article. Think of a meta-compiler as a machine in which Forth source code is cranked in and target object code is cranked out. In any software project one of the main resource allocation problems is how to allocate memory. The same is true in meta-compiling, and this article will address the issue of memory allocation for meta-compilers. The problem then is to construct a mapping in which the target image can reside, and to find a convenient way of manipulating that target image. Instead of reinventing the wheel, let&rsquo;s do it the way Forth does it. Forth has a set of words that read and write memory, as well as allocate and initialize space in the dictionary. Presumably we will need the same functions in the target image. The difference is that while the ordinary Forth words that read and write memory, namely <code class="forth">@</code> and <code class="forth">!</code>, operate on addresses, our new read and write memory words will have to operate on target addresses. What we need is a word which will map target addresses into host addresses. Let&rsquo;s call this word <code class="forth">THERE</code> and it must behave as follows:</p>
+<pre>
+  target-address THERE host-address
+</pre>
+<p>Using <code class="forth">THERE</code>, we can define the read and write memory words as</p>
+<div class="voiceforth">
+<pre>
+  : @-T   THERE @ ;
+  : !-T   THERE ! ;
+</pre>
+</div>
+
+<p>We append the <code class="forth">-T</code> suffix to indicate that we are fetching and storing into Target address. We can define <code class="forth">C@-T</code> and <code class="forth">C!-T</code> in a similar way. Next we want to implement something analogous to a dictionary in the target system. The amount of space that has been allocated in an ordinary Forth system is held in a variable called <code class="forth">DP</code>.</p>
+<p>We can analogously define a variable called <code class="forth">DP-T</code> to hold the amount of space allocated in the target system. Armed with that definition we can define the dictionary words as follows:</p>
+<div class="voiceforth">
+<pre>
+  : HERE-T   DP-T @ ;
+  : ALLOT-T   DP-T +! ;
+  : ,-T   HERE-T !-T  2 ALLOT-T ;
+</pre>
+</div>
+
+<p>(Why is there an ordinary <code class="forth">@</code> in the definition of <code class="forth">HERE-T</code> and a <code class="forth">!-T</code> in the definition of <code class="forth">,-T</code>?)</p>
+<p>Why have we gone through such an elaborate ritual? Let&rsquo;s take a quick look at what we can do with these words. Perhaps you recall how Forth assemblers work. (If not wait for a future issue and I will discuss them in this column.) The main idea behind Forth assemblers is that you define a set of Forth words whose names are opcodes for your particular machine. When these words are executed they assemble their machine language binary opcode into the dictionary along with whatever parameters are required. For example the jump instruction on the 8080 is a hex C3 followed by the 16 bit address of where to jump to. The <code class="forth">JMP</code> word in the Forth Assembler is thus defined as:</p>
+<div class="voiceforth">
+<pre>
+  : JMP   C3 c, , ;
+</pre>
+</div>
+
+<p>The <code class="forth">C,</code> assembles the opcode into the dictionary and the <code class="forth">,</code> assembles the address that must have been left on the stack. Notice that the compiled code is inline in the dictionary. Now, using the <code class="forth">-T</code> definitions we defined above, we can now assemble code which will execute from a different address than where it was assembled. The corresponding definition for jump would be:</p>
+<div class="voiceforth">
+<pre>
+  : JMP   C3 C,-T ,-T ;
+</pre>
+</div>
+
+<p>This would assemble the opcode in the next available location in the target system, not in the host system. Furthermore, it will jump to the specified target address when it is executed, not to the host address. What we have done is turned a Forth assembler that can assemble inline code words into a cross assembler that can assemble code that will execute in an environment other than Forth.</p>
+<p>If the significance of what has just been discussed has escaped you, don&rsquo;t feel bad. It escaped me the first six times also. Don&rsquo;t be fooled by the simplicity of the implementation. The mere fact that we can assemble or compile code in a different memory area than the one we are executing out of is very powerful. It is one of the cornerstones of the meta-compiling process.</p>
+<p>It now only remains to define the mapping word <code class="forth">THERE</code>, which takes a target address and returns a host address. The simplest approach, if you have enough user memory, is to simply define <code class="forth">THERE</code> as a constant offset as follows:</p>
+<div class="voiceforth">
+<pre>
+  20000 CONSTANT TARGET-OFFSET
+  : THERE   TARGET-OFFSET + ;
+</pre>
+</div>
+
+<p>You can&rsquo;t get much simpler than that. However, there are times when memory is tight or the application program is just too large to fit. What do you do then? In most other programming languages you either give up or start the entire application over from scratch. We in Forth have the luxury of redefining a few words and the rest of the application will never know the difference. Let&rsquo;s take a look at how we can provide a mapping from target to host addresses without taking up any room in the host dictionary. The answer is of course to use <code class="forth">BLOCK</code> as a means of mapping memory addresses into disk addresses. Consider the following:</p>
+<div class="voiceforth">
+<pre>
+  10 CONSTANT TARGET-BLOCK
+  : THERE ( target-addr -- host-addr)
+     1024 /MOD  TARGET-BLOCK +  BLOCK + ;
+</pre>
+</div>
+
+<p>We first divide by 1024 bytes per block, and get back a quotient and a remainder. The quotient is the block number, and the remainder is the byte index into that block. All we have to do is add in the beginning block number, <code class="forth">TARGET-BLOCK</code>, and call our friend <code class="forth">BLOCK</code> to perform the mapping of a block number into a buffer address. Finally, we add in the byte index into the returned address and we are done. Or are we? There are two bugs in the above code, as it relates to meta-compiling. See if you can find what they are.</p>
+<p>The first bug will probably not bite you, but when it does it will produce very dramatic results and it will be obvious how to fix it. The problem is that when dealing with addresses, you should be very careful what kind of arithmetic you perform. Addresses are unsigned quantities, while division and multiplication deal with signed quantities. The above code works fine as long as the Target address is less than 32K. As soon as it is larger, <code class="forth">/MOD</code> returns a signed quotient and remainder, and we will be passing <code class="forth">BLOCK</code> a very strange block number. I will leave it to you to rewrite <code class="forth">THERE</code> to avoid this 32K problem.</p>
+<p>The second bug is far more subtle, and in fact does not lie in the word <code class="forth">THERE</code> at all. You don&rsquo;t discover this one until you have crashed many many times. Recall the definition of <code class="forth">@-T</code> and <code class="forth">!-T</code> was:</p>
+<div class="voiceforth">
+<pre>
+  : @-T   THERE @ ;
+  : !-T   THERE ! ;
+</pre>
+</div>
+
+<p>Well, 1023 out of 1024 times this will work just fine. You see if we call <code class="forth">THERE</code> with a Target address that is congruent to 1023 modulo 1024, then <code class="forth">THERE</code> will return the address of the last byte in a block buffer. Since <code class="forth">@</code> and <code class="forth">!</code> act on 2-byte, 16-bit entities, the wrong results will be read or written. Rule of usage for <code class="forth">THERE</code> is that it takes a target <em>byte address</em> and returns a host <em>byte address</em>. Only a single byte address is returned. There is no guarantee that target address + 1 maps into host address + 1. That is a false assumption on the user&rsquo;s part. Anyway, how do we fix it? It really is quite simple; namely, we must construct <code class="forth">@</code> and <code class="forth">!</code> out of <code class="forth">C@</code> and <code class="forth">C!</code>, which only operate on byte addresses, not word addresses.</p>
+<p>At this point we get into a small mess because many microcomputers are &ldquo;byte-swapped&rdquo;, meaning that for a 16-bit word, the low order 8-bit half is stored first. The 8080 and 6502 are prime examples of byte-swapping machines. The newer 68000 computer is an example of a non-byte-swapping machine. Anyway, to construct <code class="forth">@</code> and <code class="forth">!</code> out of <code class="forth">C@</code> and <code class="forth">C!</code> we must be aware of the byte swapping. Let&rsquo;s suppose we are on a byte-swapped machine, and let&rsquo;s take a look at how to implement <code class="forth">@</code>. I will leave the implementation of <code class="forth">!</code> as an exercise. Consider:</p>
+<div class="voiceforth">
+<pre>
+  : @-T ( target-addr -- value)
+     DUP C@-T ( addr low)
+     SWAP 1 + C@-T ( low high)
+     256 * + ( hi lo) ;
+</pre>
+</div>
+
+<p>Notice that only <code class="forth">C@-T</code> is used, so our rule of usage is not violated. This is rather slow on most machines because of the multiply, but it will certainly work. What would be nicer is to define a <code class="forth">CODE</code> word, say <code class="forth">FLIP</code>, which exchanges the high and low halves of a 16-bit word. Then we could replace the <code class="forth">256 *</code> phrase with <code class="forth">FLIP</code> and it would be much faster. If the machine were not byte-swapped then we would place the <code class="forth">FLIP</code> or the <code class="forth">256 *</code> after the first <code class="forth">C@-T</code> instead of the second. See if you can implement <code class="forth">!-T</code> in an analogous way.</p>
+<p>What we have really done is implement a disk resident virtual memory system. It turns out to be very useful in many applications, not just meta-compilation. Any time you need a very large array that will not fit in memory, the same technique will work. Next time we will look deeper into the meta-compiling process and address the issue of how to actually generate the target image code, now that we have a place to put it. Until then, good luck and may the Forth be with you.</p>
+<hr />
+<p>Copyright &copy; 1983 by Henry Laxen. All rights reserved.</p>
+<p>Other articles in this series: <a href="/laxen-meta-compiling-two/">Laxen meta-compiling two</a> .. <a href="/laxen-meta-compiling-three/">Laxen meta-compiling three</a></p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Laxen%20meta-compiling%20one">Send feedback</a> on this page (last edited 2006 April 13 18:28)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

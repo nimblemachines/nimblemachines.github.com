@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/laxen-meta-compiling-two/" />
+<title>Laxen meta-compiling two &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Laxen meta-compiling two</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Original article appeared in <a href="http://www.forth.org/fd/FD-V5N2.pdf">Fourth Dimensions Volume V, Issue 2</a></p>
+<p>Other articles in this series: <a href="/laxen-meta-compiling-one/">Laxen meta-compiling one</a> .. <a href="/laxen-meta-compiling-three/">Laxen meta-compiling three</a></p>
+<h2 id="meta-compiling-ii"><a href="#meta-compiling-ii">Meta Compiling II</a></h2>
+<p><em>Henry Laxen</em></p>
+<p>In Volume IV, number 6 of <em>Forth Dimensions</em> we took a look at one of the underlying foundations of the meta-compiling process, namely that of mapping the address space of the target system into the address space of the host system. If you don&rsquo;t understand the above sentence I suggest you reread the last article on meta-compiling. This article will use the technique of address mapping discussed last time to implement the &ldquo;guts&rdquo; of a meta-compiler. I must warn you that I am still leaving out a lot of details, which I will try to cover in the next article. This article will illustrate how to meta-compile code definitions and simple colon definitions.</p>
+<p>First, let&rsquo;s take a look at how we can meta-compile code definitions. What we need is an assembler which generates its code in the target system. We discussed that briefly last time, and showed how to define a <code class="forth">JMP</code> instruction so that its opcode and address would be assembled in the target system rather than in the host. But that is only half of the battle. When we define a code word, we are defining a name in the target system, which must appear in the target dictionary. Also, if a future colon definition references this code word, we want to compile the code field address of this word in the target dictionary. Let&rsquo;s take this one step at a time. First we must define a name in the target dictionary. There is no magic in this; it depends heavily on the structure you decide on for names. The only thing you have to be careful about is to make sure the bytes are place in the target system address space, and that you keep track of the link fields somehow. Figure One illustrates a word that will compile FIG-like headers into a target system. Notice that if we want to compile headerless code all we need to do is set <code class="forth">WIDTH-T</code> to zero. Headerless code is one of the fringe benefits of meta-compiling, not its main purpose.</p>
+<div class="voiceforth">
+<pre>
+  [Figure One]
+  \ Fig 1.   Headers in Target System            13MAY83HHL
+  : S,-T (S addr len -- )
+     0 ?DO   DUP C@ C,-T    1+   LOOP   DROP ;
+  VARIABLE WIDTH-T
+  VARIABLE LATEST-T
+  : HEADER (S -- )
+     BL WORD   C@ 1+ WIDTH-T @ MIN   ?DUP IF
+        HERE-T HERE ROT S,-T   ( Lay down name, save NFA )
+        LATEST-T @ ,-T  ( Link Field)   DUP LATEST-T !
+        128 SWAP THERE SET   128 HERE-T 1- THERE SET ( BUG! )
+        ( Set the high order bits at each end of the name )
+     THEN ;
+</pre>
+<pre>
+  [Bug: second set sets high order bit in link field!]
+</pre>
+</div>
+
+<p>Now that we can lay down headers in the target system, we need to think about what happens when a word defined in the target system is supposed to be compiled in a colon definition. For example, suppose we have defined <code class="forth">DUP</code> and <code class="forth">+</code> as code words, and have meta-compiled them so that their headers and their code bodies are resident in the target system. Now we want to define the word <code class="forth">2*</code> as follows:</p>
+<div class="voiceforth">
+<pre>
+  : 2*   DUP + ;
+</pre>
+</div>
+
+<p>What is supposed to happen? Well, we need to make the meta-compiler do the same thing that would ordinarily happen in a running system; namely, <code class="forth">:</code> should create a name in the dictionary and should compile the code field addresses of <code class="forth">DUP</code> and <code class="forth">+</code> and <code class="forth">EXIT</code> into the parameter field of <code class="forth">2*</code>. Finally, compiling should be terminated by the <code class="forth">;</code>. Notice that the behaviour of <code class="forth">DUP</code> and <code class="forth">+</code> in the meta <code class="forth">:</code> context is totally different from their behaviour in the normal Forth context, namely <code class="forth">DUP</code> should duplicate something and <code class="forth">+</code> should add something. In the meta <code class="forth">:</code> context they compile something.</p>
+<p>Now that we know what should happen inside a <code class="forth">:</code> definition, it is just a matter of implementation. The approach at this point is to construct a symbol table of all the words that are defined, and when building a <code class="forth">:</code> definition, to look up each word in this symbol table and compile the code field address corresponding to this word into the target system. In Pascal or BASIC this would probably require twenty pages of code. The skeleton Forth code that does this is written in Figure Two. It probably requires a few words of explanation. First, <code class="forth">>IN</code> is the pointer into the input stream, which must be saved and restored because both <code class="forth">HEADER</code> and <code class="forth">CREATE</code> modify it. <code class="forth">IN-SYMBOLS</code> isn&rsquo;t defined elsewhere, but I will describe its function. It is highly dependent on how your system implements vocabularies. It must make sure the word that <code class="forth">CREATE</code> creates is in a sealed and separate vocabulary. This is very important, since almost all of the Forth nucleus words will be defined during the meta-compiling process, and it would be deadly to redefine them all in the Forth vocabulary. Also, it guarantees that when a symbol is looked up, the meta one is found, not the corresponding Forth one. The idea is to use the existing vocabulary structure to implement a symbol table by placing all of the meta names into it and sealing it so it does not chain to any other vocabularies. If we adopt such a structure, the regular <code class="forth">CREATE</code> can be used to enter a symbol into the symbol table and the regular <code class="forth">FIND</code> can be used to search it. Never buy what you can steal! Similarly the <code class="forth">IN-META</code> restores things back to the way they were.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Two]
+  \ Fig 2.   Create a Target Image and Symbol    13MAY83HHL
+  : MAKE-CODE (S addr -- )
+     @ ,-T ;
+  : TARGET-CREATE (S -- )
+     >IN @   HEADER   >IN !    ( Without moving input stream )
+     IN-SYMBOLS CREATE IN-META   HERE-T , ( Save cfa )
+     DOES>   MAKE-CODE ;
+  : CODE (S -- )
+     TARGET-CREATE   HERE-T 2+ ,-T   ASSEMBLER ;
+</pre>
+</div>
+
+<p>Now let&rsquo;s look at the next phrase, namely <code class="forth">HERE-T</code>, and figure out what it is doing. It is saving the current address in target system into the parameter field of the symbol that was just created. Since the header has already been created, <code class="forth">HERE-T</code> is the code field address of the word that has just been created. So by saving it in the parameter field of the symbol, we are remembering the code field address for future reference. This future reference takes place in the run-time portion of the definition. <code class="forth">MAKE-CODE</code> does nothing more than fetch the code field we just saved and compile it into the target system. Thus, if we use the meta definition of <code class="forth">CODE</code> that appears, we see that what it does is create <code class="forth">HEADER</code> in the target system, as well as a symbol in the symbol table. Furthermore, it sets up the code field in the target system to point at its parameter field, just as every good code field should in an ITC system. Finally, it switches to the <code class="forth">ASSEMBLER</code> vocabulary to allow compilation of machine-language opcodes. Later, if the word defined by <code class="forth">CODE</code> is executed, the <code class="forth">DOES></code> portion comes into play, which simply compiles itself into the target system. Nothing could be simpler or more devious!</p>
+<p>Now let&rsquo;s finish this discussion by looking at what must take place when we meta-compile a <code class="forth">:</code> definition. Take a look at the code in Figure Three. First we must create a header and a symbol, just as we did for <code class="forth">CODE</code> words. Next we must lay down the address of the runtime for <code class="forth">:</code> in the code field of the word being defined. (I have assumed that <code class="forth">NEST</code> is a constant that returns a that address for me.) Finally, we must enter a loop that looks words up in the symbol table and compiles their code fields into the target system. That function is performed by the meta version of <code class="forth">]</code>. The function of compiling the code fields is cleverly performed by executing the words that are found in the symbol table. That is why the <code class="forth">DOES></code> portion of <code class="forth">TARGET-CREATE</code> compiles the code field that was saved. I have not provided code for the definition of <code class="forth">DEFINED</code> and <code class="forth">NUMBER-T</code> but I leave to your imagination what it is that they do.</p>
+<div class="voiceforth">
+<pre>
+  [Figure Three]
+  \ Fig 3.   High Level Meta Definitions         13MAY83HHL
+  : ] (S -- )
+     BEGIN
+        DEFINED IF   EXECUTE   ELSE   NUMBER-T   THEN
+     AGAIN ;
+  : : (S -- )
+    TARGET-CREATE   NEST ,-T   ] ;
+</pre>
+</div>
+
+<p>The code I have presented is very simplistic, and is not really adequate as is. However, it does contain the central ideas that are needed in order to implement a meta-compiler. Next time we will look at some of the subtler issues in meta-compiling such as how to handle <code class="forth">IMMEDIATE</code> words, and what about <code class="forth">[COMPILE]</code>? Until then, good luck, and may the Forth be with you.</p>
+<hr />
+<p>Copyright &copy; 1983 by Henry Laxen. All rights reserved.</p>
+<p>Other articles in this series: <a href="/laxen-meta-compiling-one/">Laxen meta-compiling one</a> .. <a href="/laxen-meta-compiling-three/">Laxen meta-compiling three</a></p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Laxen%20meta-compiling%20two">Send feedback</a> on this page (last edited 2006 April 13 18:40)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

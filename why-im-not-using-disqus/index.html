@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="disqus,commenting,privacy" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/why-im-not-using-disqus/" />
+<title>Why I&rsquo;m not using Disqus &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Why I&rsquo;m not using Disqus</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>After spending half a day implementing and testing <a href="https://disqus.com/">Disqus</a> integration on this site, and another half day Googling people&rsquo;s experiences and opinions about Disqus, I decided, <em>endlich</em>, not to use it.</p>
+<p>Why?</p>
+<p>In its early days, this site was a wiki, and a few friends had access to the &ldquo;secret&rdquo; subdomain where it was published read-write. We had a great time for a couple of years having conversations on the site about the site itself and the subjects that it attempted to &ldquo;tackle&rdquo;. I miss having conversations here, but since I really wanted to have the site be statically generated (and hosted), any dynamic content had to be hosted elsewhere.</p>
+<p>Thankfully, there are several (at least three) options for this kind of commenting-system-for hire: <a href="https://disqus.com/">Disqus</a>, <a href="https://intensedebate.com/">Intense Debate</a>, and <a href="http://web.livefyre.com/comments/">Livefyre Comments</a>. Before researching the pros and cons of Disqus I had never heard of Intense Debate or Livefyre. I immediately wrote off Intense Debate when I found out it was an <a href="http://automattic.com/">Automattic</a> project &ndash; I&rsquo;m not a fan. And Livefyre? Well, I had never seen it &ldquo;live&rdquo; on the web, which suggested that the community of commenters that I would be drawing on would be much smaller than that available at Disqus. So really Disqus was the only service I seriously considered. Hence, the rest of my comments here name Disqus, but the other services have most of the same features and, importantly, <em>problems</em>.</p>
+<p>Let&rsquo;s step back and consider what these services really are. Disqus is basically a social networking system for hire. They do house calls: you integrate the service into <em>your</em> site, rather than having the conversation occur, say, on Facebook. It&rsquo;s a bit like having your <em>own</em> Facebook &ndash; yes, with all the privacy bugbears that that entails.</p>
+<p>I&rsquo;ve already muddied the waters by using suggestive, but false, language. Disqus is &ldquo;for hire&rdquo; in the sense that you can bring their Facebook-like experience to your site, but, importantly, Disqus is &ldquo;free&rdquo;. Cost-free, that is. Just like Facebook, Disqus is truly a social network, and has all the problems that social networks have. Why is it &ldquo;free&rdquo;? Because by hosting your comments there they get access to a ton of immensely valuable behavioural <em>metadata</em>. And they sell it to advertisers.</p>
+<p>So by using Disqus your commenters &ndash; your <em>community</em> &ndash; become a product.</p>
+<p>If that weren&rsquo;t bad enough, there are serious, unresolved privacy and censorship issues with the service.</p>
+<p>First, all of a Disqus user&rsquo;s comments are aggregated in one place &ndash; on their profile page on disqus.com &ndash; and are public. While this might not sound like a big deal &ndash; they are commenting in public after all &ndash; having all their comments together in one place makes it much easier to profile someone, to stalk or troll them, to &ldquo;infiltrate&rdquo; all the places they comment and annoy or harass them. If their comments weren&rsquo;t public, or weren&rsquo;t all aggregated, it might be possible but would much harder to do this; and making casual stalking or harassment harder seems like a good thing.</p>
+<p>Second, it&rsquo;s possible to &ldquo;follow&rdquo; a commenter, like on Twitter. And, as far as I understand, it&rsquo;s not possible as a commenter either to see who is following you, or to block them. As above, this can easily be abused for nefarious purposes, such as stalking or trolling. If you follow someone, you can see in real-time where they are commenting, and jump on or harass them. You can easily make using Disqus so painful for someone that they stop using. Harassing someone for personal reasons makes this &ldquo;feature&rdquo; troubling, but if someone misuses it for <em>political</em> ends, then it becomes truly chilling.</p>
+<p>Third, Disqus uses the services of a company called Impermium, who use machine learning techniques (like everyone else) to combat spam, profanity, and hate speech. The trouble with this is that, as a user of Disqus (either as a commenter or publisher) you are now forced to consent to the black-box intermediation of a basically unknown company. As Evgeny Morozov puts it, in his awesome, mind-blowing book <em>To save everything, click here</em>:</p>
+<blockquote><p>... a single Californian [sic] company makes decisions over what counts as hate speech and profanity for some of the world&rsquo;s most popular sites without anyone ever examining whether its own algorithms might be biased or excessively conservative. Instead of celebrating the mythical nirvana of disintermediation, we should peer inside the black boxes of Impermium&rsquo;s spam algorithms.</p></blockquote>
+<p>I find this troubling. (Curiously, it appears that Impermium has been acquired by Google. That will either soothe your rattled nerves, or make you even more suspicious. ;-)</p>
+<p>Fourthly, like any social network, Disqus relies on cookies and Javascript to deliver their service. This also means that it&rsquo;s possible to accurately track the whereabouts and habits of Disqus commenters. If a commenter is logged in to Disqus, any site they visit that uses Disqus will load the Disqus Javascript, which can then ping home and record their visit. This is just as true of Twitter and Facebook &ndash; and is the <em>real</em> reason for &ldquo;Like&rdquo; and &ldquo;Tweet&rdquo; buttons &ndash; and is something that makes me very uncomfortable. While it&rsquo;s possible to use Disqus without signing in (as long as the site owner has configured Disqus to allow this), as a commenter you lose many of the benefits of signing in, such as being able to go back and edit comments. Guest comments are &ldquo;unowned&rdquo;, and immutable.</p>
+<p>Lastly &ndash; and problably &ldquo;leastly&rdquo; &ndash; using <em>any</em> outside commenting service has the usual &ldquo;cloud computing&rdquo; problems: your data (comments) is on someone else&rsquo;s servers, and you have to trust that they won&rsquo;t lose, or, more disturbingly, <em>secretly modify</em> them. If there were some kind of integrity hashing that could be relied on, that would help, but then, where are the hashes kept? Now you have to build a dynamic content system just to check the dynamic content system that you wanted to bring in...</p>
+<p>As a counterpoint to this last point, people use Google Docs all the time and have no problem with it. Ditto other cloud services. It is simply part of the bargain we make when outsourcing to cloud providers.</p>
+<p>In addition to privacy, and perhaps censorship, issues, people have <em>usability</em> issues with Disqus. By using an <code>&lt;iframe></code> element to contain the rendered comments Disqus makes it very hard to style the comments to match the rest of your site. Why do they do this? Probably to make it hard to remove or alter their branding &ndash; but it&rsquo;s pretty arrogant.</p>
+<p>Other people complained that their readers had difficulty commenting. Signing in was problematic, or trying to use the Guest mode was awkward. Here&rsquo;s a <a href="http://www.ign.com/boards/threads/why-do-people-hate-disqus.453197597/#post-489137859">forum post that outlines several other issues</a>.</p>
+<p>Try Googling &ldquo;disqus failure&rdquo; and &ldquo;i hate disqus&rdquo;. You&rsquo;ll see what I mean.</p>
+<p>I&rsquo;d love to hear feedback about Disqus &ndash; maybe positive experiences that outweigh the negative, or evidence that I&rsquo;ve got the facts wrong about privacy or security. For now, you&rsquo;ll have to use the &ldquo;Send feedback&rdquo; link at the bottom of the page, which simply sends me an email. Maybe someday there will be a better way to comment here. ;-)</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Why%20I%26rsquo%3bm%20not%20using%20Disqus">Send feedback</a> on this page (last edited 2015 April 13 17:28)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

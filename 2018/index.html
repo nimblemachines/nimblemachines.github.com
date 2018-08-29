@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="journal, 2018, blog" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="stylesheet" href="/-/asciinema/asciinema-player.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/2018/" />
+<title>2018 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2018 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="august-23-15:31"><a href="#august-23-15:31">2018 August 23 15:31</a></h3>
+<p>I&rsquo;ve finally written up my thoughts about <a href="/donuts-inc-a-creepy-company/">Donuts, Inc and why I think they are a creepy company</a>.</p>
+<p>This is a small piece of a much larger story: how ICANN has fumbled and mismanaged the introduction of new top-level domains (TLDs) into the DNS.</p>
+<p>Donuts are a big player in this new space. Because they own United TLD Holdco, they now &ldquo;control&rdquo; 241 of the 1578 <a href="https://www.iana.org/domains/root/db">currently-delegated TLDs</a>. (Donuts have 201; United TLD Holdco have the other 40. I&rsquo;ve got a <a href="https://docs.google.com/spreadsheets/d/117vHhDS9wb-1wpBdbVvsZjGGfLx06fAre1UCtiFMHe0/edit?usp=sharing">spreadsheet</a> to prove it. ;-))</p>
+<hr />
+<p>Also today I got a Dev channel update on my Acer 14 Chromebook, and it <a href="/-/screenshot-acer14-vm-container-support.png">included Linux vm/containers support</a>!</p>
+<p>I installed the update, followed the directions to install <a href="https://developer.android.com/topic/arc/studio">Android Studio</a> and fired it up. It worked after a reboot, but because USB devices don&rsquo;t yet get &ldquo;forwarded&rdquo; to the container it&rsquo;s kinda useless. Also, the default Debian container with Android Studio added consumes 5.5 GB of disk space.</p>
+<p>I&rsquo;m going to stick with my kludgey Gentoo chroots for now.</p>
+<hr />
+<h3 id="august-15-14:53"><a href="#august-15-14:53">2018 August 15 14:53</a></h3>
+<p>It looks like certain Chromebooks are going to be gaining the ability to run Linux containers (in a VM) <em>without going into developer mode</em>.</p>
+<p>This means that without compromising the security of your device you will be able to access the Linux command line, and install and run both command line and graphical applications and games &ndash; including <a href="https://developer.android.com/topic/arc/studio">Android Studio</a>!</p>
+<p>This ability is initially rolling out to Pixelbooks (on the dev channel), but will be coming eventually to many (but not all) Chromebooks. 32-bit ARM processors are not going to be supported, nor are Bay Trail machines. But many older machines are, as are the newest Broadwell, Braswell, Skylake, etc. I can&rsquo;t tell from the announcement whether Haswell machines are going to be supported or not. The <a href="https://dev.chromium.org/chromium-os/developer-information-for-chrome-os-devices">official device list</a> shows these as having a 3.8 kernel, and anything 3.10 or earlier will not be supported. However, these are <em>not</em> on the <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md#old-kernels">old kernels</a> device list.</p>
+<p>Here is the <a href="https://blog.google/products/chromebooks/linux-on-chromebooks/">bloggy announcement</a> from Google. (Note the interesting domain!)</p>
+<p>You can <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md">read all the details &ndash; including which varieties of Chromebook will be supported</a> &ndash; in the <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/">Chromium OS docs tree</a>. (There is other interesting stuff in there, including <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/rust_on_cros.md">this</a>.)</p>
+<p>And finally, the <a href="https://chromium.googlesource.com/chromiumos/platform/crosvm/">source code for the magic pixie dust</a> &ndash; which, interestingly, is mostly written in <a href="https://www.rust-lang.org/"><em>Rust</em></a>. Is Google sleeping with the <a href="https://research.mozilla.org/rust/">enemy</a>? ;-)</p>
+<p>Once this is widely rolled out, are Chromebooks going to start to displace Macs as the kickass developer machine of choice? It will be interesting to watch.</p>
+<p>A note for fellow Acer Chromebook 14 (edgar) owners: you can try this now in the Canary channel. (To switch to Canary you have to be in developer mode, and on either the Beta or Dev channel. Open a crosh window and type &ldquo;live_in_a_coal_mine&rdquo;. Then head over to &ldquo;Settings > About Chrome OS&rdquo; and search for updates. After it downloads the update you will be prompted to reboot.)</p>
+<p>I took it for a spin and it started out working fine, but then something got wedged and I was unable use many of the built-in apps, including the new &ldquo;Linux apps&rdquo; app. Tapping on them (to start them) would cause the cursor to freeze for a few seconds, and then a new window would open up with the message that Chrome had quit unexpectedly, and would I like to restore my tabs.</p>
+<p>So it&rsquo;s certainly raw at the moment. I&rsquo;ve switched back to the Dev channel from Canary and may wait for this feature to arrive on Dev before I try it out again.</p>
+<hr />
+<h3 id="august-14-15:58"><a href="#august-14-15:58">2018 August 14 15:58</a></h3>
+<p>This past May, GitHub quietly announced that <a href="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/">custom domains hosted on their GitHub Pages service would be available over HTTPS</a>. I missed this announcement, and only found out about it by accident a few days ago when a friend sent a screenshot of this site being displayed with a green lock and an &ldquo;https&rdquo; in the URL!</p>
+<p>I was rather surprised &ndash; and pleased!</p>
+<p>GitHub has teamed up with the awesome folks at <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> to make this possible.</p>
+<p>I&rsquo;ve wanted to SSLify this site for time. I futzed around with Amazon S3 but got bogged down with IAM and getting log buckets to work right, so I never even made it to the &ldquo;SSL&rdquo; part of the story. Recently I discovered <a href="https://www.netlify.com/">Netlify</a> but again, never signed up or tried it out.</p>
+<p>Now I don&rsquo;t have to do anything, until and unless I someday want access to my server logs...</p>
+<p>To make sure that as many visitors as possible access this site over HTTPS, I followed GitHub&rsquo;s <a href="https://help.github.com/articles/setting-up-an-apex-domain/#configuring-a-records-with-your-dns-provider">directions for changing my DNS A records</a>, and for setting &ldquo;Enforce HTTPS&rdquo; on the repository. I have some internal links that still use HTTP, but the &ldquo;Enforce HTTPS&rdquo; setting redirects them, and this seems to work well. We&rsquo;ll see if it screws up Google Search Console (that is, more than it is already screwed up by Google).</p>
+<p>Last night I tried an experiment: to see how easy it is to set up an HTTPS-enabled site from scratch on GitHub Pages. The answer: super easy! And it&rsquo;s surprisingly fast. Within a minute or two of pushing my tiny site it had a valid SSL cert from Let&rsquo;s Encrypt!</p>
+<p>Here are the steps. NOTE: I&rsquo;m assuming that you are not a complete Git or GitHub newbie! If you are, the following directions will likely <em>not</em> be enough to get you started. But you are obviously welcome to try anyway!</p>
+<h4 id="register-a-domain-if-you-dont-already-have-one"><a href="#register-a-domain-if-you-dont-already-have-one">Register a domain (if you don&rsquo;t already have one)</a></h4>
+<p>Please don&rsquo;t use Go Daddy, and please don&rsquo;t register in any of the Donuts, Inc new TLDs. They are creepy and deserve to go down in flames. Because they have purchased United TLD Holdco, those are off-limits too (assuming you agree with me about the creepiness of Donuts.) Sadly that means that one of my favorites among the new TLDs &ndash; <a href="https://www.iana.org/domains/root/db/rocks.html">.rocks</a> &ndash; is off-limits.</p>
+<p>I&rsquo;ll publish a list here soon of Donuts/TLD Holdco domains.</p>
+<p>Ironically &ndash; and contrary to ICANN&rsquo;s <a href="https://www.icann.org/resources/pages/governance/bylaws-en/#_Ref444420881">unfounded pipe dreams</a> about their <a href="https://newgtlds.icann.org/">new TLD project</a> &ndash; .com, .org, and .net are among the cheapest to register now (around $8/year). If you can find a name you like, that is...</p>
+<p>As far as choosing a registrar, I&rsquo;ve had great service from PairNIC (now <a href="https://www.pairdomains.com/">pair Domains</a>) over the last 18 or so years. (They are the domain registrar branch of <a href="https://www.pair.com/">pair Networks</a>.) Their service is always improving and their DNS is crazy fast and reliable. They are not the cheapest, but if you buy/renew in 5 year increments they are not bad (I think $13/year or so).</p>
+<p>I&rsquo;ve used <a href="https://joker.com/">Joker</a> a couple of times to register experimental domains (but never renewed any of them). Their prices are good, but their web interface is kind of strange. No problems though.</p>
+<p>I&rsquo;ve got an account with <a href="https://porkbun.com/">Porkbun</a>, and they have great pricing and support tons of TLDs, but I can&rsquo;t comment from experience on using their site to administer a live domain and its DNS. I mean to try this out, and I&rsquo;ll report back. Porkbun is the registrar arm of <a href="https://toplevel.design/">Top Level Design</a>, which also runs a few registries (.design, .ink, and .wiki). That&rsquo;s not an endorsement, just a fact. ;-)</p>
+<p><a href="https://www.gandi.net/en">gandi.net</a> is also a good option &ndash; lots of TLDs to choose from, and fairly cheap.</p>
+<p>You probably have a favorite registrar anyway, so don&rsquo;t listen to me. ;-)</p>
+<p>In the instructions that follow, I am going to assume that you registered the domain &ldquo;wiki.kiwi&rdquo;.</p>
+<h4 id="register-with-github-if-you-havent-already"><a href="#register-with-github-if-you-havent-already">Register with GitHub, if you haven&rsquo;t already</a></h4>
+<p>This part is pretty easy. Of course, you&rsquo;ll have to know some basics of using Git for the rest of these instructions to make much sense. That part is not so easy. It took me &ndash; in 2007, when I first started using Git &ndash; about six months of reading and pondering before I had the guts to just dive in. But I&rsquo;ve been super happy that I took the plunge. Git has problems &ndash; the UI can be rather odd in places &ndash; but it&rsquo;s crazy powerful, and I personally have never lost any work because of Git. To the contrary &ndash; it has saved my butt more than once.</p>
+<h4 id="create-a-repository-on-github-for-your-site"><a href="#create-a-repository-on-github-for-your-site">Create a repository on GitHub for your site</a></h4>
+<p>If you want this to be your &ldquo;personal&rdquo; site or blog, or an &ldquo;organization&rdquo; site or blog, name it &lt;username>.github.io (for a personal site) or &lt;orgname>.github.io (for an organization). Your site will live in the master branch of the repo. <a href="https://help.github.com/articles/user-organization-and-project-pages/">Read the GitHub Pages docs</a> for more details about the different kinds of sites.</p>
+<p>If you already have a project that you are hosting on GitHub and want to create a documentation site for it, create a &ldquo;gh-pages&rdquo; branch, as described below.</p>
+<p>If you already have a personal or organization site, and you just want to try something new on a different domain, create a repository as if for a project, create a README file as a placeholder, and then follow the &ldquo;gh-pages&rdquo; directions below.</p>
+<h4 id="clone-the-new-repo-or-existing-project-repo-onto-your-machine"><a href="#clone-the-new-repo-or-existing-project-repo-onto-your-machine">Clone the new repo, or existing project repo, onto your machine</a></h4>
+<p>On the repository page, copy the &ldquo;clone this repo&rdquo; link and then do</p>
+<pre>
+  git clone &lt;url>
+</pre>
+<p>on your machine. cd into the directory that was just created. If this is a user or organization site, we will stay on the master branch. If this is a project or &ldquo;random other domain&rdquo; site, we need to create and populate a &ldquo;gh-pages&rdquo; branch.</p>
+<h4 id="prepare-the-gh-pages-branch"><a href="#prepare-the-gh-pages-branch">Prepare the &ldquo;gh-pages&rdquo; branch</a></h4>
+<p>Skip this part if you are using a user or organization repo.</p>
+<p>In the top-level directory of the cloned repo, do the following:</p>
+<pre>
+  git checkout --orphan gh-pages
+  git rm -rf .
+</pre>
+<p>This leaves you with an empty tree, and a &ldquo;gh-pages&rdquo; branch with no parents.</p>
+<h4 id="populate-the-new-site"><a href="#populate-the-new-site">Populate the new site</a></h4>
+<p>Still in that top-level directory, do this:</p>
+<pre>
+  touch .nojekyll
+</pre>
+<p>I&rsquo;m assuming for now that you are going to create a simple HTML site, or you are using some kind of site generator other than Jekyll.</p>
+<p>Assuming that you just registered the domain wiki.kiwi, create a file called CNAME with the single line</p>
+<pre>
+  www.wiki.kiwi
+</pre>
+<p>This will be the root URL of your site.</p>
+<p>To have something show up on your new site, create a simple index.html file. Then do</p>
+<pre>
+  git add .
+  git commit -m "initial commit of new site!"
+  git push --all
+</pre>
+<p>The --all is only necessary for site using a gh-pages branch. You can leave it off for a user or org site.</p>
+<h4 id="set-up-some-dns"><a href="#set-up-some-dns">Set up some DNS</a></h4>
+<p>You&rsquo;ll want to create a CNAME record with your registrar/DNS provider that maps www.wiki.kiwi to &lt;username>.github.io (or &lt;orgname>.github.io, if you are doing this in an organization account).</p>
+<p>That&rsquo;s all you&rsquo;ll need to get started. If you are interested in having the bare (or &ldquo;apex&rdquo;) domain also resolve, follow the directions <a href="https://help.github.com/articles/setting-up-an-apex-domain/">here</a>.</p>
+<h4 id="enjoy-your-new-site"><a href="#enjoy-your-new-site">Enjoy your new site!</a></h4>
+<p>Go to <a href="http://www.wiki.kiwi/">http://www.wiki.kiwi/</a> or <a href="https://www.wiki.kiwi/">https://www.wiki.kiwi/</a> (the http version should redirect to the https version) and marvel! If nothing shows up at first, try again in a minute or two.</p>
+<p>While that may seem like a lot of steps, they are all pretty easy. Populating and maintaining your new site is much harder. Witness the state of this site, for example. ;-)</p>
+<p>Above all, enjoy!</p>
+<hr />
+<h3 id="august-12-16:04"><a href="#august-12-16:04">2018 August 12 16:04</a></h3>
+<p>Today&rsquo;s rant is less about technology <em>per se</em> and more about the tech press.</p>
+<p>I&rsquo;ve been researching monochrome laser printers, and finding that the reviews published by CNet, PCWorld, and the like are singularly unhelpful &ndash; mostly because they have weird ideas about <em>cost</em>. They seem to think that a low purchase price is more important than low running costs. I disagree.</p>
+<p>This printer is going to be for my own personal use, and I don&rsquo;t print a lot, so running cost isn&rsquo;t a huge deal <em>for me</em>, but for many people, and especially for business use, it should probably be part of the selection process. I&rsquo;ve had my share of annoyances with inkjet printers and dried-up ink; that&rsquo;s the main reason a laser seems like a better choice (again, for <em>me</em>). I also like the print quality of lasers, and don&rsquo;t especially need color. I want to print out datasheets, papers, manuals, and things like that. And experiment with TeX and METFONT, and PostScript and PDF technologies.</p>
+<p>In general when buying &ldquo;tools&rdquo; I like to spend a bit more to get the real deal. Recently I was in the market for a DMM (digital multimeter), and after reading and watching tons of reviews I decided on a <a href="https://www.keysight.com/en/pdx-2851357-pn-U1233A/handheld-digital-multimeter-3-digit">Keysight U1233A</a>. This is a true RMS &ldquo;electrician&rsquo;s&rdquo; meter, but I think it will serve me well for doing simple electronics troubleshooting too. And if I ever play around with power electronics (PWM for motors or power inverters) it will be perfect.</p>
+<p><img src="/-/keysight_u1233a.jpg" alt="Keysight U1233A True RMS DMM" title="Keysight U1233A True RMS DMM" /></p>
+<p>It cost me $170 (from Mouser), which the popular press would probably consider expensive. But in its favor are the following:</p>
+<ul>
+<li>Keysight is an established test and measurement company &ndash; in fact, it&rsquo;s the <em>original</em> T&amp;M company. It&rsquo;s the newest incarnation of Hewlett-Packard, and &ndash; like the original HP &ndash; it is solely focussed on T&amp;M.</li>
+<li>Safety is an important issue with DMMs. The cheaper ones tend to be cheaply built, and if they blow up in your hand/face they can cause serious injury. Keysight&rsquo;s meters are intended for the professional market and are well made.</li>
+<li>The battery life is amazing. It uses four AAA batteries (rechargeables will work) and will run for 500 hours!</li>
+<li>There are interesting add-ons available. I spent $30 more to get the <a href="https://www.keysight.com/en/pd-2314431-pn-U1173B/handheld-digital-multimeter-pc-connectivity-cable">IR-to-USB connector</a> so I can use it to do data collection &ndash; if I ever find an interesting application for such. ;-)</li>
+</ul>
+<p>I&rsquo;m trying to apply the same criteria to buying a laser printer. Which means I&rsquo;m looking at &ldquo;small workgroup&rdquo; printers rather than at bottom-of-the-barrel consumer printers. My desiderata include:</p>
+<ul>
+<li>networked access (preferably <em>not</em> wireless, since everyone&rsquo;s wireless firmware is probably buggier than their wired firmware)</li>
+<li>reasonable running costs (this mostly means limiting my search to printers that take high-capacity toner cartridges)</li>
+<li>paper duplexing (I&rsquo;ve spent an unreasonable amount of time futzing around to get cheap inkjets to print on both sides, and something invariably goes wrong &ndash; usually the printer grabs too many pages at some point and screws up the back-to-front matching)</li>
+<li>PostScript support, ideally (mostly because I&rsquo;m curious, but also because of painful memories &ndash; again with inkjets &ndash; of trying to coax Ghostscript to do the right thing)</li>
+</ul>
+<p>I&rsquo;ve looked at this category of printers several times over the last few years, and previously two printers stood out for me: the <a href="https://www.brother-usa.com/products/HLL5100DN">Brother HL-L5100DN</a>, and the <a href="https://www.oki.com/us/printing/products/monochrome/b412dn/specifications/">Oki B412DN</a>. Both have an MSRP of $199, and neither has PostScript support. The Brother supports &ldquo;BrotherScript&rdquo;; the Oki&rsquo;s more expensive sibling, the B432DN (MSRP $349), supports true Postscript. Both are networkable and support duplexing.</p>
+<p>Recently I added two printers to my comparison: the <a href="https://www.usa.canon.com/internet/portal/us/home/products/details/printers/laser-single-function/imageclass/imageclass-lbp214dw">Canon imageCLASS LBP214dw</a> and the <a href="https://www.lexmark.com/en_us/printer/11830/Lexmark-MS321dn">Lexmark MS321dn</a>. Canon sell the LBP214dw for $229; the Lexmark seems to have an MSRP of around $199. Unlike the other three printers, the Canon has both wired and wireless connections; and these two both support PostScript 3.</p>
+<p>I haven&rsquo;t done a detailed comparison, but I think the running costs are comparable &ndash; if you buy the printer&rsquo;s &ldquo;high capacity&rdquo; toner cartridge.</p>
+<p>But here is where the tech press annoyed me. They seem to consider $200 &ldquo;rather expensive&rdquo;. For a fast, duplexing, networked laser printer with low running costs? I don&rsquo;t agree &ndash; at all. And I wish they would be less misleading &ndash; penalizing these printers on the basis of cost, when in reality they will be, especially in a business setting, both cheaper and much less annoying to operate than their &ldquo;less expensive&rdquo; brethren, both inkjet and laser.</p>
+<p>Anyway, that&rsquo;s most of my rant, but I wanted to add another &ldquo;axis&rdquo; to the comparison &ndash; that of operating power. While in other respects the Canon might top my list (more built-in PostScript fonts than the Lexmark; wireless option if I decide I need it), it seems to draw a lot of power while printing (max 1320 W). The others are between 500 and 900 W.</p>
+<p>Here is a handy table comparing the four (they all do duplexing and wired networking, so I&rsquo;m leaving those out of the comparison):</p>
+<pre>
+                                          Max     Avg
+                         Memory   PPM    power   power   PS3  PS fonts
+                         =============================================
+  Brother HL-L5100DN     256 MB   42       n/a   620 W    no   n/a
+  Oki B412dn             512 MB   35     900 W   560 W    no   n/a
+  Canon LBP214dw           1 GB   40    1320 W     n/a   yes   136
+  Lexmark MS321dn        512 MB   38       n/a   520 W   yes    91
+</pre>
+<p>PPM is print speed in pages per minute, letter, simplex. Not all manufacturers specify the duplex speed, so it&rsquo;s hard to compare.</p>
+<p>Paper handling for all four is comparable.</p>
+<p>The Brother&rsquo;s smaller memory could be a concern. This can slow it down when doing graphics-heavy printing, or printing PostScript using the BrotherScript emulation. The other printers are going to better choices for this kind of workload. I also remember reading online consumer reviews saying that the Brother can have trouble waking from sleep, and also can have trouble with &ldquo;specks&rdquo; of toner on the page, especially the first page. These sound like annoyances that could really be a problem in the long term...</p>
+<p>It&rsquo;s a bit difficult to compare the cost-per-page, since toner cartridge prices vary a lot, depending on the supplier, but I think all of these come in around 2 cents per page when using a high-capacity toner cartridge. I should try to do a more careful comparison!</p>
+<p>I hope this helps someone else who is shopping for a printer!</p>
+<hr />
+<h3 id="august-11-00:05"><a href="#august-11-00:05">2018 August 11 00:05</a></h3>
+<p>I upgraded my cable service recently, from 75 Mbps to 150 Mbps, but didn&rsquo;t notice any difference when running speedtest.net on my wirelessly-connected machines.</p>
+<p>Turns out that my wireless router &ndash; a Linksys E1200, running the <a href="http://tomato.groov.pl/">&ldquo;tomato by shibby&rdquo; firmware</a> (which is <em>awesome</em>, by the way) &ndash; has fast Ethernet ports (100 Mbps), even though it is capable of wireless N speeds (300 Mbps). Does that make sense to you?</p>
+<p>I didn&rsquo;t think so.</p>
+<p>I decided &ndash; foolishly, it turns out &ndash; to replace it with something &ldquo;better&rdquo;, and found another Linksys &ndash; the EA6700 &ndash; on sale at Best Buy for $46. These are N/AC, capable of crazy speeds, have gigabit Ethernet ports, and can run tomato and dd-wrt firmware ... supposedly.</p>
+<p>I got the new routers today (I bought two) and decided to try them out. The stock firmware is truly awful, as I expected. I was able to get 135 Mbps over wireless, which is awesome, but the IPv6 support was weirdly broken in a similar way to the stock E1200 firmware. (&ldquo;tomato by shibby&rdquo; totally fixes this &ndash; one reason why it&rsquo;s awesome.)</p>
+<p>Given the awfulness of the stock firmware, and armed with the knowledge that I could run tomato, I duly downloaded the newest tomato by shibby build (from May 2017). The router refused it. After Googling, I found that you have to downgrade to an earlier <em>stock</em> firmware which predates a change that requires that firmware updates be <em>signed</em>. (The release notes claim that this change was required by the FCC.)</p>
+<p>The &ldquo;official&rdquo; Linksys download page for the router only has the latest firmware, but another Google search turned up a link &ndash; on linksys.com &ndash; for a previous version (1.1.40.160989).</p>
+<p>But the router refused that too.</p>
+<p>There is some kind of Windows tftp client that Linksys make available, but it does something different than the BSD tftp on my Mac, which did nothing.</p>
+<p>At this point I had wasted several hours, and in the process learned that there is some kind of NVRAM bug in the replacement firmware &ndash; it sounds like it affects both tomato and dd-wrt &ndash; that causes it to randomly revert to stock.</p>
+<p>I decided that even if, by herculean measures, I managed to get aftermarket firmware on this damn thing, it wasn&rsquo;t going to be worth the trouble. In contrast, the E1200 is trivial to reflash, and it works like a champ.</p>
+<p>The process got me asking &ndash; for the zillionth time &ndash; why is consumer WiFi hardware still such utter crap? It&rsquo;s crap that&rsquo;s getting crappier, if that&rsquo;s possible.</p>
+<p>It seems like there is room for someone to create a fast box with open-source software, simple administration &ndash; scriptable! with a command-line interface! &ndash; with a decent firmware environment (like CFE or U-Boot but simpler), and a three-pin serial jack (RX, TX, GND) for a console in case things go wrong (so one can boot into the firmware environment and reflash).</p>
+<p>What about running <a href="https://www.pfsense.org/">pfSense</a> as a router/firewall, <a href="https://www.netgate.com/docs/pfsense/wireless/use-an-existing-wireless-router-with-pfsense.html">connected to a consumer wireless router</a> that is configured to act as an access point and wireless bridge, but does no routing or DHCP?</p>
+<p>I would just need to find a small, cheap box to run pfSense on. The <a href="https://www.netgate.com/solutions/pfsense/sg-1000.html">Netgate SG-1000</a> is cute, but I think it needs more routing possibilities &ndash; for example, at least <em>two</em> LAN-side ports.</p>
+<p>What about a Soekris box? Hmm. <a href="https://news.ycombinator.com/item?id=14449966">Soekris Engineering is gone</a>. Someone in that Hacker News conversation suggested finding a used and cheap thin client, adding a PCI network interface (for the second network), and using that. Interesting idea.</p>
+<p>Or <a href="https://www.jetwaycomputer.com/JBC375F533.html">one of these</a>?</p>
+<p>Or, even better (it runs <a href="https://coreboot.org/">coreboot!</a>) <a href="https://www.pcengines.ch/apu2.htm">one of these</a>? The APU2 can be configured with wireless, rendering the second box (the consumer wifi router) redundant. A fun project?</p>
+<hr />
+<h3 id="march-29-15:08"><a href="#march-29-15:08">2018 March 29 15:08</a></h3>
+<p>Just found a couple of interesting <a href="http://parrt.cs.usfca.edu/">Terence Parr</a> talks. The first introduces <a href="http://www.antlr.org/">ANTLRv4</a> (the latest and final version, he promises!) and its cool features. The beginning is good; the middle &ndash; during which he futzes with an ANTLR IDE &ndash; is a bit slow and maybe should be skipped; and the end &ndash; the introduction to the nifty kind of parser (adaptive LL(*)) that ANTLRv4 generates &ndash; is good.</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/q8p1voEiu8Q" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<p>The second video is a two-hour-long tutorial on building a virtual machine (to implement a language) from scratch! I only watched the beginning, but it&rsquo;s probably well worth watching.</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/OjaAToVkoTw" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<p>Curiously, Rob Pike has some interesting things to say about lexing and parsing as well &ndash; and whether to use tools like lex, yacc, and ANTLR, or to write our own from scratch... His talk is about lexing templates in Go.</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/HxaD_trXwRE" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<hr />
+<h3 id="february-10-18:23"><a href="#february-10-18:23">2018 February 10 18:23</a></h3>
+<p>While I&rsquo;m in a microblogging mood I thought I would add something about CWEB and literate programming that I didn&rsquo;t say before.</p>
+<p>I&rsquo;ve tried reading (parts of) the source to TEX and Metafont (by running <code>weave</code> and TEX on the <code>.web</code> source files and looking at the resulting DVI or Postscript file) and found that I was annoyed and distracted by the &ldquo;fancy&rdquo; typography. In order to understand the code, I had to translate &ndash; in my head &ndash; the fancy symbols <em>back</em> into the sequences that I might type at the keyboard.</p>
+<p>I&rsquo;m sure I&rsquo;m not alone in this. In fact, here is <a href="https://www.cs.tufts.edu/~nr/index.html">Norman Ramsey</a>, the author of <a href="https://www.cs.tufts.edu/~nr/noweb/index.html">noweb</a>, on the subject:</p>
+<blockquote><p>Most of my programs are edited at least as often as they are read, and it is distracting to have to switch between plain ASCII for editing and fancy fonts and symbols for reading. It is much better for the literate-programming tool to display the code almost exactly as written. (I do believe in typographical distinction for chunk names.)</p></blockquote>
+<p>The problem, fundamentally, is that I&rsquo;m mostly going to be sitting in the editor &ndash; not reading the Postscript/PDF &ndash; and I want what I see in <em>that</em> context to be readable. (Hence, I think, the current popularity of &ldquo;syntax coloring&rdquo;. It&rsquo;s a lightweight way to add a tiny bit of semantic annotation to the text without being too intrusive, and without requiring graphics or a GUI.)</p>
+<p>I think the idea of switching back and forth &ndash; between the &ldquo;authoring&rdquo; format and the rendered output &ndash; is unnecessary cognitive overhead.</p>
+<p>Another thing: WEB and CWEB were developed, in part, so that the <em>exposition</em> of a program to a human reader could be done in a comfortable, sensible pedagogical sequence, rather than in whatever sequence the compiler required. <code>tangle</code> (for WEB and Pascal) and <code>ctangle</code> (for CWEB and C) reorder the code to suit the compiler. This gives the author the freedom to choose any order of exposition.</p>
+<p>I&rsquo;ve mostly been writing Forth code for the last few years, and Forth interpreters and compilers tend to be one-pass, so it&rsquo;s difficult to do forward references. Hence, one tends to build things bottom-up. Because of the granular nature of Forth (lots of small words that do one thing) it&rsquo;s also easy to <em>test</em> bottom-up. This has the huge advantage that at each layer you&rsquo;re building on a lower layer that has been already tested, and each layer of your language has richer semantics. It&rsquo;s like a layer cake of domain-specific languages (DSLs). This is one of the &ldquo;features&rdquo; of Forth that makes it so powerful. (Of course, one could write C code the same way, but Forth has the advantage that the syntax (what little there is) is extensible, and there is no distinction between system-level and application-level code, nor is there a distinction between &ldquo;built-in&rdquo; and user-written words. Everything is made of the same stuff.)</p>
+<p>Forth is really a <em>meta-language</em>, rather than a language. One tends to start with the built-in words and then build an application-specific (domain-specific) vocabulary in which the rest of the system is written. But again, what&rsquo;s strange about this is that it&rsquo;s a continuum. Every word you write gets you closer to the perfect set of words for your application (if you&rsquo;re doing it right).</p>
+<p>So why this long aside?</p>
+<p>Bottom-up is also, I think, a great order for exposition/exegesis/explanation to a human reader. You bring them along with you as you build your DSL &ndash; or layers of DSLs.</p>
+<p>And so it has always seemed to me that Forth doesn&rsquo;t really <em>need</em> special &ldquo;literate programming&rdquo; tools. If written well, and commented well, Forth code can naturally be <em>literate</em> code.</p>
+<hr />
+<h3 id="february-09-17:17"><a href="#february-09-17:17">2018 February 09 17:17</a></h3>
+<p><a href="http://fogus.me/me/">Michael Fogus</a> (author of <em>Functional Javascript</em>) a few years ago published a good <a href="http://blog.fogus.me/2011/09/08/10-technical-papers-every-programmer-should-read-at-least-twice/">list of CS/programming papers worth reading (at least twice)</a>. I thought I&rsquo;d include it here. His list includes <em>Out of the tar pit</em>, which I was just thinking about; I came across his post while searching for a PDF of that paper.</p>
+<hr />
+<h3 id="february-09-12:20"><a href="#february-09-12:20">2018 February 09 12:20</a></h3>
+<p>Last night I watched two interesting talks by <a href="http://www.neville-neilconsulting.com/">George Neville-Neil</a> about using <a href="https://freebsd.org/">FreeBSD</a> in teaching and research. The first is about using FreeBSD and Dtrace to &ldquo;peer inside&rdquo; a running operating system, in order to learn its workings; the second is about using FreeBSD as a substrate for research.</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LbTbt8y9XuM" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/_oWcfUt9QUs" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<hr />
+<h3 id="february-08-19:12"><a href="#february-08-19:12">2018 February 08 19:12</a></h3>
+<p>Latest rabbit hole: from <a href="https://riscv.org/">RISC-V</a> to <a href="https://cs.stanford.edu/~knuth/mmix.html">MMIX</a> via the Zork <a href="http://inform-fiction.org/zmachine/standards/z1point1/index.html">Z-machine</a>, the <a href="https://en.wikipedia.org/wiki/Colossal_Cave_Adventure">Crowther/Woods Adventure</a> game, and Knuth&rsquo;s <a href="https://cs.stanford.edu/~knuth/cweb.html">CWEB</a>.</p>
+<p>How did it happen?</p>
+<p>I&rsquo;m a fan of RISC-V, so I watched this video &ndash; hopefully the first in a series! &ndash; about building a RISC-V processor using modern &ldquo;TTL&rdquo; logic chips:</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/yLs_NRwu1Y4" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<p>Robert does a great job of explaining the RISC-V instruction set and his design choices for the registers. Too bad he&rsquo;s concentrating on the least interesting part of RISC-V. Once he starts talking about the the instruction decoder and the ALU it should get <em>interesting</em>.</p>
+<p>I enjoyed the video, so I decided to see what else he&rsquo;s been up to. I found a video about building a CPU in an FPGA. Sounds interesting, right?</p>
+<div class="youtube-container">
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/2fNBkUCjhcE" frameborder="0" allowfullscreen="1"></iframe>
+</div>
+<p>Part way through I decided that the Z-machine was too complicated. Writing an adventure in Forth would be much more interesting. Hmm &ndash; where is the source for the Crowther/Woods Adventure game anyway?</p>
+<p>The first version I found was a port (from Don Woods&rsquo;s FORTRAN code) by Don Knuth. <a href="https://cs.stanford.edu/~knuth/programs/advent.w.gz">Knuth&rsquo;s version</a> is written in <a href="https://cs.stanford.edu/~knuth/cweb.html">CWEB</a>, his literate programming tool for C.</p>
+<p>I had forgotten that there was another version of Adventure, written by <a href="https://en.wikipedia.org/wiki/James_Gillogly">Jim Gillogly</a>, that used to be a part of every BSD system. I&rsquo;m not sure about the other BSDs, but FreeBSD got rid of most of the games a number of years ago. DragonFlyBSD still has the <a href="https://github.com/DragonFlyBSD/DragonFlyBSD/tree/master/games/adventure">Gillogly version of Adventure</a> in its base system.</p>
+<p>Thinking it would be fun to try Knuth&rsquo;s version, I went to find a copy of CWEB. In order to compile a program written using CWEB you need <code>ctangle</code>, a tool that extracts the C code in a compiler-friendly form.</p>
+<p>Knuth&rsquo;s <a href="https://cs.stanford.edu/~knuth/cweb.html">CWEB page</a> has a <a href="ftp://ftp.cs.stanford.edu/pub/cweb/cweb.tar.gz">broken link to the CWEB source</a>. I ended up downloading <a href="https://ctan.org/tex-archive/web/cweb">CWEB version 3.64c</a> from <a href="https://ctan.org/">CTAN</a>.</p>
+<p>You have to be careful untarring the CWEB source. Unlike most source packages, <code>cweb.tar.gz</code> does <em>not</em> create a subdirectory when untarred. You have to do that yourself. Compiling with a recent version of GCC (I&rsquo;m using 6.4.0) generates a <em>lot</em> of warnings. (There is a <a href="https://github.com/wkoszek/cweb">patched version of CWEB on Github</a>.)</p>
+<p>I didn&rsquo;t bother to install it. After gunzipping Knuth&rsquo;s <a href="https://cs.stanford.edu/~knuth/programs/advent.w.gz"><code>advent.w.gz</code></a> I pointed <code>ctangle</code> at it, got a <code>.c</code> file, and compiled that. (More GCC warnings.)</p>
+<p>I think, if I were going down this path again, I would instead try to build the <a href="https://github.com/DragonFlyBSD/DragonFlyBSD/tree/master/games/adventure">Gillogly BSD version</a>.</p>
+<p>However! While poking around on Knuth&rsquo;s homepage I rediscovered <a href="https://cs.stanford.edu/~knuth/mmix.html">MMIX</a>. I <em>may</em>, some time in the future, write a <a href="https://muforth.nimblemachines.com/">muforth</a> target compiler for MMIX, for two reasons:</p>
+<ul>
+<li>it&rsquo;s a simple RISC architecture, not tied to a vendor;</li>
+<li>the MMIX simulator might yield some interesting measurements of caching and branch-prediction behaviour that might shed some light on the performance of different threading models.</li>
+</ul>
+<p>We&rsquo;ll see if this happens. ;-)</p>
+<hr />
+<h3 id="february-01-01:08"><a href="#february-01-01:08">2018 February 01 01:08</a></h3>
+<p>I&rsquo;ve just added support for <a href="https://asciinema.org/">asciinema</a> and asciicasts to my web site generator! Here is a simple example, recorded on my Acer Chromebook 14.</p>
+<p>
+  <asciinema-player src="/-/asciinema/cast/this-is-a-chromebook.json" poster="npt:0:30"></asciinema-player>
+</p>
+<p>And here I am doing a pointless &ldquo;demo&rdquo; of my Lua-based static site generator (the engine behind this site and the <a href="https://muforth.nimblemachines.com/">muforth</a> site):</p>
+<p>
+  <asciinema-player src="/-/asciinema/cast/site-gen-demo.json" poster="npt:1:43"></asciinema-player>
+</p>
+<hr />
+<h3 id="january-30-19:40"><a href="#january-30-19:40">2018 January 30 19:40</a></h3>
+<p>I got an email this morning from Google, announcing that the <a href="https://search.google.com/search-console">new Search Console (BETA!)</a> will solve all of my problems.</p>
+<p><em>(Search Console is what Google now calls what used to be called <a href="https://www.google.com/webmasters/tools/">Google Webmaster Tools</a>.)</em></p>
+<p>Yes, I was &ldquo;excited&rdquo; by the idea that I could finally learn why Google has been refusing to index a good chunk of this site.</p>
+<p>I feel like I&rsquo;ve been doing everything right. Link rel=canonical metadata? Check. Trailing slash on all URLs? Check. Sitemap.xml? Check. But nothing seemed to help. Every time I checked, a quarter to a third of the pages on the site were not indexed.</p>
+<p>So I checked out the new Search Console. Sure enough, 45 of my pages are not in the index. But no explanation <em>why</em>. However, I can request, one-by-one, to have the pages indexed! But but but... I&rsquo;ve already submitted a carefully-crafted sitemap file that describes <em>exactly</em> all the URLs I would like indexed!</p>
+<p>Several of the URLs &ndash; page URLs lacking a trailing slash, which I don&rsquo;t use at all on my site &ndash; have &ldquo;crawl problems&rdquo; because they exhibit a &ldquo;redirect&rdquo;. Yes: Github Pages is (correctly) issuing 301 (permanent) redirects for these URLs. But Google refuses to follow them for a random fraction of my site?!?</p>
+<p>Oh, and no surprise: the Search Console (BETA!) is the usual Google user-interface <strong>dumpster fire</strong>.</p>
+<p>&ldquo;Hey Google! Code much?&rdquo;</p>
+<p>It was thinking, before this announcement, that I might switch to relying on Yahoo/Bing instead for my &ldquo;webmaster tools&rdquo; experience.</p>
+<p>Given what I&rsquo;ve just seen &ndash; and even notwithstanding my terrible previous experience with <a href="https://www.bing.com/toolbox/webmaster">Bing Webmaster Tools</a> &ndash; maybe that isn&rsquo;t a bad idea.</p>
+<p>&lt;sigh></p>
+<hr />
+<h3 id="january-28-22:47"><a href="#january-28-22:47">2018 January 28 22:47</a></h3>
+<p>I should also mention that I&rsquo;ve made some aesthetic changes to the site, bringing it closer in style to the <a href="https://muforth.nimblemachines.com/">muforth</a> site than previously. In fact, except for the choice of heading font, they are almost indistinguishable. (This is, IMHO, a bug and not a feature. Each site needs its own color and design scheme.)</p>
+<p>I hope that the change away from the beautiful but somewhat hard-to-read <a href="https://fonts.google.com/?query=alegreya">Alegreya typefaces</a> &ndash; I was using the <a href="https://fonts.google.com/specimen/Alegreya">serif</a> and <a href="https://fonts.google.com/specimen/Alegreya+Sans">sans</a> &ndash; is an improvement. It makes me sad to admit failure, but perhaps Alegreya is better suited to print than to digital screens.</p>
+<p>The current trio of fonts is: Encode Sans (<a href="https://fonts.google.com/specimen/Encode+Sans">normal</a> and <a href="http://fonts.google.com/specimen/Encode+Sans+Condensed">condensed</a>) for headings, <a href="https://fonts.google.com/?query=droid+serif">Droid Serif</a> for the body text, and <a href="https://fonts.google.com/specimen/Fira+Mono">Fira Mono</a> for code and other monospaced text.</p>
+<p><em>(Hmm &ndash; just noticed that there is an <a href="https://fonts.google.com/specimen/Encode+Sans+Semi+Condensed">Encode Sans semi-condensed</a>. Maybe I should try that too...)</em></p>
+<p>I hope these changes improve the readability of the site.</p>
+<p>And &ndash; and this is just <em>weird</em> &ndash; I noticed, as I was searching for a URL to link to &ndash; that <em>all</em> the <a href="https://fonts.google.com/?query=droid">Droid</a> fonts have vanished from <a href="https://fonts.google.com/">Google Fonts</a> and are now only available from Monotype! And yet, I&rsquo;m still using Droid Serif, here and on the <a href="https://muforth.nimblemachines.com/">muforth</a> site... Are the fonts suddenly going to stop working? Do I need to start searching for a new body font?!? Argh!</p>
+<hr />
+<h3 id="january-28-21:35"><a href="#january-28-21:35">2018 January 28 21:35</a></h3>
+<p>I decided to publish an <a href="/identicon-demo/">identicon demo</a> that I put together a while ago. It&rsquo;s totally out of context (I&rsquo;ve been meaning to publish a page explaining the history and current usage of <a href="https://en.wikipedia.org/wiki/Identicon">identicons</a>, but haven&rsquo;t yet) but you might find it intriguing, or perhaps even <em>beautiful</em>.</p>
+<p>Also, sharing it might shame me into publishing my other thoughts on the subject!</p>
+<hr />
+<h3 id="january-26-23:22"><a href="#january-26-23:22">2018 January 26 23:22</a></h3>
+<p>Happy New Year!</p>
+<p>I&rsquo;d thought I&rsquo;d ring in 2018 by deleting a third of my web site.</p>
+<p>Google can&rsquo;t seem to be bothered to index all of it (they only tell me that they have indexed 110-ish out of 140-ish pages, but won&rsquo;t tell me which ones) and there was a lot of old mossy junk in there that I don&rsquo;t care about anymore, and that no one else probably <em>ever</em> cared about.</p>
+<p>I doubt I&rsquo;m done purging, but I thought I would make a first pass at an early spring cleaning.</p>
+<p>I also hope to write more in 2018! It&rsquo;s been a bit ridiculous. I have several long rants I want to write that I can never seem to get around to. I&rsquo;d love to change that this year. A weekly rant? Wouldn&rsquo;t that be nice?</p>
+<p>Maybe none of this matters, anyway. But it&rsquo;s something to do. ;-)</p>
+<hr />
+<p>Read the <a href="/2017/">2017 journal</a>.</p>
+<script type="text/javascript" src="/-/asciinema/asciinema-player.js"></script>
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 August 23 15:31)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

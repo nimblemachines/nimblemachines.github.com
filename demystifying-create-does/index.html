@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/demystifying-create-does/" />
+<title>Demystifying create does &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Demystifying create does</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>The words <code class="forth">create</code> and <code class="forth">does></code> (and its cousin <code class="forth">;code</code>) live at the heart of Forth, and are the source of much of its power. They are one of its engines of <em>extensibility</em>, allowing the programmer to invent new datatypes. Using (and, even more so, <em>implementing</em>) <code class="forth">create</code> and <code class="forth">does></code> is part of mastering Forth.</p>
+<p>I discuss the following topics:</p>
+<ul>
+<li>using <code class="forth">create</code> and <code class="forth">does></code></li>
+<li>history &amp; features of their implementation</li>
+<li>how they interact with meta-compilation (hairy!)</li>
+</ul>
+<h2 id="using-create-and-does"><a href="#using-create-and-does">Using <code class="forth">create</code> and <code class="forth">does></code></a></h2>
+<p>Every word (object) in a Forth system has an attached behavior. When you &ldquo;call&rdquo; a word, it executes. If it&rsquo;s a constant, it pushes its value onto the data stack. A variable pushes the <em>address</em> of its value. A <code class="forth">code</code> word executes its machine code. A colon word (defined by <code class="forth">:</code>) executes the Forth words making up its body. And so on.</p>
+<p>A Forth system comes with a small handful of these types already defined. But what if you want to add your own?</p>
+<p>First you have to define a word that knows how to define words of your new type. I like to call words that define other words <em>defining words</em> (or, more briefly, <em>definers</em>). Our task is to understand how to define a new definer.</p>
+<p>There are two things we need to specify:</p>
+<ul>
+<li>how to build an instance of the new type;</li>
+<li>what this instance does when executed.</li>
+</ul>
+<p>Maybe that&rsquo;s why, in <a href="/fig-forth/">fig-FORTH</a>, these words were called <code class="forth">builds</code> and <code class="forth">does></code>. ;-)</p>
+<p>In modern systems <code class="forth">create</code> makes a new Forth dictionary entry, and <code class="forth">does></code> modifies the new word so that, when executed, it executes the code <em>following</em> the <code class="forth">does></code>. So we come to the first subtlety: the body of a definer is not executed all at once. The part between <code class="forth">create</code> and <code class="forth">does></code> is executed when the <em>definer</em> executes; the part after <code class="forth">does></code> executes when the <em>newly-defined word</em> executes.</p>
+<p>Generally, after <code class="forth">create</code> we put words to build the body of the new definition (its data), and after <code class="forth">does></code>, words that modify or retrieve all or part of its data. (In traditional Forths, when <code class="forth">does></code> executes the &ldquo;parameter field address&rdquo; (address of the word&rsquo;s data) is on the top of the data stack. In <a href="https://muforth.nimblemachines.com/">muforth</a> an arbitrary constant gets pushed, which <em>could be</em> a PFA.)</p>
+<p>A concrete example might help. Let&rsquo;s write a definer &ndash; <code class="forth">array</code> &ndash; for self-indexing arrays of cells. Here is the code:</p>
+<pre>
+  : array  ( n)       create  cells allot
+           ( i - a)   does>  swap cells + ;
+</pre>
+<p><code class="forth">cells</code> converts a count of cells to a count of bytes; <code class="forth">allot</code> allocates the bytes to this word. When <code class="forth">does></code> executes, the address of the first alloted byte is on the stack; we move it out of the way, change the cell index to a byte index, and add it to start of the array, and return this pointer.</p>
+<p>Now, lets define an array of pointers to lines of text.</p>
+<pre>
+  25 array lines
+</pre>
+<p>and to get the address of one of pointers (so that we can use <code class="forth">@</code> or <code class="forth">!</code> to read or write it),</p>
+<pre>
+  16 lines
+</pre>
+<p>will leave the address of the 17th line. (Remember: <code class="forth">0 lines</code> gives us the first one!)</p>
+<p>Note for Niklaus Wirth fans: there is no bounds checking! Of course, this could easily be added.</p>
+<p>What about <code class="forth">;code</code>? When is it used?</p>
+<p><code class="forth">;code</code> is a performance hack. For words that need to execute blindingly fast, their runtime part can be specified in machine code. By using <code class="forth">;code</code> in place of <code class="forth">does></code>, and by writing assembler code after <code class="forth">;code</code> instead of Forth code, it&rsquo;s possible to write a definer that builds words with &ldquo;pure code&rdquo; runtimes. That&rsquo;s the only difference between <code class="forth">does></code> and <code class="forth">;code</code>.</p>
+<h2 id="history-and-features-of-their-implementation"><a href="#history-and-features-of-their-implementation">History &amp; features of their implementation</a></h2>
+<p>First, let&rsquo;s think about what <code class="forth">create</code> and <code class="forth">does></code> actually <em>do</em> when they execute. <code class="forth">create</code> is fairly simple: it makes a new entry into the Forth dictionary, consuming a token from the input stream for the name, and sets the code field (of the new word) to point to code that embodies a &ldquo;default behavior&rdquo; &ndash; perhaps pushing the address of the parameter field.</p>
+<p><code class="forth">does></code> is the interesting creature. It has to modify the newly-created word, whose body (data structure) we have now built, so that when it executes it executes the Forth code in the body of its definer! Let&rsquo;s use our example above again. When <code class="forth">lines</code> executes, it executes the code after <code class="forth">does></code> in <code class="forth">array</code>. How does it do this?</p>
+<p>Forth is traditionally implemented using a technique called <em>indirect threaded code</em>. Every word in the dictionary has a &ldquo;code pointer&rdquo; that points to machine code that should be executed when that word executes. For a <code class="forth">code</code> word, this machine code is its own body. Forth colon words are made up of a lists of pointers to other words&rsquo; code fields. In order to execute a colon word, we run something called the <em>inner interpreter</em>, which takes each word pointer, in turn, and jumps to its code pointer. This means we need some kind of pointer to keep track of where we are in the list, and if we call <em>another</em> colon word, we have to save our pointer (on the &ldquo;return stack&rdquo;), set up the pointer for the called word, and go through <em>its</em> list. Hmm... This is sounding like an interpreter for a virtual machine! Well, it is.</p>
+<p>And this explains the the machine code every colon word points to, often called &ldquo;docolon&rdquo;, &ldquo;do_colon&rdquo;, or &ldquo;nest&rdquo;: it pushes the IP (interpretation pointer, our pointer into the list of pointers) onto the return stack, sets IP to point to its <em>own</em> list, and then executes the next word... which happens to be the first word in its own body. The list of words ends with the word <code class="forth">exit</code> &ndash; also called <code class="forth">unnest</code> or <code class="forth">;s</code> &ndash; which pops the old IP off the return stack, and executes the &ldquo;next&rdquo; word...which will now be the word, in the original caller, <em>after</em> the word that invoked the colon word. It&rsquo;s simply <em>call</em> and <em>return</em>.</p>
+<p>Back to <code class="forth">lines</code>. What can we put into its code field so that, when executed, it will execute code in <code class="forth">array</code>? The <em>simplest</em> solution &ndash; though not the <em>nicest</em> &ndash; is to put a pointer to &ldquo;dodoes&rdquo; (aka do_does) into the code field, followed by a pointer to the list of words following <code class="forth">does></code> in <code class="forth">array</code>. The do_does machine code does the following:</p>
+<ul>
+<li>pushes address of the data in <code class="forth">lines</code></li>
+<li>pushes the IP onto the return stack, since we&rsquo;re going to be executing inside a new colon word, namely <code class="forth">array</code></li>
+</ul>
+<p>polyFORTH (at least initially) and <a href="/fig-forth/">fig-FORTH</a> implemented this scheme. It was later realized that a clever hack was possible: by prefixing the list of words (following <code class="forth">does></code> in <code class="forth">array</code>) with a bit of machine code &ndash; namely, a <em>call</em> to do_does &ndash; it was possible to do away with the IP pointer in <code class="forth">lines</code>. Now its machine code pointer does double duty: it points to machine code (the call in <code class="forth">array</code>), but it <em>also</em> points to Forth code (because immediately after the call to do_does is a list of words to execute). It&rsquo;s quite clever, elegant, and confusing.</p>
+<p>And impossible to implement in a pure threaded Forth, since the code that compiles <code class="forth">does></code> needs to &ldquo;know&rdquo; how to compile a procedure call. So in the new threaded <a href="https://muforth.nimblemachines.com/">muforth</a> (which is written in C, and hopefully portable) <code class="forth">does></code> is implemented in the old, suboptimal, <a href="/fig-forth/">fig-FORTH</a> way. And it works fine. ;-)</p>
+<p>NOTES:</p>
+<ul>
+<li>add comment about <code class="forth">does></code> and <code class="forth">;code</code> being compiler or forth words, and under what conditions.</li>
+<li>add comment about builds and the 2 cell header, compared with create.</li>
+</ul>
+<h2 id="meta-compiling-with-create-and-does"><a href="#meta-compiling-with-create-and-does">Meta-compiling with <code class="forth">create</code> and <code class="forth">does></code></a></h2>
+<p>Maybe later. ;-)</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Demystifying%20create%20does">Send feedback</a> on this page (last edited 2006 April 09 16:48)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

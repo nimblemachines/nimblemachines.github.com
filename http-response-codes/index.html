@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/http-response-codes/" />
+<title>HTTP response codes &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>HTTP response codes</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Abbrev. from <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC2616 Section 10</a>....</p>
+<h4 id="101-informational-1xx"><a href="#101-informational-1xx">10.1 Informational 1xx</a></h4>
+<p>This class of status code indicates a provisional response, consisting only of the Status-Line and optional headers, and is terminated by an empty line. There are no required headers for this class of status code. Since HTTP/1.0 did not define any 1xx status codes, servers MUST NOT send a 1xx response to an HTTP/1.0 client except under experimental conditions.</p>
+<pre>
+ 100 Continue
+ 101 Switching Protocols
+</pre>
+<h4 id="102-successful-2xx"><a href="#102-successful-2xx">10.2 Successful 2xx</a></h4>
+<p>This class of status code indicates that the client&rsquo;s request was successfully received, understood, and accepted.</p>
+<pre>
+ 200 OK
+ 201 Created
+ 202 Accepted
+ 203 Non-Authoritative Information
+ 204 No Content
+ 205 Reset Content
+ 206 Partial Content
+</pre>
+<h4 id="103-redirection-3xx"><a href="#103-redirection-3xx">10.3 Redirection 3xx</a></h4>
+<p>This class of status code indicates that further action needs to be taken by the user agent in order to fulfill the request. The action required MAY be carried out by the user agent without interaction with the user if and only if the method used in the second request is GET or HEAD. A client SHOULD detect infinite redirection loops, since such loops generate network traffic for each redirection.</p>
+<pre>
+ 300 Multiple Choices
+ 301 Moved Permanently
+ 302 Found
+ 303 See Other
+ 304 Not Modified
+ 305 Use Proxy
+ 306 (Unused)
+ 307 Temporary Redirect
+</pre>
+<h4 id="104-client-error-4xx"><a href="#104-client-error-4xx">10.4 Client Error 4xx</a></h4>
+<p>The 4xx class of status code is intended for cases in which the client seems to have erred. Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition. These status codes are applicable to any request method. User agents SHOULD display any included entity to the user.</p>
+<pre>
+ 400 Bad Request
+ 401 Unauthorized
+ 402 Payment Required
+ 403 Forbidden
+ 404 Not Found
+ 405 Method Not Allowed
+ 406 Not Acceptable
+ 407 Proxy Authorization Required
+ 408 Request Timeout
+ 409 Conflict
+ 410 Gone
+ 411 Length Required
+ 412 Precondition Failed
+ 413 Request Entity Too Large
+ 414 Request-URI Too Long
+ 415 Unsupported Media Type
+ 416 Requested Range Not Satisfiable
+ 417 Expectation Failed  (''nb: most humans register this on a regular   basis'')
+</pre>
+<h4 id="105-server-error-5xx"><a href="#105-server-error-5xx">10.5 Server Error 5xx</a></h4>
+<p>Response status codes beginning with the digit &ldquo;5&rdquo; indicate cases in which the server is aware that it has erred or is incapable of performing the request. Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition. User agents SHOULD display any included entity to the user. These response codes are applicable to any request method.</p>
+<pre>
+ 500 Internal Server Error
+ 501 Not Implemented
+ 502 Bad Gateway
+ 503 Service Unavailable
+ 504 Gateway Timeout
+ 505 HTTP Version Not Supported
+</pre>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20HTTP%20response%20codes">Send feedback</a> on this page (last edited 2005 January 30 20:52)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>
