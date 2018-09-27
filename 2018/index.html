@@ -21,6 +21,17 @@
 </div>
 
 <div id="content">
+<h3 id="september-05-15:01"><a href="#september-05-15:01">2018 September 05 15:01</a></h3>
+<p>I can&rsquo;t help but throw another log onto the &ldquo;ICANN fire&rdquo; here.</p>
+<p>I recently ran across two GitHub gists &ndash; <a href="https://gist.github.com/lukaszkorecki/2924179">here</a> and <a href="https://gist.github.com/yhara/2929042">here</a> &ndash; that both mention an ICANN URL that lists the entire set of applications for new TLD strings: <a href="http://newgtlds.icann.org/en/program-status/application-results/strings-1200utc-13jun12-en">http://newgtlds.icann.org/en/program-status/application-results/strings-1200utc-13jun12-en</a>.</p>
+<p>If you follow that link, you&rsquo;ll be redirected (from the original list) to a complicated &ldquo;query&rdquo; page that makes it impossible to easily get the whole list. You&rsquo;d have to download and stitch together 56 HTML pages, where the original list was available as an HTML page, a PDF file, or a CSV file.</p>
+<p>Why did ICANN make this data inaccessible? Why did they remove the original URL?</p>
+<p>By putting that URL into the Internet Archive&rsquo;s <a href="https://web.archive.org/web/20120613141954/http://newgtlds.icann.org/en/program-status/application-results/strings-1200utc-13jun12-en">Wayback Machine</a> I was able to get both the HTML and CSV versions of the application list out of the dumpster. The <a href="https://web.archive.org/web/20120615172359/http://newgtlds-cloudfront.icann.org:80/sites/default/files/reveal/strings-1200utc-13jun12-en.csv">CSV is the real gold mine</a>. I had to open it in another tab, view source, save that, and then transliterate (using <code>tr</code>) carriage returns (^M) to newlines (^J) in order to view the file. (Mysteriously, lines were separated by single carriage return characters &ndash; something that isn&rsquo;t normal on <em>any</em> current computing platform.)</p>
+<p>Here is (my transliterated version of) the <a href="/-/strings-1200utc-13jun12-en.csv">original CSV file</a> and here is my <a href="https://docs.google.com/spreadsheets/d/1HKC516_koMO9ebJyFDjI2PGehDOM6vxfanuqNa8ihHU/edit?usp=sharing">spreadsheet version</a> of the list. It&rsquo;s interesting to sort on the &ldquo;Primary contact&rdquo; column. One thing that becomes immediately clear is the game that <a href="/donuts-inc-a-creepy-company/">Donuts, Inc</a> were playing. Their strangely-named LLCs are all there, and all the contacts go to <code>@donuts.co</code> addresses. They also all have the same primary contact: Daniel Schindler. (I&rsquo;m trying hard not to make some kind of joke about lists here.)</p>
+<p>Another thing that becomes clear is that Donuts were not the only company playing the &ldquo;hide behind lots of little companies&rdquo; game. radixregistry.com in the UAE, famousfourmedia.com in Gibraltar, whatbox.co in the US, and secondgen.com in the US all applied using LLCs or other shell companies as the registrants.</p>
+<p>Lastly, it&rsquo;s interesting to note how many of the companies applying for new TLDs are domiciled in offshore money laundering centers: Cayman Islands (KY), British Virgin Islands (VG), and Gibraltar (GI), for example.</p>
+<p>Just sayin&rsquo;.</p>
+<hr />
 <h3 id="september-04-15:30"><a href="#september-04-15:30">2018 September 04 15:30</a></h3>
 <p>People (and companies) whose sole business is buying and selling domain names are parasites.</p>
 <p>On top of this, they also like to <a href="https://www.dnjournal.com/articles/companies/2018/sslstore/sslstore.htm">shill for friends and sow FUD</a> (fear, uncertainty, and doubt) about perfectly good organizations, businesses, and services.</p>
@@ -296,7 +307,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 September 04 15:30)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 September 05 15:01)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
