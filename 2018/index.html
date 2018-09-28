@@ -57,7 +57,8 @@
 <p>yields</p>
 <pre>
   ;; ANSWER SECTION:
-  _spf.google.com.        196     IN      TXT     "v=spf1 include:_netblocks.google.com include:_netblocks2.google.com include:_netblocks3.google.com ~all"
+  _spf.google.com.        196     IN      TXT     "v=spf1 include:_netblocks.google.com
+  include:_netblocks2.google.com include:_netblocks3.google.com ~all"
 </pre>
 <p>I&rsquo;ll leave it as an exercise for the reader to keep digging, but you&rsquo;ll be rewarded with a list of the IPv4 and IPv6 addresses that <em>all</em> Google mail orginates from.</p>
 <p>The trailing "~all&rdquo; means that in the case of an IP address mismatch (ie, failure), fail <em>softly</em>. Mark the mail as having failed SPF but don&rsquo;t reject it outright.</p>
@@ -66,15 +67,20 @@
 <p>If your DNS provider lets you generate &ldquo;SPF&rdquo; records, don&rsquo;t! Only use TXT.</p>
 <h4 id="dkim"><a href="#dkim">DKIM</a></h4>
 <p>DKIM is a bit more complicated because it involves public key cryptography, and, in particular, requires the <em>sending machines</em> to possess the private key; the public key is published to the DNS in a similar fashion to the SPF record.</p>
-<p>For this to work for me, Google has to generate the key. Again, I followed the <a href="https://support.google.com/a/answer/174126">G Suite help for generating a DKIM key</a>, and for [[ https://support.google.com/a/answer/173535 setting up the DKIM DNS TXT record]].</p>
-<p>Here it is:</p>
+<p>For this to work for me, Google has to generate the key. Again, I followed the <a href="https://support.google.com/a/answer/174124">G Suite help for configuring DKIM</a>.</p>
+<p>Here is the result:</p>
 <pre>
   $ dig -t txt google._domainkey.nimblemachines.com
 </pre>
 <p>yields</p>
 <pre>
   ;; ANSWER SECTION:
-  google._domainkey.nimblemachines.com. 3600 IN TXT "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmlYtC9k5N+Ajg5R3esNkMpvybhnou/3k3cNo5fVYIzb2xGSBff0IRIJqlzOr8XhQckub9emKdA/YDp4BmlBxy2LffPsUVChRXGsN5aM8pwTJ6iQFVKRQ55DjPCgmE4GIUljIMj1OhSnkga9m8KfY25VcTlqHgfQuSyT0uMChdq6tyk9ljU4YuBe5J2oJUHUay" "kmrAGWybvtM6nnARQRw1MIymD8hDwnRabPz2u38UCBAta4KZbiLZTmKmzpC93ac3I/2uta3ml/aJq1sSY+IWlH4LM+y9pehRvhSDZWxUJRhV1SMLdMNHvYJWuIBvrLPPwuFsuCiFKuSkkWVT9QfYQIDAQAB"
+  google._domainkey.nimblemachines.com. 3600 IN TXT "v=DKIM1; k=rsa; p=MIIBIjANBgkqhki
+  G9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmlYtC9k5N+Ajg5R3esNkMpvybhnou/3k3cNo5fVYIzb2xGSBff0IRIJ
+  qlzOr8XhQckub9emKdA/YDp4BmlBxy2LffPsUVChRXGsN5aM8pwTJ6iQFVKRQ55DjPCgmE4GIUljIMj1OhSn
+  kga9m8KfY25VcTlqHgfQuSyT0uMChdq6tyk9ljU4YuBe5J2oJUHUay"
+  "kmrAGWybvtM6nnARQRw1MIymD8hDwnRabPz2u38UCBAta4KZbiLZTmKmzpC93ac3I/2uta3ml/aJq1sSY+I
+  WlH4LM+y9pehRvhSDZWxUJRhV1SMLdMNHvYJWuIBvrLPPwuFsuCiFKuSkkWVT9QfYQIDAQAB"
 </pre>
 <p>To see the public key corresponding to the private key that Google use to sign <em>all</em> gmail.com mail, try this:</p>
 <pre>
@@ -84,15 +90,16 @@
 <pre>
   &lt;s>._domainkey.&lt;d>
 </pre>
-<p>where &lt;s> is a &ldquo;context&rdquo; and &lt;d> is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
+<p>where &lt;s> is a &ldquo;selector&rdquo; and &lt;d> is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
 <pre>
   $ dig -t txt arc-20160816._domainkey.google.com
 </pre>
 <p>(Actually, there is yet another DKIM-related field in there. I leave finding it and digging for the DKIM public key as an exercise for the reader.)</p>
-<p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning; <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
+<p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning, even though <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
 <h4 id="dmarc"><a href="#dmarc">DMARC?</a></h4>
 <p>I haven&rsquo;t yet published a DMARC record. That comes next.</p>
 <p>Fun stuff &ndash; if you like plumbing!</p>
+<p>Of course, Google being Google... it doesn&rsquo;t seem to be working. The G Suite admin page for my domain says &ldquo;Status: Authenticating email&rdquo;, but when I look at the messages I don&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there is no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I need a DMARC record... &lt;sigh></p>
 <hr />
 <h3 id="september-05-15:01"><a href="#september-05-15:01">2018 September 05 15:01</a></h3>
 <p>I can&rsquo;t help but throw another log onto the &ldquo;ICANN fire&rdquo; here.</p>
