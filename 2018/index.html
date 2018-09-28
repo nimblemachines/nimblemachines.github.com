@@ -21,6 +21,79 @@
 </div>
 
 <div id="content">
+<h3 id="september-27-17:42"><a href="#september-27-17:42">2018 September 27 17:42</a></h3>
+<p><a href="https://blog.cryptographyengineering.com/about-me/">Matthew Green</a>, a noted cryptographer, has [[ https://blog.cryptographyengineering.com/2018/09/23/why-im-leaving-chrome/ decided to stop using the Chrome browser]] because of recent changes that force users to log in to the browser.</p>
+<p>Forcing users to log in, combined with a change to the UI that Green characterizes as a <a href="https://darkpatterns.org/">&ldquo;dark pattern&rdquo;</a>, greatly increases the danger of <em>accidentally</em> syncing the local browser history, bookmarks, etc to Google &ndash; something some people, for privacy reasons, very much want to avoid.</p>
+<p>Green is one such person. His blog post describes why he liked Chrome, how he made of point of <em>not ever</em> signing in to the browser, what the security and privacy implications of this change are, and why it&rsquo;s such a big fuckup on Google&rsquo;s part.</p>
+<p>I was pretty leery of handing that data over to Google as well, and also made a point of not signing in to the browser. I finally &ldquo;caved&rdquo;, but made a point of setting a <em>sync passphrase</em> &ndash; the idea being that if in fact my data is encrypted on my machine before it hits Google&rsquo;s servers, there is no way for them to read it (unless of course they include their own &ldquo;back door&rdquo; key when they do the encryption). The fact that, on a new machine, if I try to sign in to the browser, nothing gets synced until I type in my passphrase.</p>
+<p>I&rsquo;m still trusting Google, which makes me somewhat unhappy.</p>
+<p>Green&rsquo;s got me thinking about what would be involved in de-Googling my life. I have an (old-ish) Android phone, a Chromebook (!!), and I have a free, grandfathered account for <code>nimblemachines.com</code> registered &ldquo;G Suite&rdquo; back when it had a more suitable name (&ldquo;Google Docs for domains&rdquo; or something like that). I&rsquo;m not giving up my Chromebook, but I would be happy to give up my phone &ndash; though I&rsquo;m not sure what I would replace it with.</p>
+<p>Replacing the email service that I get from Google for <code>nimblemachines.com</code> would be painful, however. For a while I helped run a very small hosting service. I used djbdns and qmail and had a lot of fun learning how they work. But overall hosting email is a real pain-in-the-butt. The <code>stmpd</code> part isn&rsquo;t that bad (qmail and postfix and now OpenSMTPD are great options), but the anti-spam and POP/IMAP/Webmail bits are truly awful. I&rsquo;m not sure I want to go back to that.</p>
+<p>But do I want to find a paid email provider to replace Google&rsquo;s free service? I would have to trust <em>them</em>. At least I know the nature my pact with the devil now, and Google&rsquo;s mail service is pretty awesome in many ways.</p>
+<p>Should I use a non-Gmail client &ndash; like Thunderbird or &ndash; much better! &ndash; mutt &ndash; to read my mail, thus starving Google of the metadata they get from watching me read my email?</p>
+<p>Should I switch to <a href="https://protonmail.com/">ProtonMail</a>?</p>
+<p>Should I bite the bullet, set up a cloud server, and try running my own infrastructure again?</p>
+<h4 id="spf-dkim-and-dmarc-oh-my"><a href="#spf-dkim-and-dmarc-oh-my">SPF, DKIM, and DMARC ... Oh my!</a></h4>
+<p>I&rsquo;m still not sure about any of this, but in the process of &ldquo;thinking out loud&rdquo; and doing some Google searches related to email infrastructure I discovered SPF, DKIM, and DMARC. These are technologies to reduce spam and phishing and to improve authentication of email.</p>
+<p><a href="https://tools.ietf.org/html/rfc7208">SPF &ndash; the Sender Policy Framework</a> &ndash; allows domain owners to specify the IP addresses that are authorized to send email for their domains.</p>
+<p><a href="https://tools.ietf.org/html/rfc6376">DKIM &ndash; DomainKeys Identified Mail</a> &ndash; is a mechanism for email senders to sign email in such a way that the receiver can verify that the message hasn&rsquo;t been corrupted in transit.</p>
+<p><a href="https://tools.ietf.org/html/rfc7489">DMARC &ndash; Domain-based Message Authentication, Reporting, and Conformance</a> &ndash; allows domain owners to recommend an action to be taken in the case of SPF or DKIM failures, and also to request <em>reports</em> from receivers about failing emails, so that a domain owner can <em>measure</em> to what degree their domain is being attacked by spammers or phishing schemes.</p>
+<p>I decided that it would be &ldquo;fun&rdquo; to set this up for <code>nimblemachines.com</code>. It&rsquo;s not that hard.</p>
+<h4 id="spf"><a href="#spf">SPF</a></h4>
+<p>Let&rsquo;s start with SPF. I followed Google&rsquo;s <a href="https://support.google.com/a/answer/33786">G Suite help for configuring SPF</a>.</p>
+<p>Since Google&rsquo;s machines send (and receive) mail for <code>nimblemachines.com</code>, the SPF record is going to simply &ldquo;point&rdquo; to Google&rsquo;s own SPF record, by using the &ldquo;include&rdquo; operator and including _spf.google.com. It&rsquo;s easy to see this using <code>dig</code>:</p>
+<pre>
+  $ dig -t txt nimblemachines.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  nimblemachines.com.     3599    IN      TXT     "v=spf1 include:_spf.google.com ~all"
+</pre>
+<p>and a further</p>
+<pre>
+  $ dig -t txt _spf.google.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  _spf.google.com.        196     IN      TXT     "v=spf1 include:_netblocks.google.com include:_netblocks2.google.com include:_netblocks3.google.com ~all"
+</pre>
+<p>I&rsquo;ll leave it as an exercise for the reader to keep digging, but you&rsquo;ll be rewarded with a list of the IPv4 and IPv6 addresses that <em>all</em> Google mail orginates from.</p>
+<p>The trailing "~all&rdquo; means that in the case of an IP address mismatch (ie, failure), fail <em>softly</em>. Mark the mail as having failed SPF but don&rsquo;t reject it outright.</p>
+<p>One last comment about SPF: There is an obsolete, experimental DNS record <em>type</em> called &ldquo;SPF&rdquo;. Don&rsquo;t use it!</p>
+<p>I initially made the mistake of publishing <em>both</em> an SPF TXT record and an obsolete SPF record (a DNS record with SPF <em>type</em>) to the DNS. RFC 7208 states that <a href="https://tools.ietf.org/html/rfc7208#section-3.1">SPF records MUST be published as TXT records</a>!</p>
+<p>If your DNS provider lets you generate &ldquo;SPF&rdquo; records, don&rsquo;t! Only use TXT.</p>
+<h4 id="dkim"><a href="#dkim">DKIM</a></h4>
+<p>DKIM is a bit more complicated because it involves public key cryptography, and, in particular, requires the <em>sending machines</em> to possess the private key; the public key is published to the DNS in a similar fashion to the SPF record.</p>
+<p>For this to work for me, Google has to generate the key. Again, I followed the <a href="https://support.google.com/a/answer/174126">G Suite help for generating a DKIM key</a>, and for [[ https://support.google.com/a/answer/173535 setting up the DKIM DNS TXT record]].</p>
+<p>Here it is:</p>
+<pre>
+  $ dig -t txt google._domainkey.nimblemachines.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  google._domainkey.nimblemachines.com. 3600 IN TXT "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmlYtC9k5N+Ajg5R3esNkMpvybhnou/3k3cNo5fVYIzb2xGSBff0IRIJqlzOr8XhQckub9emKdA/YDp4BmlBxy2LffPsUVChRXGsN5aM8pwTJ6iQFVKRQ55DjPCgmE4GIUljIMj1OhSnkga9m8KfY25VcTlqHgfQuSyT0uMChdq6tyk9ljU4YuBe5J2oJUHUay" "kmrAGWybvtM6nnARQRw1MIymD8hDwnRabPz2u38UCBAta4KZbiLZTmKmzpC93ac3I/2uta3ml/aJq1sSY+IWlH4LM+y9pehRvhSDZWxUJRhV1SMLdMNHvYJWuIBvrLPPwuFsuCiFKuSkkWVT9QfYQIDAQAB"
+</pre>
+<p>To see the public key corresponding to the private key that Google use to sign <em>all</em> gmail.com mail, try this:</p>
+<pre>
+  $ dig -t txt 20161025._domainkey.gmail.com
+</pre>
+<p>In general, the format of the query is</p>
+<pre>
+  &lt;s>._domainkey.&lt;d>
+</pre>
+<p>where &lt;s> is a &ldquo;context&rdquo; and &lt;d> is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
+<pre>
+  $ dig -t txt arc-20160816._domainkey.google.com
+</pre>
+<p>(Actually, there is yet another DKIM-related field in there. I leave finding it and digging for the DKIM public key as an exercise for the reader.)</p>
+<p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning; <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
+<h4 id="dmarc"><a href="#dmarc">DMARC?</a></h4>
+<p>I haven&rsquo;t yet published a DMARC record. That comes next.</p>
+<p>Fun stuff &ndash; if you like plumbing!</p>
+<hr />
 <h3 id="september-05-15:01"><a href="#september-05-15:01">2018 September 05 15:01</a></h3>
 <p>I can&rsquo;t help but throw another log onto the &ldquo;ICANN fire&rdquo; here.</p>
 <p>I recently ran across two GitHub gists &ndash; <a href="https://gist.github.com/lukaszkorecki/2924179">here</a> and <a href="https://gist.github.com/yhara/2929042">here</a> &ndash; that both mention an ICANN URL that lists the entire set of applications for new TLD strings: <a href="http://newgtlds.icann.org/en/program-status/application-results/strings-1200utc-13jun12-en">http://newgtlds.icann.org/en/program-status/application-results/strings-1200utc-13jun12-en</a>.</p>
@@ -307,7 +380,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 September 05 15:01)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 September 27 17:42)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
