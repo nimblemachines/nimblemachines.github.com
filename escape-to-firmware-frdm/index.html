@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="Freescale, Freedom, board, NXP, FRDM, P&E, P&E Micro, customer-hostile, firmware, Keil, CMSIS-DAP, DAPlink, ARM, Kinetis, debug, OpenSDA, USB-BDM, S08" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/escape-to-firmware-frdm/" />
+<title>Escape to firmware FRDM &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Escape to firmware FRDM</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>When Freescale decided to make available an inexpensive development platform for their then-new Kinetis ARM Cortex-M microcontrollers &ndash; which they called the FRDM (&ldquo;Freedom&rdquo;) platform &ndash; they partnered with <a href="http://pemicro.com/">P&amp;E Micro</a> to build an on-board debug solution, just as they had with their DEMO boards for the <a href="/freescale-s08/">S08</a> series of 8-bit microcontrollers, and in both cases it was a <em>huge failure</em> and bad for Freescale&rsquo;s customers.</p>
+<h3 id="customer-hostile-debug-firmware"><a href="#customer-hostile-debug-firmware">Customer-hostile debug firmware</a></h3>
+<p>The <a href="/freescale-s08/">S08</a> story &ndash; which <a href="https://muforth.nimblemachines.com/2009/#january-18-20:11">I painstakingly documented in 2009</a> &ndash; was that Freescale&rsquo;s S08 DEMO boards, which had an on-board debug solution from P&amp;E called USB-BDM, were locked down. The USB-BDM could only be used to debug the <em>chip on the board</em>, not external hardware &ndash; even if that external hardware was based on the same family of S08 chip. This obviously infuriated people, and I said, back then, that we needed to call out Freescale and P&amp;E for their shitty behaviour.</p>
+<p>The Freescale &ldquo;Freedom&rdquo; boards &ndash; was that an intentional irony? &ndash; sport a P&amp;E debug &ldquo;solution&rdquo; called <a href="http://cache.freescale.com/files/32bit/doc/user_guide/OPENSDAUG.pdf">OpenSDA</a>: the &ldquo;open &lt;something> debug architecture&rdquo;. However, there is nothing about it that is <em>open</em>. Supposedly a document describing how to write OpenSDA &ldquo;apps&rdquo; exists, but I could never find it on Freescale&rsquo;s or P&amp;E&rsquo;s web sites. The .SDA files that I could find all had some kind of weird scrambling or encryption applied to them.</p>
+<p>The OpenSDA &ldquo;architecture&rdquo; is that there are two pieces of firmware on the board: a <em>bootloader</em> (essentially permanently resident), and a <em>debug app</em> (which can be replaced). The boards ship with an OpenSDA bootloader and a debug app that is tied to a proprietary P&amp;E product.</p>
+<p>When I first discovered this lovely situation I thought, &ldquo;No problem. I&rsquo;ll just write a simple debug app of my own and put it on there.&rdquo; But without a specification, or documentation of any kind, and with the existing .SDA files unreadable, I had no model to base my work on.</p>
+<p>I also discovered serious problems with the bootloader itself. It is based on a USB mass-storage device, but because of their shitty implementation, it only works on Windows, and only on select <em>versions</em> of Windows.</p>
+<p>I&rsquo;m not sure <em>why</em> they thought a mass-storage bootloader was a good idea. There is this <em>belief</em> that drag-and-drop is <em>easier for the user</em> (I happen to disagree), but in practice it&rsquo;s a bad choice. It requires a <em>lot</em> of code on the target (correct USB &ldquo;storage class&rdquo; device metadata, a USB mass storage firmware layer, and code to &ldquo;parse&rdquo; the file being copied and turn that into blocks of code to write to Flash). The user interface feedback is poor: it&rsquo;s difficult to know if it &ldquo;took&rdquo; or not. It doesn&rsquo;t work on OSX, which insists on scribbling random files and directories onto newly-inserted USB media. It&rsquo;s hard to get right.</p>
+<p>Had they made a simpler choice &ndash; a trivial bootloader for instance, with a simple, published interface (like on Freescale&rsquo;s <a href="/freescale-s08/#s08js">S08JS16</a>) &ndash; it could easily be cross-platform. Instead, the board at first appeared to be a very light paperweight.</p>
+<p>These problems were fixed in a later version of OpenSDA, but in order to download it from the P&amp;E site you have to fill out a form with an email address, but then when you submit the form you get <em>another</em> form that says, &ldquo;Oh, actually, we want to know everything about your company&rdquo;. When I first saw this I laughed at how stupid and customer-hostile this was, and filled out the form with a throw-away email address and a contact and company name that basically read &ldquo;You Have Got To Be Kidding&rdquo;.</p>
+<h3 id="saner-kinder-debug-firmware"><a href="#saner-kinder-debug-firmware">Saner, kinder debug firmware</a></h3>
+<p>Thankfully, there is a way out of this mess.</p>
+<p>While Freescale was partnering with P&amp;E on their idiotic firmware, ARM had other ideas. As part of its CMSIS effort (in case you were wondering, that stands for &ldquo;Cortex Microcontroller Software Interface Standard&rdquo;) they developed their own debug architecture &ndash; called <a href="/cmsis-dap/">CMSIS-DAP</a> &ndash; which was much more sane and open than OpenSDA. It first showed up in a <a href="http://www.keil.com/appnotes/docs/apnt_232.asp">Keil app note</a> (which included the <a href="http://www.keil.com/download/files/apnt_232.zip">source code</a> for the implementation!), and after doing some digging I also found copies of it in various Freescale-supplied &ldquo;quick start packages&rdquo; (QSPs) for the original FRDM boards.</p>
+<p>CMSIS-DAP has since been extended somewhat. The new standard interface is called <a href="https://os.mbed.com/handbook/DAPLink">DAPlink</a> and adds a USB-CDC serial port (yay) and a mass-storage interface of its own (ugh) to the original CMSIS-DAP HID device.</p>
+<h3 id="rescue-your-frdm-board-from-idiocy"><a href="#rescue-your-frdm-board-from-idiocy">Rescue your FRDM board from idiocy</a></h3>
+<p>There are two things you need to do.</p>
+<p>First, replace the original, broken, OpenSDA bootloader with the updated one. If your FRDM board shipped with a P&amp;E bootloader, don&rsquo;t bother going through the hassle with their web site. I&rsquo;ve archived a copy of the updated bootloader here: <a href="/-/BOOTUPDATEAPP_Pemicro_v111.SDA">BOOTUPDATEAPP_Pemicro_v111.SDA</a>.</p>
+<p>Second, replace P&amp;E&rsquo;s proprietary debug firmware with something more useful &ndash; probably CMSIS-DAP or DAPlink.</p>
+<p>To upgrade the bootloader:</p>
+<ul>
+<li>Boot a recent vintage of Windows (7 or later). If you&rsquo;re doing this virtualised, add a rule to pass through USB devices matching vid 2504 &amp; pid 0200 (these are hex values). You don&rsquo;t want the host OS to try to &ldquo;mount&rdquo; this broken board.</li>
+<li>While holding down the switch between the two USB connectors, connect the board. It should enumerate, and then come up as a volume called <strong>BOOTLOADER</strong>.</li>
+<li>Copy over the <a href="/-/BOOTUPDATEAPP_Pemicro_v111.SDA">BOOTUPDATEAPP_Pemicro_v111.SDA</a> file. Wait a few seconds. Then either &ldquo;eject&rdquo; or unplug the board.</li>
+<li>Repeat the first step. The volume should still be called <strong>BOOTLOADER</strong>. Open (using a text editor ideally) the file SDA_INFO.HTM. This file contains an HTML form that, if you open the file in a web browser, gets sent to pemicro.com &ndash; another sleazy move on their part. Look for the name BOOTVER. The value should be 1.11. If so, your update &ldquo;took&rdquo; and you have the latest OpenSDA bootloader. If not, try again.</li>
+</ul>
+<p>To upgrade the debug firmware, you have to find to correct blob for your board, and that&rsquo;s not entirely straightforward.</p>
+<p>I would start at NXP&rsquo;s <a href="https://www.nxp.com/support/developer-resources/run-time-software/kinetis-developer-resources/ides-for-kinetis-mcus/opensda-serial-and-debug-adapter:OPENSDA">OpenSDA resources</a> page. Find your FRDM board on the list and scroll down to the &ldquo;Latest firmware application&rdquo; section. Download the CMSIS-DAP or DAPlink binary archive listed. After unzipping it, put your board into BOOTLOADER mode as above, and copy over the <code>.bin</code> version of the app. Eject or unplug the board. Then plug it back in &ndash; this time <em>not</em> pressing the reset button &ndash; and it should enumerate. In the case of DAPlink, it should also create a mass-storage device called DAPLINK.</p>
+<p>CMSIS-DAP or DAPlink is the firmware that Freescale should have put onto the boards in the first place. I&rsquo;m really not sure what they were thinking!</p>
+<p>If you are interesting in the original CMSIS-DAP firmware, you should <a href="http://www.keil.com/appnotes/docs/apnt_232.asp">read the Keil app note</a>, and download <a href="http://www.keil.com/download/files/apnt_232.zip">Keil&rsquo;s source code</a>. You can also <a href="/-/CMSIS-DAP.S19">download my archived copy</a> of the Freescale-provided CMSIS-DAP S19 file (for the FRDM KL25Z).</p>
+<p>Have a drink to celebrate the beginning of a new life for your FRDM board!</p>
+<h3 id="not-totally-out-of-the-firmware-woods"><a href="#not-totally-out-of-the-firmware-woods">Not totally out of the (firmware) woods?</a></h3>
+<p>Alas, there are still problems. For one, both the CMSIS-DAP and DAPlink firmware, while essentially open-source, are only buildable with the Keil toolchain, which costs money and only runs on Windows. So building your own copy of either will be a costly and/or involved undertaking, especially if your chosen dev platform isn&rsquo;t Windows.</p>
+<p>The mass-storage (drag-and-drop) bootloader that DAPlink adds to the original CMSIS-DAP firmware has &ndash; SURPRISE! &ndash; suffered from problems similar to those encountered by the P&amp;E OpenSDA bootloader. On Windows 10, for example, some boards would get totally bricked, requiring use of an external SWD/JTAG probe to get them running again!</p>
+<p>What I would love to see is a version of DAPlink that has the USB UART channel, but lacks the ridiculous mass storage bootloader. Unfortunately, because of the dependence on the Keil toolchain and Windows, I&rsquo;m unlikely to undertake this.</p>
+<p>Actually, what is <em>truly</em> crazy is that the CMSIS-DAP and DAPlink projects have not been ported to <a href="https://www.mbed.com/en/">mbed</a>! They could use the mbed OS, USB libraries, etc, and be buildable in the cloud! That would be super cool: configure a version of DAPlink without the mass storage crap, build it in the cloud, and burn it onto your board. Done!</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Escape%20to%20firmware%20FRDM">Send feedback</a> on this page (last edited 2018 October 24 15:13)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

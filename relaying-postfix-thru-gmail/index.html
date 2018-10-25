@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/relaying-postfix-thru-gmail/" />
+<title>Relaying Postfix thru Gmail &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Relaying Postfix thru Gmail</h1>
+<hr />
+</div>
+
+<div id="content">
+<p><em>NOTE: I&rsquo;m not doing any of this any more, but I think the techniques should still work, and the reason(s) for doing this still obtain.</em></p>
+<p>Postfix is modern and well-maintained, and the author, <a href="http://www.porcupine.org/wietse/">Wietse Venema</a>, tends to write bug-free code. (Or so he says. ;-)</p>
+<p>Configuring Postfix is reasonably straightforward, though there are a lot of options. The <a href="http://www.postfix.org/documentation.html">documentation</a> is good and thorough.</p>
+<p>However, I&rsquo;m not here to laud Postfix or Wietse; I&rsquo;m here to help solve the problem: how do I send my mail through Gmail&rsquo;s SMTP server if I&rsquo;m running Postfix on my machine?</p>
+<p>Why would I want to do this in the first place? Why not use my ISP&rsquo;s SMTP relay? I run Postfix on my laptop (running FreeBSD) and want to be able to send mail from wherever I am. If I&rsquo;m using Gmail from a browser, there is no problem. But if I want to use <a href="http://www.mutt.org/">mutt</a> or to send mail from the command line (sometimes handy for sending the output of a script) I need the local SMTP daemon &ndash; Postfix &ndash; to be able to talk to an SMTP server that will be willing to relay mail for me. If I&rsquo;m in a caf&eacute;, or at a friend&rsquo;s, my settings will likely be wrong.</p>
+<p>Because Gmail&rsquo;s SMTP servers require authentication (to protect them from abuse by spammers) it&rsquo;s possible for me to use them from anywhere. In contrast, most ISP&rsquo;s SMTP servers only allow access from machines with IP addresses on their network. If you&rsquo;re connected through someone else (at the caf&eacute;, say) you&rsquo;re locked out.</p>
+<p>So, how do we convince Postfix to relay outgoing mail through Gmail? Here&rsquo;s what I did.</p>
+<p>First I had to turn on POP access in my Gmail settings (on the web). This also turns on access (relaying) to their <em>outgoing</em> SMTP servers.</p>
+<p>Then I had to make sure my Postfix was built with TLS and SASL support. I think I had to rebuild mine, but I don&rsquo;t remember how I did it. I was using the FreeBSD ports tree, so I probably set some options in my /etc/make.conf. You&rsquo;ll have to do it your way.</p>
+<p>Once I had an up-to-snuff Postfix, I added the following lines to Postfix&rsquo;s main.cf file:</p>
+<pre>
+  relayhost = [smtp.gmail.com]:587
+  smtp_use_tls = yes
+  smtp_sasl_auth_enable = yes
+  smtp_sasl_password_maps = static:&lt;gmail_username>:&lt;gmail_password>
+  smtp_sasl_security_options =
+</pre>
+<p>I ran &ldquo;postfix reload&rdquo; to get the new settings. I was able to send mail now, but in the log files I saw nasty messages for each mail sent that Postfix was unable to verify Gmail&rsquo;s SSL certificate:</p>
+<pre>
+  Jun 11 15:29:35 stubb postfix/smtp[2098]: certificate verification failed for smtp.gmail.com: num=20:unable to get local issuer certificate
+  Jun 11 15:29:35 stubb postfix/smtp[2098]: certificate verification failed for smtp.gmail.com: num=27:certificate not trusted
+  Jun 11 15:29:35 stubb postfix/smtp[2098]: certificate verification failed for smtp.gmail.com: num=21:unable to verify the first certificate
+</pre>
+<p>It&rsquo;s easy &ndash; but not trivial &ndash; to solve this problem. The first thing I did was turn on debugging of TLS so I could see what was going on. In main.cf:</p>
+<pre>
+  smtp_tls_loglevel = 1
+</pre>
+<p>With this turned on, I saw this:</p>
+<pre>
+  Jun 11 15:28:41 stubb postfix/smtp[2080]: Unverified: subject_CN=smtp.gmail.com, issuer=Thawte Premium Server CA
+</pre>
+<p>Aha! Now to find that Thawte cert...</p>
+<p>I was able to download the <a href="http://www.thawte.com/roots/">Thawte root certificates</a> by filling out their form that says I won&rsquo;t somehow misuse the certs. Whatever. I got the file &ldquo;thawte-roots.zip&rdquo;, unzipped it, and copied the file</p>
+<pre>
+ Thawte Server Roots/ThawtePremiumServerCA.txt
+</pre>
+<p>to my Postfix configuration directory. Then I added</p>
+<pre>
+  smtp_tls_CAfile = &lt;postfix>/ThawtePremiumServerCA.txt
+</pre>
+<p>to main.cf, and ran &ldquo;postfix reload&rdquo;. No more worrying error messages.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Relaying%20Postfix%20thru%20Gmail">Send feedback</a> on this page (last edited 2018 October 23 15:43)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>
