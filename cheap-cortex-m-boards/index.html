@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="ARM, Cortex-M, development board, Cortex-M0+, Cortex-M4, evaluation board, Freescale, Kinetis L, Kinetis K, USB, KL25, KL25Z, KL46, KL46Z, K64F, ST Micro, ST, STM, STMicro, STM32F0, Cortex-M0, Discovery, STM32L, STM32F3, STM32F4, TI, Cortex-M4F, Stellaris, Tiva, Launchpad, LM4F, TM4C" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="canonical" href="https://www.nimblemachines.com/cheap-cortex-m-boards/" />
+<title>Cheap Cortex-M boards &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Cheap Cortex-M boards</h1>
+<hr />
+</div>
+
+<div id="content">
+<p>Here is a short list of some inexpensive Cortex-M boards that I know about:</p>
+<h3 id="freescale-freedom-frdm-boards"><a href="#freescale-freedom-frdm-boards">Freescale Freedom (FRDM) boards</a></h3>
+<ul>
+<li><a href="#frdm-kl25z">FRDM-KL25Z</a> &ndash; Kinetis L, Cortex-M0+, USB OTG</li>
+<li><a href="#frdm-kl46z">FRDM-KL46Z</a> &ndash; Kinetis L, Cortex-M0+, USB OTG and LCD</li>
+</ul>
+<p>There are many more Freedom boards available now. These were, I think, the first two launched. But pretty much any Kinetis part has a corresponding board.</p>
+<p>Also, be sure read how to <a href="/escape-to-firmware-frdm/">escape to firmware FRDM</a>, which describes the awful, idiotic firmware that ships on FRDM boards and what you can do about it.</p>
+<h3 id="stmicro-stm32-discovery-boards"><a href="#stmicro-stm32-discovery-boards">STMicro STM32 Discovery boards</a></h3>
+<ul>
+<li><a href="#stm32f0-discovery">STM32F0 Discovery</a></li>
+<li><a href="#stm32f4-discovery">STM32F4 Discovery</a></li>
+</ul>
+<p>There are many more <a href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-mcu-discovery-kits.html">Discovery boards</a> available.</p>
+<p>ST&rsquo;s <a href="https://www.st.com/en/evaluation-tools/stm32-mcu-nucleo.html">Nucleo boards</a> are also interesting, but I haven&rsquo;t tried to use any of them.</p>
+<h3 id="ti-launchpad-boards"><a href="#ti-launchpad-boards">TI Launchpad boards</a></h3>
+<ul>
+<li><a href="#stellaris-launchpad">Stellaris Launchpad</a></li>
+<li><a href="#tiva-launchpad">Tiva Launchpad</a></li>
+</ul>
+<h3 id="teensy"><a href="#teensy">Teensy</a></h3>
+<p><a href="https://pjrc.com/">Paul Stoffregen</a>&rsquo;s Teensy boards are inexpensive and highly-regarded.</p>
+<ul>
+<li><a href="https://pjrc.com/store/teensylc.html">Teensy LC</a> &ndash; Freescale KL26 48 MHz Cortex-M0+</li>
+<li><a href="https://pjrc.com/store/teensy32.html">Teensy 3.2</a> &ndash; Freescale K20D Cortex-M4</li>
+<li><a href="https://pjrc.com/store/teensy35.html">Teensy 3.5</a> &ndash; Freescale K64F 120 MHz Cortex-M4</li>
+<li><a href="https://pjrc.com/store/teensy36.html">Teensy 3.6</a> &ndash; Freescale K66F 180 MHz Cortex-M4</li>
+</ul>
+<hr />
+<h2 id="frdm-kl25z"><a href="#frdm-kl25z">FRDM-KL25Z</a></h2>
+<p>The FRDM-KL25Z is Freescale&rsquo;s first Freedom board. It costs about USD15.00 and sports the following features:</p>
+<ul>
+<li>MKL25Z128VLK4 MCU &ndash; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.cortexm.m0plus/">Cortex M0+ processor core</a> runnning at 48 MHz</li>
+<li>128 KiB Flash, 16 KiB SRAM, USB OTG (full speed), LQFP 80</li>
+<li>Capacitive touch slider, MMA8451Q accelerometer, RGB LED</li>
+<li>Header pin layout that is compatible with Arduino shields (but 3.3v <strong>only</strong>!)</li>
+<li><a href="https://os.mbed.com/platforms/KL25Z/">mbed support</a></li>
+</ul>
+<p><img src="/-/frdm-kl25.jpg" alt="Freescale FRDM-KL25Z &ldquo;Freedom&rdquo; board" title="Freescale FRDM-KL25Z &ldquo;Freedom&rdquo; board" /></p>
+<h3 id="why-i-think-this-board-is-great"><a href="#why-i-think-this-board-is-great">Why I think this board is great</a></h3>
+<p><strong>Bang for buck</strong> Cheaper and faster than an Arduino. Plus, it&rsquo;s an ARM, not an AVR. (I&rsquo;m not a fan of the AVR.)</p>
+<p><strong>128 KiB of Flash memory</strong> While not megabytes, this is a lot of code space for a small microcontroller. And because it&rsquo;s not an 8-bitter, there is no need to play funny games with paging to use the memory.</p>
+<p><strong>I like Freescale&rsquo;s hardware</strong> I&rsquo;ve been playing around with their 8-bit parts &ndash; the <a href="/freescale-s08/">S08</a> series &ndash; and I really like them. They are solid, well-engineered, and pretty bug-free. (Freescale&rsquo;s firmware is another matter though...)</p>
+<p><strong>Cortex-M0+</strong> This series of MCUs from Freescale &ndash; the Kinetis L &ndash; is apparently the first in the industry to sport a Cortex-M0+, which has a few nifty features:</p>
+<ul>
+<li>Two cycle pipeline &ndash; branches and calls are faster, important for heavily-factored code, such as Forth</li>
+<li>Single-cycle I/O &ndash; it&rsquo;s possible to bitbang the pins <em>really fast</em></li>
+<li>Ridiculously low power</li>
+<li>Simplified instruction set &ndash; the Cortex-M0 and M0+ implement the ARM v6-M instruction set, which much simpler than the Cortex-M3/M4 (v7-M) instruction set. For those wanting to dig in and program in assembler, but are new to 32-bit processors (and maybe to the ARM as well) this chip is a good place to start</li>
+<li>USB interface on the target chip &ndash; programmed with the right firmware the board becomes a USB device in its own right</li>
+</ul>
+<h3 id="what-i-dont-like-about-it"><a href="#what-i-dont-like-about-it">What I don&rsquo;t like about it</a></h3>
+<ul>
+<li>I don&rsquo;t care about Arduino shields and might have preferred that they pin out more of the chip instead of sticking to an Arduino-compatible layout.</li>
+<li>The stock debug firmware is completetly idiotic and useless and has to be <a href="/escape-to-firmware-frdm/">replaced to make the board usable</a>.</li>
+</ul>
+<hr />
+<h2 id="frdm-kl46z"><a href="#frdm-kl46z">FRDM-KL46Z</a></h2>
+<p>The FRDM-KL46Z is, I think, the first follow-on board to the FRDM-KL25Z. It costs about USD15.00 and sports the following features:</p>
+<ul>
+<li>MKL46Z128VLL4 MCU &ndash; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.cortexm.m0plus/">Cortex M0+ processor core</a> runnning at 48 MHz</li>
+<li>256 KiB Flash, 32 KiB SRAM, USB OTG (full speed), LQFP 100</li>
+<li>Segment LCD controller</li>
+<li>Four digit segment LCD display</li>
+<li>MMA8451Q accelerometer</li>
+<li>MAG3110 magnetometer</li>
+<li>Ambient light sensor</li>
+<li>Capacitive touch slider</li>
+<li>Two LEDs</li>
+<li>Header pin layout that is compatible with Arduino shields (but 3.3v <strong>only</strong>!)</li>
+<li><a href="https://os.mbed.com/platforms/KL46Z/">mbed support</a></li>
+</ul>
+<p><img src="/-/FRDM-KL46Z_BDTN.jpg" alt="Freescale FRDM-KL46Z &ldquo;Freedom&rdquo; board" title="Freescale FRDM-KL46Z &ldquo;Freedom&rdquo; board" /></p>
+<p>I don&rsquo;t have one of these boards (yet) but I&rsquo;m assuming its strengths and weaknesses will be the same as the <a href="#frdm-kl25z">FRDM-KL25Z</a>: good bang for buck, some interesting peripherals, but the same <a href="/escape-to-firmware-frdm/">awful debug firmware</a>.</p>
+<hr />
+<h2 id="stm32f0-discovery"><a href="#stm32f0-discovery">STM32F0 Discovery</a></h2>
+<p>As an introduction to their Cortex-M0 family, the <a href="http://www.st.com/stm32f0discovery">STM32F0 Discovery</a> can&rsquo;t be beat. I got a couple free at a trade show, but since they are only USD8.00 you should pick up a couple if you&rsquo;re interested in the M0.</p>
+<p><img src="/-/st.com-stm32f0discovery.jpg" alt="STM32F0 Discovery board" title="STM32F0 Discovery board" /></p>
+<p>The chip on the board is an <a href="http://www.st.com/internet/mcu/product/251901.jsp">STM32F051R8T6</a>. Briefly, its specs are:</p>
+<ul>
+<li>48 MHz Cortex-M0 processor, LQFP 64 package</li>
+<li>64 KiB flash</li>
+<li>8 KiB RAM</li>
+<li>ST-LINK/V2 debug interface (supported by <a href="https://muforth.nimblemachines.com/">muforth</a>!)</li>
+<li>No target USB interface (chip doesn&rsquo;t support USB)</li>
+</ul>
+<hr />
+<h2 id="stm32f4-discovery"><a href="#stm32f4-discovery">STM32F4 Discovery</a></h2>
+<p>This board sports quite a capable processor, handily capable of doing some DSP. With the built-in mic and headphone amp, this could be a fun cheap board to explore digital audio with. When I last looked they cost about USD14.00.</p>
+<p><img src="/-/st.com-stm32f4_discovery.jpg" alt="STM32F4 Discovery board" title="STM32F4 Discovery board" /></p>
+<p>The chip on the board is an <a href="http://www.st.com/internet/mcu/product/252140.jsp">STM32F407VGT6</a>. Briefly, its specs are:</p>
+<ul>
+<li>168 MHz (!!) Cortex-M4F processor, LQFP 100 package</li>
+<li>1 MiB flash (!!)</li>
+<li>192 KiB RAM</li>
+<li>ST-LINK/V2 debug interface (supported by <a href="https://muforth.nimblemachines.com/">muforth</a>!)</li>
+<li>3 axis accelerometer</li>
+<li>USB OTG support with micro-AB connector</li>
+<li>omni-directional digital mic</li>
+<li>CS43L22 audio DAC with integrated amp and 1/4&rdquo; stereo audio jack</li>
+</ul>
+<hr />
+<h2 id="stellaris-launchpad"><a href="#stellaris-launchpad">Stellaris Launchpad</a></h2>
+<p><em>Note: The Stellaris Launchpad is no longer available. See below for its replacement: the Tiva Launchpad.</em></p>
+<p>TI&rsquo;s <a href="http://www.ti.com/tool/ek-lm4f120xl">Stellaris Launchpad</a> board is another very low cost ARM Cortex-M development board. It is based on the LM4F120 (now renamed and rebranded as the TM4C1233 &ndash; that&rsquo;s a story unto itself), a Cortex-M4F processor with 256 KiB of flash, 32 KiB of RAM, and loads of serial i/o, timers, 12 bit ADCs, etc.</p>
+<p><img src="/-/ti.com-ek-lm4f120xl_stellarislaunchpad_tool.JPG" alt="Stellaris Launchpad board" title="Stellaris Launchpad board" /></p>
+<p>These are very cheap &ndash; as of August 2013 they are USD10 directly from TI, as they are getting rid of these &ldquo;old&rdquo; boards in favour of the new <a href="#tiva-launchpad">Tiva Launchpad</a>.</p>
+<p>These seem like nice boards. After my inital excitement about the board &ndash; good price point, nice chip (esp the timers) &ndash; I decided to ignore it when TI relaunched the parts as &ldquo;Tiva C-series&rdquo; parts, changed all of the part numbers, and apparently alienated some of their customers. (I read some <a href="http://e2e.ti.com/support/microcontrollers/tiva_arm/f/908/p/258137/919524.aspx">grumbling on the forums</a>.)</p>
+<p>This is one reason I respect Freescale as a source for microcontrollers: They have a very transparent <a href="https://www.nxp.com/products/product-information/product-longevity:oRDCT_LONGEVITY_HM">product longevity</a> program. Most of their processors are supported for ten years after inital launch. Medical and automotive products are supported for fifteen years. It&rsquo;s unlikely they would pull a stunt like TI&rsquo;s, of launching a product line, and then a few months later completely pulling everything and starting over.</p>
+<p>That snafu notwithstanding, the chips are pretty sweet, the board is small and cheap, and it&rsquo;s easy to use. After some digging online I was able to figure out that TI&rsquo;s so-called ICDI &ndash; in-circuit debug interface &ndash; is simply an implementation over USB bulk endpoints of the GNU GDB <a href="http://sourceware.org/gdb/onlinedocs/gdb/Remote-Protocol.html">remote protocol</a>! And thus is extensively documented. After reading the GDB docs, and tweaking the USB support in <a href="https://muforth.nimblemachines.com/">muforth</a>, I was able to connect and exchange packets with the board.</p>
+<p>One curious discovery: the &ldquo;M&rdquo; (write memory) command doesn&rsquo;t work! Instead of doing what it is supposed to do, it does the following:</p>
+<ul>
+<li>writes the first byte of the destination memory address to 00</li>
+<li>ignores the first nybble of data to be written, thus shifting everything by 4 bits</li>
+</ul>
+<p>I thought about various work-arounds, but instead gave up and used the &ldquo;X&rdquo; command instead &ndash; which does exactly the same thing but uses a slightly more efficient binary (rather than hex-in-ASCII) format for the data.</p>
+<p>I was rather surprised to discover that such a fundamental part of the GDB protocol is broken on this board! It&rsquo;s a bit embarrassing.</p>
+<hr />
+<h2 id="tiva-launchpad"><a href="#tiva-launchpad">Tiva Launchpad</a></h2>
+<p>The <a href="http://www.ti.com/tool/ek-tm4c123gxl">Tiva Launchpad</a> ARM Cortex-M4F development board is TI&rsquo;s replacement for its not-very-old Stellaris Launchpad.</p>
+<p>The boards are almost identical. The new Tiva boards have a different chip &ndash; the <a href="http://www.ti.com/product/tm4c123gh6pm">TM4C123GH6PM</a>, which supports USB OTG mode, unlike the <a href="http://www.ti.com/product/TM4C1233H6PM">TM4C1233H6PM</a> (n&eacute; LM4F120H5QR), which supports only Device mode &ndash; but otherwise have identical specs.</p>
+<p>The Tiva boards are a bit pricier, at USD13. The Stellaris Launchpad are now selling for USD10, direct from TI.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Cheap%20Cortex-M%20boards">Send feedback</a> on this page (last edited 2018 October 25 01:12)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

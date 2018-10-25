@@ -33,7 +33,7 @@
 <h3 id="saner-kinder-debug-firmware"><a href="#saner-kinder-debug-firmware">Saner, kinder debug firmware</a></h3>
 <p>Thankfully, there is a way out of this mess.</p>
 <p>While Freescale was partnering with P&amp;E on their idiotic firmware, ARM had other ideas. As part of its CMSIS effort (in case you were wondering, that stands for &ldquo;Cortex Microcontroller Software Interface Standard&rdquo;) they developed their own debug architecture &ndash; called <a href="/cmsis-dap/">CMSIS-DAP</a> &ndash; which was much more sane and open than OpenSDA. It first showed up in a <a href="http://www.keil.com/appnotes/docs/apnt_232.asp">Keil app note</a> (which included the <a href="http://www.keil.com/download/files/apnt_232.zip">source code</a> for the implementation!), and after doing some digging I also found copies of it in various Freescale-supplied &ldquo;quick start packages&rdquo; (QSPs) for the original FRDM boards.</p>
-<p>CMSIS-DAP has since been extended somewhat. The new standard interface is called <a href="https://os.mbed.com/handbook/DAPLink">DAPlink</a> and adds a USB-CDC serial port (yay) and a mass-storage interface of its own (ugh) to the original CMSIS-DAP HID device.</p>
+<p>CMSIS-DAP has since been extended somewhat. The new standard interface is called <a href="https://os.mbed.com/handbook/DAPLink">DAPlink</a> and adds a USB-CDC serial port (yay) and a mass-storage interface of its own (ugh) to the original CMSIS-DAP HID device. Unlike the OpenSDA bootloader, which is used to replace the <em>debug app</em>, this mass-storage interface is used to program the <em>target microcontroller</em>.</p>
 <h3 id="rescue-your-frdm-board-from-idiocy"><a href="#rescue-your-frdm-board-from-idiocy">Rescue your FRDM board from idiocy</a></h3>
 <p>There are two things you need to do.</p>
 <p>First, replace the original, broken, OpenSDA bootloader with the updated one. If your FRDM board shipped with a P&amp;E bootloader, don&rsquo;t bother going through the hassle with their web site. I&rsquo;ve archived a copy of the updated bootloader here: <a href="/-/BOOTUPDATEAPP_Pemicro_v111.SDA">BOOTUPDATEAPP_Pemicro_v111.SDA</a>.</p>
@@ -52,15 +52,15 @@
 <p>Have a drink to celebrate the beginning of a new life for your FRDM board!</p>
 <h3 id="not-totally-out-of-the-firmware-woods"><a href="#not-totally-out-of-the-firmware-woods">Not totally out of the (firmware) woods?</a></h3>
 <p>Alas, there are still problems. For one, both the CMSIS-DAP and DAPlink firmware, while essentially open-source, are only buildable with the Keil toolchain, which costs money and only runs on Windows. So building your own copy of either will be a costly and/or involved undertaking, especially if your chosen dev platform isn&rsquo;t Windows.</p>
-<p>The mass-storage (drag-and-drop) bootloader that DAPlink adds to the original CMSIS-DAP firmware has &ndash; SURPRISE! &ndash; suffered from problems similar to those encountered by the P&amp;E OpenSDA bootloader. On Windows 10, for example, some boards would get totally bricked, requiring use of an external SWD/JTAG probe to get them running again!</p>
-<p>What I would love to see is a version of DAPlink that has the USB UART channel, but lacks the ridiculous mass storage bootloader. Unfortunately, because of the dependence on the Keil toolchain and Windows, I&rsquo;m unlikely to undertake this.</p>
+<p>The mass-storage (drag-and-drop) interface that DAPlink adds to the original CMSIS-DAP firmware has &ndash; SURPRISE! &ndash; suffered from problems similar to those encountered by the P&amp;E OpenSDA bootloader. On Windows 10, for example, some boards would get totally bricked, requiring use of an external SWD/JTAG probe to get them running again!</p>
+<p>What I would love to see is a version of DAPlink that has the USB UART channel, but lacks the ridiculous mass storage interface. Unfortunately, because of the dependence on the Keil toolchain and Windows, I&rsquo;m unlikely to undertake this.</p>
 <p>Actually, what is <em>truly</em> crazy is that the CMSIS-DAP and DAPlink projects have not been ported to <a href="https://www.mbed.com/en/">mbed</a>! They could use the mbed OS, USB libraries, etc, and be buildable in the cloud! That would be super cool: configure a version of DAPlink without the mass storage crap, build it in the cloud, and burn it onto your board. Done!</p>
 
 </div>
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Escape%20to%20firmware%20FRDM">Send feedback</a> on this page (last edited 2018 October 24 15:13)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Escape%20to%20firmware%20FRDM">Send feedback</a> on this page (last edited 2018 October 25 00:43)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
