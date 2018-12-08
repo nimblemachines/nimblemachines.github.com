@@ -21,7 +21,7 @@
 <div id="content">
 <p>Have you ever had problems using <em>ssh</em> to run commands on a remote machine? Ever wondered, eg, why the <code>PATH</code> on the remote machine wasn&rsquo;t getting set properly?</p>
 <p>Some time ago (2007-ish) I ran into this problem while debugging <code>svn+ssh</code> URLs on Subversion. Since I no longer use Subversion, and because I buried the nuggets of gold that I found in an excessively prolix description of my methods of deduction, I&rsquo;ve decided to rewrite this page to put the <em>really useful</em> bits at the top, and move the long, verbose version to the end.</p>
-<p>I&rsquo;m going to assume that you&rsquo;re running Bash on the remote machine. All of the tests that I orginally did were to determine the behaviour of Bash. <code>sh</code>, <code>zsh</code>, <code>csh</code> and others might be susceptible to the same analysis, but the details will surely differ.</p>
+<p>I&rsquo;m going to assume that you&rsquo;re running Bash on the remote machine. All of the tests that I orginally did were to determine the behavior of Bash. <code>sh</code>, <code>zsh</code>, <code>csh</code> and others might be susceptible to the same analysis, but the details will surely differ.</p>
 <h2 id="short-version"><a href="#short-version">Short version</a></h2>
 <p>To begin to debug <code>PATH</code> (and other environment variable) problems, do this:</p>
 <pre>
