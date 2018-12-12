@@ -122,6 +122,8 @@
 <p>I haven&rsquo;t yet published a DMARC record. That comes next.</p>
 <p>Fun stuff &ndash; if you like plumbing!</p>
 <p>Of course, Google being Google... it doesn&rsquo;t seem to be working. The G Suite admin page for my domain says &ldquo;Status: Authenticating email&rdquo;, but when I look at messages I&rsquo;ve sent since setting all this up I don&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there is no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I need a DMARC record... &lt;sigh></p>
+<p><em>Update (2018 December 11): It turns out I didn&rsquo;t do a careful enough job checking whether Google was creating SPF and DKIM headers, even in the absence of a DMARC record. I checked today and emails sent to a friend included the SPF and DKIM headers.</em></p>
+<p><em>Even so, I&rsquo;ve decided to add a DMARC record. Now the Check MX tool shows <code>nimblemachines.com</code> passing every test. Yay!</em></p>
 <hr />
 <h3 id="september-05-15:01"><a href="#september-05-15:01">2018 September 05 15:01</a></h3>
 <p>I can&rsquo;t help but throw another log onto the &ldquo;ICANN fire&rdquo; here.</p>
@@ -409,7 +411,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 October 24 15:45)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202018%20journal">Send feedback</a> on this page (last edited 2018 December 11 18:12)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 

@@ -45,10 +45,10 @@
 <li>Copy over the <a href="/-/BOOTUPDATEAPP_Pemicro_v111.SDA">BOOTUPDATEAPP_Pemicro_v111.SDA</a> file. Wait a few seconds. Then either &ldquo;eject&rdquo; or unplug the board.</li>
 <li>Repeat the first step. The volume should still be called <strong>BOOTLOADER</strong>. Open (using a text editor ideally) the file SDA_INFO.HTM. This file contains an HTML form that, if you open the file in a web browser, gets sent to pemicro.com &ndash; another sleazy move on their part. Look for the name BOOTVER. The value should be 1.11. If so, your update &ldquo;took&rdquo; and you have the latest OpenSDA bootloader. If not, try again.</li>
 </ul>
-<p>To upgrade the debug firmware, you have to find to correct blob for your board, and that&rsquo;s not entirely straightforward.</p>
+<p>To upgrade the debug firmware, you have to find the correct blob for your board, and that&rsquo;s not entirely straightforward.</p>
 <p>I would start at NXP&rsquo;s <a href="https://www.nxp.com/support/developer-resources/run-time-software/kinetis-developer-resources/ides-for-kinetis-mcus/opensda-serial-and-debug-adapter:OPENSDA">OpenSDA resources</a> page. Find your FRDM board on the list and scroll down to the &ldquo;Latest firmware application&rdquo; section. Download the CMSIS-DAP or DAPlink binary archive listed. After unzipping it, put your board into BOOTLOADER mode as above, and copy over the <code>.bin</code> version of the app. Eject or unplug the board. Then plug it back in &ndash; this time <em>not</em> pressing the reset button &ndash; and it should enumerate. In the case of DAPlink, it should also create a mass-storage device called DAPLINK.</p>
-<p>CMSIS-DAP or DAPlink is the firmware that Freescale should have put onto the boards in the first place. I&rsquo;m really not sure what they were thinking!</p>
-<p>If you are interesting in the original CMSIS-DAP firmware, you should <a href="http://www.keil.com/appnotes/docs/apnt_232.asp">read the Keil app note</a>, and download <a href="http://www.keil.com/download/files/apnt_232.zip">Keil&rsquo;s source code</a>. You can also <a href="/-/CMSIS-DAP.S19">download my archived copy</a> of the Freescale-provided CMSIS-DAP S19 file (for the FRDM KL25Z).</p>
+<p>CMSIS-DAP or DAPlink is the firmware that Freescale should have put onto the FRDM boards in the first place. I&rsquo;m really not sure what they were thinking!</p>
+<p>If you are interested in the original CMSIS-DAP firmware, you should <a href="http://www.keil.com/appnotes/docs/apnt_232.asp">read the Keil app note</a>, and download <a href="http://www.keil.com/download/files/apnt_232.zip">Keil&rsquo;s source code</a>. You can also <a href="/-/CMSIS-DAP.S19">download my archived copy</a> of the Freescale-provided CMSIS-DAP S19 file (for the FRDM KL25Z).</p>
 <p>Have a drink to celebrate the beginning of a new life for your FRDM board!</p>
 <h3 id="not-totally-out-of-the-firmware-woods"><a href="#not-totally-out-of-the-firmware-woods">Not totally out of the (firmware) woods?</a></h3>
 <p>Alas, there are still problems. For one, both the CMSIS-DAP and DAPlink firmware, while essentially open-source, are only buildable with the Keil toolchain, which costs money and only runs on Windows. So building your own copy of either will be a costly and/or involved undertaking, especially if your chosen dev platform isn&rsquo;t Windows.</p>
@@ -60,7 +60,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Fixing%20the%20FRDM%20firmware">Send feedback</a> on this page (last edited 2018 October 25 00:43)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Fixing%20the%20FRDM%20firmware">Send feedback</a> on this page (last edited 2018 December 11 18:11)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
