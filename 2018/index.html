@@ -26,11 +26,11 @@
 <p>I just rediscovered the work(s) of <a href="http://tom7.org/">Tom Murphy VII &ndash; aka tom7</a>. He studied functional languages and type systems at <a href="https://www.cmu.edu/">CMU</a> &ndash; and got his PhD in 2008 &ndash; but instead of going to work for Jane Street or Standard Chartered (modeling derivatives or whatever it is that they do in those places) he instead creates goofy, irreverent, and brilliant &ldquo;works&rdquo;. (He probably has a day job, but he&rsquo;s not talking about it.)</p>
 <p>I wanted to share two of these. One is an insane/hilarious bicycle &ldquo;hack&rdquo;:</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/mNTj05I4k5I" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/mNTj05I4k5I" allowfullscreen></iframe>
 </div>
 <p>The other is an insane/brilliant compiler hack. He has written a <a href="https://www.cs.cmu.edu/~tom7/abc/">C compiler that generates an executable (in DOS EXE format) that is simulteneously a <em>paper describing the compiler</em></a>. In order to do this he had to limit himself to the subset of the x86 instruction set that is represented by printable ASCII characters &ndash; the range from 20 (hex) to 7E (hex). Since <em>all</em> the bytes in the file must be printable ASCII &ndash; header, data, and code &ndash; he was unable to generate ELF (BSD and Linux), Mach-O (macOS), or PE (Windows) executables, since each of these <em>requires</em> that certain fields in the header contain non-printable characters.</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LA_DrBwkiJA" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LA_DrBwkiJA" allowfullscreen></iframe>
 </div>
 <p>Read the paper in <a href="https://www.cs.cmu.edu/~tom7/abc/paper.pdf">PDF format</a> or <a href="https://www.cs.cmu.edu/~tom7/abc/paper.txt">plain text</a>. The plain text version &ndash; which is simultaneously a DOS executable! &ndash; is in an unusual format: it consists of &ldquo;lines&rdquo; of 160 characters, padded by spaces. There are no newline or carriage return characters! If you want to read the text version on a terminal, it&rsquo;s best to do something like this:</p>
 <pre>
@@ -296,15 +296,15 @@
 <h3 id="march-29-15:08"><a href="#march-29-15:08">2018 March 29 15:08</a></h3>
 <p>Just found a couple of interesting <a href="http://parrt.cs.usfca.edu/">Terence Parr</a> talks. The first introduces <a href="http://www.antlr.org/">ANTLRv4</a> (the latest and final version, he promises!) and its cool features. The beginning is good; the middle &ndash; during which he futzes with an ANTLR IDE &ndash; is a bit slow and maybe should be skipped; and the end &ndash; the introduction to the nifty kind of parser (adaptive LL(*)) that ANTLRv4 generates &ndash; is good.</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/q8p1voEiu8Q" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/q8p1voEiu8Q" allowfullscreen></iframe>
 </div>
 <p>The second video is a two-hour-long tutorial on building a virtual machine (to implement a language) from scratch! I only watched the beginning, but it&rsquo;s probably well worth watching.</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/OjaAToVkoTw" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/OjaAToVkoTw" allowfullscreen></iframe>
 </div>
 <p>Curiously, Rob Pike has some interesting things to say about lexing and parsing as well &ndash; and whether to use tools like lex, yacc, and ANTLR, or to write our own from scratch... His talk is about lexing templates in Go.</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/HxaD_trXwRE" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/HxaD_trXwRE" allowfullscreen></iframe>
 </div>
 <hr />
 <h3 id="february-10-18:23"><a href="#february-10-18:23">2018 February 10 18:23</a></h3>
@@ -327,10 +327,10 @@
 <h3 id="february-09-12:20"><a href="#february-09-12:20">2018 February 09 12:20</a></h3>
 <p>Last night I watched two interesting talks by <a href="http://www.neville-neilconsulting.com/">George Neville-Neil</a> about using <a href="https://freebsd.org/">FreeBSD</a> in teaching and research. The first is about using FreeBSD and Dtrace to &ldquo;peer inside&rdquo; a running operating system, in order to learn its workings; the second is about using FreeBSD as a substrate for research.</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LbTbt8y9XuM" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/LbTbt8y9XuM" allowfullscreen></iframe>
 </div>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/_oWcfUt9QUs" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/_oWcfUt9QUs" allowfullscreen></iframe>
 </div>
 <hr />
 <h3 id="february-08-19:12"><a href="#february-08-19:12">2018 February 08 19:12</a></h3>
@@ -338,12 +338,12 @@
 <p>How did it happen?</p>
 <p>I&rsquo;m a fan of RISC-V, so I watched this video &ndash; hopefully the first in a series! &ndash; about building a RISC-V processor using modern &ldquo;TTL&rdquo; logic chips:</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/yLs_NRwu1Y4" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/yLs_NRwu1Y4" allowfullscreen></iframe>
 </div>
 <p>Robert does a great job of explaining the RISC-V instruction set and his design choices for the registers. Too bad he&rsquo;s concentrating on the least interesting part of RISC-V. Once he starts talking about the the instruction decoder and the ALU it should get <em>interesting</em>.</p>
 <p>I enjoyed the video, so I decided to see what else he&rsquo;s been up to. I found a video about building a CPU in an FPGA. Sounds interesting, right?</p>
 <div class="youtube-container">
-  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/2fNBkUCjhcE" frameborder="0" allowfullscreen="1"></iframe>
+  <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/2fNBkUCjhcE" allowfullscreen></iframe>
 </div>
 <p>Part way through I decided that the Z-machine was too complicated. Writing an adventure in Forth would be much more interesting. Hmm &ndash; where is the source for the Crowther/Woods Adventure game anyway?</p>
 <p>The first version I found was a port (from Don Woods&rsquo;s FORTRAN code) by Don Knuth. <a href="https://cs.stanford.edu/~knuth/programs/advent.w.gz">Knuth&rsquo;s version</a> is written in <a href="https://cs.stanford.edu/~knuth/cweb.html">CWEB</a>, his literate programming tool for C.</p>
