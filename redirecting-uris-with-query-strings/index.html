@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
-<meta name="robots" content="index,follow" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/-/screen.css" type="text/css" />
 <link rel="canonical" href="https://www.nimblemachines.com/redirecting-uris-with-query-strings/" />
@@ -43,7 +42,7 @@
   RewriteRule   ^/(browse|wiki)  /show/%1? [last,redirect=301]
 </pre>
 <p>It&rsquo;s pretty simple: turn on the engine. Match a URI with a query string of the form &ldquo;show=&lt;page>". Capture the &lt;page> in %1. Now rewrite /browse or /wiki URIs with this query string to "/show/&lt;page>". The trailing "?&rdquo; is the &ldquo;clue&rdquo; to the rewriter to null out the query string. Since the rewritten URI can include a query string, it seems to me to make more sense that simply leaving it blank (which is what I did at first) would be the sensible thing. If I want to keep it I should have to write it on the right side.</p>
-<p>The "[last,redirect=301]" bit is a note to</p>
+<p>The &ldquo;[last,redirect=301]&rdquo; bit is a note to</p>
 <ul>
 <li>not match any more rules, and</li>
 <li>send a Permanent Redirect (301) to the client.</li>

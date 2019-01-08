@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
-<meta name="robots" content="index,follow" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/-/screen.css" type="text/css" />
 <link rel="canonical" href="https://www.nimblemachines.com/debugging-ssh-and-bash/" />
@@ -128,7 +127,7 @@
   A  login shell is one whose first character of argument zero is a -, or
   one started with the --login option.
 </pre>
-<p>Our shell is &ldquo;bash&rdquo; and not "-bash&rdquo;, but we don&rsquo;t know if it&rsquo;s being given -l or --login &ndash; we can&rsquo;t see that. So it <em>could</em> be a login shell.</p>
+<p>Our shell is &ldquo;bash&rdquo; and not &ldquo;-bash&rdquo;, but we don&rsquo;t know if it&rsquo;s being given -l or --login &ndash; we can&rsquo;t see that. So it <em>could</em> be a login shell.</p>
 <pre>
   An interactive shell is one started without  non-option  arguments  and
   without the -c option whose standard input and error are both connected
@@ -160,7 +159,7 @@
 <pre>
   /bin/bash -bash  himBH
 </pre>
-<p>The &ldquo;i&rdquo; in the options means interactive; the "-bash&rdquo; means login.</p>
+<p>The &ldquo;i&rdquo; in the options means interactive; the &ldquo;-bash&rdquo; means login.</p>
 <p><em>Aside: One reason, perhaps, for preferring csh over bash is that it&rsquo;s trivially easy to make this distinction in csh: it sets the variable $loginsh for login shells.</em></p>
 <p>Let&rsquo;s assume our shell is a non-interactive, non-login shell. What scripts would it source? Here is what the man page says:</p>
 <pre>
