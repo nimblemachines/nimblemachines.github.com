@@ -277,7 +277,7 @@ p.comment {
  * http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
  */
 
-.youtube-container {
+.video-embed-container {
   position: relative;
   padding-bottom: 56.25%; /* 16:9 */
   padding-top: 25px;
@@ -286,7 +286,7 @@ p.comment {
   margin-bottom: 1.5em;
 }
 
-.youtube-container iframe {
+.video-embed-container iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -296,7 +296,7 @@ p.comment {
 }
 
 /* video caption text */
-.youtube-container p {
+.video-embed-container p {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
