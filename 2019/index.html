@@ -17,6 +17,19 @@
 </div>
 
 <div id="content">
+<h3 id="march-20-00:48"><a href="#march-20-00:48">2019 March 20 00:48</a></h3>
+<p>I just upgraded a mid-2011 iMac (iMac12,1 for you nerds) to High Sierra. I thought I would wait until all the bugs were ironed out. Hah. That worked out really well. ;-)</p>
+<p>I&rsquo;m not here to talk about bugs in the software, but about bugs in the &ldquo;documentation&rdquo;. In particular about APFS (the new Apple File System) and its vaunted encryption feature. There is no &ndash; or contradictory &ndash; information available and how to use it, and, in particular, how to do a clean install with an APFS encrypted disk.</p>
+<p>&ldquo;Help&rdquo; on the machine itself is notoriously useless. But finding authoritative information from Apple about APFS is nearly impossible.</p>
+<p>I did find a post on Reddit that claimed that FileVault and APFS encryption were the same thing, and also claimed that Apple suggests that in order to achieve an encrypted APFS install, that we install to an <em>un-encrypted</em> disk and turn on FileVault after the fact. This didn&rsquo;t sound right.</p>
+<p>Then I found <a href="https://discussions.apple.com/thread/8085938">this post on discussions.apple.com</a> which seemed to highlight everything that was bothering me about the APFS encryption story &ndash; especially the confusing <code>System&nbsp;Preferences&nbsp;>>&nbsp;Security&nbsp;&amp;&nbsp;Privacy</code> UI about turning on FileVault. What does this do? Is it the same thing as somehow turning on APFS encryption using Disk Utility or the <code>diskutil&nbsp;apfs</code> command? Who knows!</p>
+<p>This <a href="https://support.apple.com/en-us/HT202385">support topic about institutional recovery keys</a> sheds some light on the subject. It suggests that Apple wants us to think that &ldquo;FileVault&rdquo; and &ldquo;encrypted disk&rdquo; are basically the same thing &ndash; even though the mechanisms for achieving that encryption are different among CoreStorage, HFS+, and APFS. Conflating related but distinct notions usually leads to people having an erroneous (aka false) mental model of a system, and this often leads to frustration or worse &ndash; maybe even to catastrophic data loss. This isn&rsquo;t a good place to cut corners on clarity.</p>
+<p>Reading the <code>diskutil</code> man page can be an exercise in frustration as well. There is some discussion of &ldquo;crypto users&rdquo; and &ldquo;crypto keys&rdquo; but no good definitions of these. Also, what does <code>-role</code> do? What do the B, R, and V flags mean? There is no explanation of this.</p>
+<p>Is APFS ready for production use on spinning disks? I installed it on the iMac&rsquo;s 2011-vintage 500GB Seagate drive. (It even has 512 byte sectors! How totally pass&eacute;!) Was this a mistake? The machine isn&rsquo;t sluggish exactly, but it&rsquo;s not screaming along either. Is APFS slowing it down? Or just the fact that it&rsquo;s memory-limited (I need to upgrade it beyond its current 4GB of RAM)?</p>
+<p>Dear Apple: APFS is a great idea, and long overdue, but it&rsquo;s kind of a mess! The lack of user data checksumming &ndash; depending on the drives and their firmware to do this! &ndash; is a huge mistake. Brian Cantrill has ranted publicly about ZFS&rsquo;s checksumming of everything turning up all kinds of disk firmware bugs that would otherwise have led to data corruption.</p>
+<p>Also, please publish better man pages, some clear manuals, security white papers, and &ldquo;best practices&rdquo; deployment notes, for APFS.</p>
+<p>As I sat down to write this &ndash; I have only just finished getting my working environment set up again on this machine &ndash; I found a bug. In Vim. I had to build my own version of Vim because the version that ships with High Sierra &ndash; 8.0.something &ndash; seemed to be ignoring my <code>~/.vim/after/ftplugin/</code> files. Rather than debug this I just built a recent 8.1 and it seems to work fine. While this isn&rsquo;t Apple&rsquo;s fault <em>exactly</em>, it is the version of Vim that they ship. Oh well.</p>
+<hr />
 <h3 id="january-30-13:57"><a href="#january-30-13:57">2019 January 30 13:57</a></h3>
 <h4 id="happy-new-year"><a href="#happy-new-year">Happy New Year!</a></h4>
 <p>I wish you and your loved ones all the best in 2019!</p>
@@ -40,7 +53,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202019%20journal">Send feedback</a> on this page (last edited 2019 February 01 18:17)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202019%20journal">Send feedback</a> on this page (last edited 2019 March 20 00:48)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
