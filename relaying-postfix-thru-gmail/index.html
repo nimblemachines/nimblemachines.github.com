@@ -31,7 +31,7 @@
   relayhost = [smtp.gmail.com]:587
   smtp_use_tls = yes
   smtp_sasl_auth_enable = yes
-  smtp_sasl_password_maps = static:&lt;gmail_username>:&lt;gmail_password>
+  smtp_sasl_password_maps = static:&lt;gmail_username&gt;:&lt;gmail_password&gt;
   smtp_sasl_security_options =
 </pre>
 <p>I ran &ldquo;postfix reload&rdquo; to get the new settings. I was able to send mail now, but in the log files I saw nasty messages for each mail sent that Postfix was unable to verify Gmail&rsquo;s SSL certificate:</p>
@@ -55,7 +55,7 @@
 </pre>
 <p>to my Postfix configuration directory. Then I added</p>
 <pre>
-  smtp_tls_CAfile = &lt;postfix>/ThawtePremiumServerCA.txt
+  smtp_tls_CAfile = &lt;postfix&gt;/ThawtePremiumServerCA.txt
 </pre>
 <p>to main.cf, and ran &ldquo;postfix reload&rdquo;. No more worrying error messages.</p>
 

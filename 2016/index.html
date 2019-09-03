@@ -88,7 +88,7 @@
 <h3 id="march-21-18:50"><a href="#march-21-18:50">2016 March 21 18:50</a></h3>
 <p>I realize now that my previous solution to the problem of redirecting visitors to the current &ldquo;journal&rdquo; page (in 2016, the page you are now reading) isn&rsquo;t ideal.</p>
 <p>For one thing, non-Javascript-enabled clients &ndash; and that might include search-engine crawlers! &ndash; visiting <code>www.nimblemachines.com</code> will see nothing. Also, I am using Google Webmaster Tools and they need to see a &ldquo;verify&rdquo; meta tag, so they know that I own this domain. That tag was missing from the previous, simple <code>index.html</code>.</p>
-<p>My first solution to fix this was to create a pseudo-page, which I called <em>The tip of the iceberg</em>, and which basically just contained a link to the current journal, and the normal footer links (all pages, recent changes, home). This was better &ndash; it had the right <code>&lt;meta></code> tags &ndash; but for clients that <em>were</em> Javascript-enabled, things were ugly. A page would flash by &ndash; you would briefly see the title &ldquo;The tip of the iceberg&rdquo; &ndash; before redirecting.</p>
+<p>My first solution to fix this was to create a pseudo-page, which I called <em>The tip of the iceberg</em>, and which basically just contained a link to the current journal, and the normal footer links (all pages, recent changes, home). This was better &ndash; it had the right <code>&lt;meta&gt;</code> tags &ndash; but for clients that <em>were</em> Javascript-enabled, things were ugly. A page would flash by &ndash; you would briefly see the title &ldquo;The tip of the iceberg&rdquo; &ndash; before redirecting.</p>
 <p>My second try &ndash; the current implementation &ndash; was to create a top-level <code>index.html</code> that is essentially a <em>copy</em> of the current journal page, but with a few changes:</p>
 <ul>
 <li>the canonical link element points to the top-level, not the journal page; this way crawlers know that these are two different pages;</li>
@@ -96,9 +96,9 @@
 <li>prefixed to the normal page content is the Javascript redirect code, which for 2016 says:</li>
 </ul>
 <pre>
-  &lt;script type="text/javascript">
+  &lt;script type="text/javascript"&gt;
     document.location.replace("/2016/");
-  &lt;/script>
+  &lt;/script&gt;
 </pre>
 <p>I&rsquo;m hopeful that this will be non-annoying, and that crawlers will still be able to find me.</p>
 <hr />
@@ -108,14 +108,14 @@
 <p>In addition to making linking and sharing easy, I want the &ldquo;front page&rdquo; of the site to be the journal for the current year. My previous solution was to symlink (on the server side) the toplevel <code>index.html</code> to the current journal page, say 2016. The problem with this is that if bookmarked or shared, in a year the URL will be wrong. Instead of pointing to 2016&rsquo;s journal page it will point to 2017&rsquo;s. And any heading self-links (as described above) will also fail.</p>
 <p>The solution is for visitors to get redirected. This already happens to the &ldquo;apex&rdquo; domain. Github Pages redirects <code>nimblemachines.com</code> to <code>www.nimblemachines.com</code>. But it isn&rsquo;t possible (as far as I can tell) to have Github Pages redirect to a page on the site. I ended up writing a totally simple new <code>index.html</code> that basically consists of one line of Javascript. The current <code>index.html</code> looks like this:</p>
 <pre>
-  &lt;html>
-    &lt;head>&lt;/head>
-    &lt;body>
-      &lt;script type="text/javascript">
+  &lt;html&gt;
+    &lt;head&gt;&lt;/head&gt;
+    &lt;body&gt;
+      &lt;script type="text/javascript"&gt;
         document.location.replace("/2016/");
-      &lt;/script>
-    &lt;/body>
-  &lt;/html>
+      &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
 </pre>
 <p>I used <code>location.replace</code> rather than <code>location.assign</code> because <code>replace</code> doesn&rsquo;t leave the original URL in the browser history.</p>
 <p>Thanks are due to <a href="https://developer.mozilla.org/en-US/docs/Web/API/Location/replace">Mozilla&rsquo;s great documentation</a> for making this easy (for a Javascript know-nothing).</p>

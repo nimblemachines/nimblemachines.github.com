@@ -26,7 +26,7 @@
 <p>git-svn works well, but setting it up is a bit strange. The documentation suggests that it can understand and parse a Subversion repo (or project in a subdirectory) with the &ldquo;standard&rdquo; layout: trunk/, branches/, tags/. I was unable to get this to work, at least with the <a href="https://muforth.nimblemachines.com/">muforth</a> code, which has been moved around a lot &ndash; checked into CVS, moved around; converted to Subversion, and then moved around some more, partly to fix how <em>cvs2svn</em> interpreted by repo, and partly to fix mistakes I had made along the way.</p>
 <p>Using git-svn to &ldquo;clone&rdquo; single branches worked perfectly, though. So I simply set up <em>by hand</em> all the branches that I wanted, and then one by one did</p>
 <pre>
-  git svn fetch &lt;branch>
+  git svn fetch &lt;branch&gt;
 </pre>
 <p>The whole process went something like this. First I made a new Git repo for the project.</p>
 <pre>
@@ -36,9 +36,9 @@
 </pre>
 <p>If you want decent commit messages with real email addresses you need to create an &ldquo;authors&rdquo; file that maps Subversion user names to email addresses. It looks like this:</p>
 <pre>
-  david   = David Frech &lt;david@example.com>
-  john    = John Deere &lt;john@example.com>
-  (no author) = some lousy conversion tool &lt;none>
+  david   = David Frech &lt;david@example.com&gt;
+  john    = John Deere &lt;john@example.com&gt;
+  (no author) = some lousy conversion tool &lt;none&gt;
 </pre>
 <p>The &ldquo;(no author)&rdquo; entry is necessary because <em>cvs2svn</em> and also some Subversion tools create log entries like that. Yes, it&rsquo;s lame.</p>
 <p>There are two ways to tell git-svn about our authors file. I created an entry in my global Git config (ie, the file <em>.gitconfig</em> in my home directory), like this:</p>
@@ -48,11 +48,11 @@
 </pre>
 <p>I did this so I wouldn&rsquo;t forget to set the right command line switches; but it&rsquo;s also possible on each invocation of git-svn to specify</p>
 <pre>
-  -A&lt;filename>
+  -A&lt;filename&gt;
 </pre>
 <p>or</p>
 <pre>
-  --authors-file=&lt;filename>
+  --authors-file=&lt;filename&gt;
 </pre>
 <p>on the command line.</p>
 <p>After playing around with <em>git-svn init</em> to see what kind of config entries it creates, I manually edited muforth/.git/config and added lines like these, one per branch:</p>

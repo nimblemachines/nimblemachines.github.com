@@ -66,17 +66,17 @@
 
 <p>Well, I had an HTML file full of references (inside a table) of the form:</p>
 <pre>
- &lt;td width="60">1/4/05&lt;/td>
- &lt;td width="120">This is a title&lt;/td>
- &lt;td width="480">This is a long description, probably several lines long,  
-     describing the object&lt;/td>
+ &lt;td width="60"&gt;1/4/05&lt;/td&gt;
+ &lt;td width="120"&gt;This is a title&lt;/td&gt;
+ &lt;td width="480"&gt;This is a long description, probably several lines long,  
+     describing the object&lt;/td&gt;
 </pre>
 <p>There were several hundred of these triples, and a bunch of other junk. The first thing I did was to throw away everything that didn&rsquo;t match one of the three lines. Then I canonicalized the date formats &ndash; they needed to be mm/dd/yyyy so I could later generate link names of the form <em>yyyymmdd-special</em>.</p>
 <p>Then, for each triple I generated (roughly, given the above &ldquo;example&rdquo;):</p>
 <pre>
- &lt;h2>&lt;em>2005.01.04&lt;/em>.
- &lt;a href="http://example.com/20050104-special">This is a title&lt;/a>&lt;/h2>
- &lt;p>This is a long ... object&lt;/p>
+ &lt;h2&gt;&lt;em&gt;2005.01.04&lt;/em&gt;.
+ &lt;a href="http://example.com/20050104-special"&gt;This is a title&lt;/a&gt;&lt;/h2&gt;
+ &lt;p&gt;This is a long ... object&lt;/p&gt;
 </pre>
 <p>Not complicated, mind, and quite easy to do in <em>sed</em>, but only <em>once I had concatenated the three things into one long line</em> (using <em>h</em> and <em>H</em>) so I could match all three parts in one long RE to build the final HTML.</p>
 

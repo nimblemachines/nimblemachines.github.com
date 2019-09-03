@@ -291,7 +291,7 @@
  All functions are named by a single character.  In the  following
  summary,  the  maximum  number  of  allowable  addresses is given
  enclosed in parentheses, then the single character function name,
- possible  arguments enclosed in angles (&lt; >), an expanded English
+ possible  arguments enclosed in angles (&lt; &gt;), an expanded English
  translation of the single-character name, and finally a  descrip-
  tion of what each function does.  The angles around the arguments
  are not part of the argument, and should not be typed  in  actual
@@ -315,43 +315,43 @@
            command.
  
       (1)a\
-      &lt;text> -- append lines
-           The a function causes the argument &lt;text> to be written
+      &lt;text&gt; -- append lines
+           The a function causes the argument &lt;text&gt; to be written
            to  the  output  after the line matched by its address.
            The a command is inherently multi-line; a  must  appear
-           at the end of a line, and &lt;text> may contain any number
+           at the end of a line, and &lt;text&gt; may contain any number
            of lines.  To preserve the  one-command-to-a-line  fic-
            tion,  the  interior newlines must be hidden by a back-
            slash character (`\') immediately  preceding  the  new-
-           line.   The  &lt;text> argument is terminated by the first
+           line.   The  &lt;text&gt; argument is terminated by the first
            unhidden newline (the first one  not  immediately  pre-
            ceded  by  backslash).   Once an a function is success-
-           fully executed, &lt;text> will be written  to  the  output
+           fully executed, &lt;text&gt; will be written  to  the  output
            regardless  of what later commands do to the line which
            triggered it.   The  triggering  line  may  be  deleted
-           entirely;  &lt;text>  will still be written to the output.
-           The &lt;text> is not scanned for address matches,  and  no
+           entirely;  &lt;text&gt;  will still be written to the output.
+           The &lt;text&gt; is not scanned for address matches,  and  no
            editing  commands  are  attempted  on  it.  It does not
            cause any change in the line-number counter.
  
       (1)i\
-      &lt;text> -- insert lines
+      &lt;text&gt; -- insert lines
            The i function  behaves identically to the a  function,
-           except  that &lt;text> is written to the output before the
+           except  that &lt;text&gt; is written to the output before the
            matched line.  All other comments about the a  function
            apply to the i function as well.
  
       (2)c\
-      &lt;text> -- change lines
+      &lt;text&gt; -- change lines
            The  c  function  deletes  the  lines  selected  by its
            address(es),  and  replaces  them  with  the  lines  in
-           &lt;text>.   Like a and i, c must be followed by a newline
-           hidden by a backslash; and interior new lines in &lt;text>
+           &lt;text&gt;.   Like a and i, c must be followed by a newline
+           hidden by a backslash; and interior new lines in &lt;text&gt;
            must  be hidden by backslashes.  The c command may have
            two addresses, and therefore select a range  of  lines.
            If it does, all the lines in the range are deleted, but
-           only one copy of &lt;text> is written to the  output,  not
-           one  copy per line deleted.  As with a and i, &lt;text> is
+           only one copy of &lt;text&gt; is written to the  output,  not
+           one  copy per line deleted.  As with a and i, &lt;text&gt; is
            not scanned for address matches, and  no  editing  com-
            mands  are  attempted  on  it.   It does not change the
            line-number counter.  After a line has been deleted  by
@@ -398,48 +398,48 @@
  One  very important function changes parts of lines selected by a
  context search within the line.
  
-      (2)s&lt;pattern>&lt;replacement>&lt;flags>  --   substitute   The   s
+      (2)s&lt;pattern&gt;&lt;replacement&gt;&lt;flags&gt;  --   substitute   The   s
            function  replaces  part  of  a line (selected by &lt;pat-
-           tern>) with &lt;replacement>.  It can best be read:
-                     Substitute for &lt;pattern>,  &lt;replacement>  The
-           &lt;pattern> argument contains a pattern, exactly like the
+           tern&gt;) with &lt;replacement&gt;.  It can best be read:
+                     Substitute for &lt;pattern&gt;,  &lt;replacement&gt;  The
+           &lt;pattern&gt; argument contains a pattern, exactly like the
            patterns in addresses (see 2.2 above).  The  only  dif-
-           ference between &lt;pattern> and a context address is that
+           ference between &lt;pattern&gt; and a context address is that
            the context address must be delimited  by  slash  (`/')
-           characters; &lt;pattern> may be delimited by any character
+           characters; &lt;pattern&gt; may be delimited by any character
            other than space or  newline.   By  default,  only  the
-           first  string matched by &lt;pattern> is replaced, but see
-           the g flag below.  The  &lt;replacement>  argument  begins
+           first  string matched by &lt;pattern&gt; is replaced, but see
+           the g flag below.  The  &lt;replacement&gt;  argument  begins
            immediately  after  the  second delimiting character of
-           &lt;pattern>, and must be followed immediately by  another
+           &lt;pattern&gt;, and must be followed immediately by  another
            instance  of the delimiting character.  (Thus there are
            exactly three instances of the  delimiting  character.)
-           The  &lt;replacement> is not a pattern, and the characters
+           The  &lt;replacement&gt; is not a pattern, and the characters
            which are special in patterns do not have special mean-
-           ing  in  &lt;replacement>.   Instead, other characters are
+           ing  in  &lt;replacement&gt;.   Instead, other characters are
            special:
  
                 &amp;       is replaced by the string matched by &lt;pat-
-                     tern>
+                     tern&gt;
  
                 \d  (where d is a single digit) is replaced by the
-                     dth substring matched by parts  of  &lt;pattern>
+                     dth substring matched by parts  of  &lt;pattern&gt;
                      enclosed  in  `\('  and `\)'.  If nested sub-
-                     strings occur in &lt;pattern>, the dth is deter-
+                     strings occur in &lt;pattern&gt;, the dth is deter-
                      mined  by counting opening delimiters (`\(').
                      As in patterns,  special  characters  may  be
                      made literal by preceding them with backslash
                      (`\').
  
-           The &lt;flags> argument may contain the following flags:
+           The &lt;flags&gt; argument may contain the following flags:
  
-                g  --  substitute  &lt;replacement>  for  all   (non-
-                     overlapping)  instances  of  &lt;pattern> in the
+                g  --  substitute  &lt;replacement&gt;  for  all   (non-
+                     overlapping)  instances  of  &lt;pattern&gt; in the
                      line.  After a successful  substitution,  the
-                     scan  for  the  next  instance  of  &lt;pattern>
+                     scan  for  the  next  instance  of  &lt;pattern&gt;
                      begins just after the  end  of  the  inserted
                      characters; characters put into the line from
-                     &lt;replacement> are not rescanned.
+                     &lt;replacement&gt; are not rescanned.
  
                 p -- print the line if  a  successful  replacement
                      was  done.   The p flag causes the line to be
@@ -451,14 +451,14 @@
                      copies  of  the  line  will be written to the
                      output: one for each successful substitution.
  
-                w &lt;filename> -- write the line to a file if a suc-
+                w &lt;filename&gt; -- write the line to a file if a suc-
                      cessful replacement was  done.   The  w  flag
                      causes  lines  which are actually substituted
                      by the s function to be  written  to  a  file
-                     named  by  &lt;filename>.   If &lt;filename> exists
+                     named  by  &lt;filename&gt;.   If &lt;filename&gt; exists
                      before sed is run, it is overwritten; if not,
                      it  is created.  A single space must separate
-                     w  and  &lt;filename>.   The  possibilities   of
+                     w  and  &lt;filename&gt;.   The  possibilities   of
                      multiple,  somewhat  different  copies of one
                      input line being written are the same as  for
                      p.   A maximum of 10 different file names may
@@ -517,19 +517,19 @@
            time  the p function is encountered, regardless of what
            succeeding editing commands may do to the lines.
  
-      (2)w &lt;filename> -- write on &lt;filename>  The  write  function
+      (2)w &lt;filename&gt; -- write on &lt;filename&gt;  The  write  function
            writes  the addressed lines to the file named by &lt;file-
-           name>.  If the file previously existed, it is overwrit-
+           name&gt;.  If the file previously existed, it is overwrit-
            ten;  if  not,  it  is  created.  The lines are written
            exactly as  they  exist  when  the  write  function  is
            encountered  for  each  line, regardless of what subse-
            quent editing commands may do  to  them.   Exactly  one
-           space must separate the w and &lt;filename>.  A maximum of
+           space must separate the w and &lt;filename&gt;.  A maximum of
            ten different files may be mentioned in write functions
            and w flags after s functions, combined.
  
-      (1)r  &lt;filename>  --  read  the  contents of a file The read
-           function reads the contents of &lt;filename>, and  appends
+      (1)r  &lt;filename&gt;  --  read  the  contents of a file The read
+           function reads the contents of &lt;filename&gt;, and  appends
            them  after  the line matched by the address.  The file
            is read and  appended  regardless  of  what  subsequent
            editing  commands  do  to  the  line  which matched its
@@ -537,7 +537,7 @@
            line, the text from the a functions and the r functions
            is written to the output in the order  that  the  func-
            tions  are  executed.   Exactly one space must separate
-           the r and &lt;filename>.  If a file mentioned by a r func-
+           the r and &lt;filename&gt;.  If a file mentioned by a r func-
            tion  cannot  be  opened, it is considered a null file,
            not an error, and no diagnostic is given.
  
@@ -665,31 +665,31 @@
  
            Groups can be nested.
  
-      (0):&lt;label>  --  place  a  label  The label function marks a
+      (0):&lt;label&gt;  --  place  a  label  The label function marks a
            place in the list of  editing  commands  which  may  be
-           referred  to  by b and t functions.  The &lt;label> may be
+           referred  to  by b and t functions.  The &lt;label&gt; may be
            any sequence of eight or fewer characters; if two  dif-
            ferent colon functions have identical labels, a compile
            time diagnostic will be  generated,  and  no  execution
            attempted.
  
-      (2)b&lt;label>  --  branch  to label The branch function causes
+      (2)b&lt;label&gt;  --  branch  to label The branch function causes
            the sequence of editing commands being applied  to  the
            current  input  line  to be restarted immediately after
-           the place where a colon function with the same  &lt;label>
+           the place where a colon function with the same  &lt;label&gt;
            was  encountered.   If  no colon function with the same
            label can be found after all the editing commands  have
            been  compiled,  a compile time diagnostic is produced,
            and no execution is attempted.  A b  function  with  no
-           &lt;label>  is taken to be a branch to the end of the list
+           &lt;label&gt;  is taken to be a branch to the end of the list
            of editing commands; whatever should be done  with  the
            current  input  line is done, and another input line is
            read; the list of editing commands  is  restarted  from
            the beginning on the new line.
  
-      (2)t&lt;label>  --  test  substitutions  The  t  function tests
+      (2)t&lt;label&gt;  --  test  substitutions  The  t  function tests
            whether any successful substitutions have been made  on
-           the  current input line; if so, it branches to &lt;label>;
+           the  current input line; if so, it branches to &lt;label&gt;;
            if not, it does nothing.  The flag which indicates that
            a  successful  substitution  has been executed is reset
            by:

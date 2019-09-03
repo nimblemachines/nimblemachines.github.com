@@ -33,7 +33,7 @@
 <pre>
   [Figure One]
   VARIABLE UP ( Points to the currently active user base address )
-  : USER   CREATE ,   DOES>   @ UP @ + ;
+  : USER   CREATE ,   DOES&gt;   @ UP @ + ;
 </pre>
 </div>
 
@@ -43,7 +43,7 @@
   [Figure Two]
   VARIABLE #USER   ( Holds the size of the user area )   0 #USER !
   VOCABULARY USER   USER DEFINITIONS
-  : CREATE   CREATE #USER @ ,   DOES>   @ UP @ + ;
+  : CREATE   CREATE #USER @ ,   DOES&gt;   @ UP @ + ;
   : ALLOT    #USER +! ;
   : VARIABLE CREATE  2 ALLOT ;
   FORTH DEFINITIONS

@@ -108,9 +108,9 @@
 </pre>
 <p>In general, the format of the query is</p>
 <pre>
-  &lt;s>._domainkey.&lt;d>
+  &lt;s&gt;._domainkey.&lt;d&gt;
 </pre>
-<p>where &lt;s> is a &ldquo;selector&rdquo; and &lt;d> is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
+<p>where &lt;s&gt; is a &ldquo;selector&rdquo; and &lt;d&gt; is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
 <pre>
   $ dig -t txt arc-20160816._domainkey.google.com
 </pre>
@@ -119,7 +119,7 @@
 <h4 id="dmarc"><a href="#dmarc">DMARC?</a></h4>
 <p>I haven&rsquo;t yet published a DMARC record. That comes next.</p>
 <p>Fun stuff &ndash; if you like plumbing!</p>
-<p>Of course, Google being Google... it doesn&rsquo;t seem to be working. The G Suite admin page for my domain says &ldquo;Status: Authenticating email&rdquo;, but when I look at messages I&rsquo;ve sent since setting all this up I don&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there is no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I need a DMARC record... &lt;sigh></p>
+<p>Of course, Google being Google... it doesn&rsquo;t seem to be working. The G Suite admin page for my domain says &ldquo;Status: Authenticating email&rdquo;, but when I look at messages I&rsquo;ve sent since setting all this up I don&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there is no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I need a DMARC record... &lt;sigh&gt;</p>
 <p><em>Update (2018 December 11): It turns out I didn&rsquo;t do a careful enough job checking whether Google was creating SPF and DKIM headers, even in the absence of a DMARC record. I checked today and emails sent to a friend included the SPF and DKIM headers.</em></p>
 <p><em>Even so, I&rsquo;ve decided to add a DMARC record. Now the Check MX tool shows <code>nimblemachines.com</code> passing every test. Yay!</em></p>
 <hr />
@@ -163,7 +163,7 @@
 <p>You can <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/containers_and_vms.md">read all the details &ndash; including which varieties of Chromebook will be supported</a> &ndash; in the <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/">Chromium OS docs tree</a>. (There is other interesting stuff in there, including <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/rust_on_cros.md">this</a>.)</p>
 <p>And finally, the <a href="https://chromium.googlesource.com/chromiumos/platform/crosvm/">source code for the magic pixie dust</a> &ndash; which, interestingly, is mostly written in <a href="https://www.rust-lang.org/"><em>Rust</em></a>. Is Google sleeping with the <a href="https://research.mozilla.org/rust/">enemy</a>? ;-)</p>
 <p>Once this is widely rolled out, are Chromebooks going to start to displace Macs as the kickass developer machine of choice? It will be interesting to watch.</p>
-<p>A note for fellow Acer Chromebook 14 (edgar) owners: you can try this now in the Canary channel. (To switch to Canary you have to be in developer mode, and on either the Beta or Dev channel. Open a crosh window and type &ldquo;live_in_a_coal_mine&rdquo;. Then head over to &ldquo;Settings > About Chrome OS&rdquo; and search for updates. After it downloads the update you will be prompted to reboot.)</p>
+<p>A note for fellow Acer Chromebook 14 (edgar) owners: you can try this now in the Canary channel. (To switch to Canary you have to be in developer mode, and on either the Beta or Dev channel. Open a crosh window and type &ldquo;live_in_a_coal_mine&rdquo;. Then head over to &ldquo;Settings &gt; About Chrome OS&rdquo; and search for updates. After it downloads the update you will be prompted to reboot.)</p>
 <p>I took it for a spin and it started out working fine, but then something got wedged and I was unable use many of the built-in apps, including the new &ldquo;Linux apps&rdquo; app. Tapping on them (to start them) would cause the cursor to freeze for a few seconds, and then a new window would open up with the message that Chrome had quit unexpectedly, and would I like to restore my tabs.</p>
 <p>So it&rsquo;s certainly raw at the moment. I&rsquo;ve switched back to the Dev channel from Canary and may wait for this feature to arrive on Dev before I try it out again.</p>
 <hr />
@@ -189,13 +189,13 @@
 <h4 id="register-with-github-if-you-havent-already"><a href="#register-with-github-if-you-havent-already">Register with GitHub, if you haven&rsquo;t already</a></h4>
 <p>This part is pretty easy. Of course, you&rsquo;ll have to know some basics of using Git for the rest of these instructions to make much sense. That part is not so easy. It took me &ndash; in 2007, when I first started using Git &ndash; about six months of reading and pondering before I had the guts to just dive in. But I&rsquo;ve been super happy that I took the plunge. Git has problems &ndash; the UI can be rather odd in places &ndash; but it&rsquo;s crazy powerful, and I personally have never lost any work because of Git. To the contrary &ndash; it has saved my butt more than once.</p>
 <h4 id="create-a-repository-on-github-for-your-site"><a href="#create-a-repository-on-github-for-your-site">Create a repository on GitHub for your site</a></h4>
-<p>If you want this to be your &ldquo;personal&rdquo; site or blog, or an &ldquo;organization&rdquo; site or blog, name it &lt;username>.github.io (for a personal site) or &lt;orgname>.github.io (for an organization). Your site will live in the master branch of the repo. <a href="https://help.github.com/articles/user-organization-and-project-pages/">Read the GitHub Pages docs</a> for more details about the different kinds of sites.</p>
+<p>If you want this to be your &ldquo;personal&rdquo; site or blog, or an &ldquo;organization&rdquo; site or blog, name it &lt;username&gt;.github.io (for a personal site) or &lt;orgname&gt;.github.io (for an organization). Your site will live in the master branch of the repo. <a href="https://help.github.com/articles/user-organization-and-project-pages/">Read the GitHub Pages docs</a> for more details about the different kinds of sites.</p>
 <p>If you already have a project that you are hosting on GitHub and want to create a documentation site for it, create a &ldquo;gh-pages&rdquo; branch, as described below.</p>
 <p>If you already have a personal or organization site, and you just want to try something new on a different domain, create a repository as if for a project, create a README file as a placeholder, and then follow the &ldquo;gh-pages&rdquo; directions below.</p>
 <h4 id="clone-the-new-repo-or-existing-project-repo-onto-your-machine"><a href="#clone-the-new-repo-or-existing-project-repo-onto-your-machine">Clone the new repo, or existing project repo, onto your machine</a></h4>
 <p>On the repository page, copy the &ldquo;clone this repo&rdquo; link and then do</p>
 <pre>
-  git clone &lt;url>
+  git clone &lt;url&gt;
 </pre>
 <p>on your machine. cd into the directory that was just created. If this is a user or organization site, we will stay on the master branch. If this is a project or &ldquo;random other domain&rdquo; site, we need to create and populate a &ldquo;gh-pages&rdquo; branch.</p>
 <h4 id="prepare-the-gh-pages-branch"><a href="#prepare-the-gh-pages-branch">Prepare the &ldquo;gh-pages&rdquo; branch</a></h4>
@@ -225,7 +225,7 @@
 </pre>
 <p>The --all is only necessary for site using a gh-pages branch. You can leave it off for a user or org site.</p>
 <h4 id="set-up-some-dns"><a href="#set-up-some-dns">Set up some DNS</a></h4>
-<p>You&rsquo;ll want to create a CNAME record with your registrar/DNS provider that maps www.wiki.kiwi to &lt;username>.github.io (or &lt;orgname>.github.io, if you are doing this in an organization account).</p>
+<p>You&rsquo;ll want to create a CNAME record with your registrar/DNS provider that maps www.wiki.kiwi to &lt;username&gt;.github.io (or &lt;orgname&gt;.github.io, if you are doing this in an organization account).</p>
 <p>That&rsquo;s all you&rsquo;ll need to get started. If you are interested in having the bare (or &ldquo;apex&rdquo;) domain also resolve, follow the directions <a href="https://help.github.com/articles/setting-up-an-apex-domain/">here</a>.</p>
 <h4 id="enjoy-your-new-site"><a href="#enjoy-your-new-site">Enjoy your new site!</a></h4>
 <p>Go to <a href="http://www.wiki.kiwi/">http://www.wiki.kiwi/</a> or <a href="https://www.wiki.kiwi/">https://www.wiki.kiwi/</a> (the http version should redirect to the https version) and marvel! If nothing shows up at first, try again in a minute or two.</p>
@@ -381,7 +381,7 @@
 <p>&ldquo;Hey Google! Code much?&rdquo;</p>
 <p>It was thinking, before this announcement, that I might switch to relying on Yahoo/Bing instead for my &ldquo;webmaster tools&rdquo; experience.</p>
 <p>Given what I&rsquo;ve just seen &ndash; and even notwithstanding my terrible previous experience with <a href="https://www.bing.com/toolbox/webmaster">Bing Webmaster Tools</a> &ndash; maybe that isn&rsquo;t a bad idea.</p>
-<p>&lt;sigh></p>
+<p>&lt;sigh&gt;</p>
 <hr />
 <h3 id="january-28-22:47"><a href="#january-28-22:47">2018 January 28 22:47</a></h3>
 <p>I should also mention that I&rsquo;ve made some aesthetic changes to the site, bringing it closer in style to the <a href="https://muforth.nimblemachines.com/">muforth</a> site than previously. In fact, except for the choice of heading font, they are almost indistinguishable. (This is, IMHO, a bug and not a feature. Each site needs its own color and design scheme.)</p>

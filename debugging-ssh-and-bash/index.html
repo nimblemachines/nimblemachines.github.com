@@ -23,7 +23,7 @@
 <h2 id="short-version"><a href="#short-version">Short version</a></h2>
 <p>To begin to debug <code>PATH</code> (and other environment variable) problems, do this:</p>
 <pre>
-  ssh &lt;remote> env | sort | less
+  ssh &lt;remote&gt; env | sort | less
 </pre>
 <p>This will run <em>env</em> on the remote machine and sort and display the results. Is the <code>PATH</code> correct? If not, you are probably setting it in your <code>.bash_login</code> or <code>.profile</code> on the remote machine, but this won&rsquo;t work! Why? <em>Because Bash doesn&rsquo;t source those files when run by sshd.</em> (To find out where this is &ldquo;documented&rdquo;, skip to the <a href="#long-ago-version">long version of this story</a>, below.</p>
 <p>An incredibly useful tool for debugging this is to set (and export) environment variables in the remote machine&rsquo;s Bash startup files to see which files are actually getting sourced when Bash is run by <em>sshd</em>. So, put</p>
@@ -41,7 +41,7 @@
 <p>into <code>.profile</code>.</p>
 <p>Now try running</p>
 <pre>
-  ssh &lt;remote> env | sort | less
+  ssh &lt;remote&gt; env | sort | less
 </pre>
 <p>What did you get? When I did this, I got this:</p>
 <pre>

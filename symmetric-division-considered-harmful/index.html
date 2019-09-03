@@ -66,14 +66,14 @@
   quot * divisor = dividend,
 </pre>
 <p>and there is no error. This is true regardless of the sign of the quotient. When rem != 0, things become interesting.</p>
-<p>If rem != 0, and quotient is >= 0 and truncated toward zero, then</p>
+<p>If rem != 0, and quotient is &gt;= 0 and truncated toward zero, then</p>
 <pre>
   quot * divisor &lt; dividend,
 </pre>
-<p>so rem has to be > 0 to compensate.</p>
+<p>so rem has to be &gt; 0 to compensate.</p>
 <p>If rem != 0, and quotient is &lt; 0 and truncated toward zero, then</p>
 <pre>
-  quot * divisor > dividend,
+  quot * divisor &gt; dividend,
 </pre>
 <p>so rem has to be &lt; 0 to compensate.</p>
 <p>So it&rsquo;s the truncation of the quotient toward zero that forces the sign of the remainder to follow that of the dividend.</p>
@@ -115,16 +115,16 @@
   quot * divisor = dividend,
 </pre>
 <p>and there is no error. This is true regardless of the sign of the quotient. When mod != 0, things become interesting.</p>
-<p>If mod != 0 and quotient >=0 and truncated toward -infinity, then</p>
+<p>If mod != 0 and quotient &gt;=0 and truncated toward -infinity, then</p>
 <pre>
   quot * divisor &lt; dividend,
 </pre>
-<p>so mod must be > 0 to compensate.</p>
+<p>so mod must be &gt; 0 to compensate.</p>
 <p>If mod != 0 and quotient &lt; 0 and truncated toward -infinity, then</p>
 <pre>
   quot * divisor &lt; dividend,
 </pre>
-<p>so mod must be > 0 to compensate.</p>
+<p>so mod must be &gt; 0 to compensate.</p>
 <p>These two cases are the same, unlike in the &ldquo;symmetric&rdquo; case!</p>
 <p>This explains why the &ldquo;error&rdquo; that mod represents does not need to change direction when the dividend becomes negative because the direction of truncation (of the quotient) is always &ldquo;leftward&rdquo; (towards -infinity).</p>
 <p>It&rsquo;s relatively easy to see from these graphs how to fix symmetric division to make it flooring instead. Where the remainder/modulus is zero, both systems yield the same quotient, so there is nothing to do. Where the quotients differ, they differ by 1: the symmetric quotient is more positive than it should be. Where the remainder and modulus differ they differ by exactly the value of the <em>divisor</em>: the remainder being more <em>negative</em> by that amount.</p>

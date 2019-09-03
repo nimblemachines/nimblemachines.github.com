@@ -23,11 +23,11 @@
 <p>I want the old URIs to continue to work, however, since there are going to be lots of cached links (at Google at least) and I don&rsquo;t want everything to immediately break.</p>
 <p>Essentially the task is to forward</p>
 <pre>
-  /wiki?show=&lt;pagename>
+  /wiki?show=&lt;pagename&gt;
 </pre>
 <p>to</p>
 <pre>
-  /show/&lt;pagename>
+  /show/&lt;pagename&gt;
 </pre>
 <p>That seems pretty easy, right? Since I&rsquo;m using Apache as a &ldquo;dispatcher&rdquo; &ndash; the &ldquo;show&rdquo; in that URI is actually a script &ndash; I figured it would be easy to do this using RedirectMatch. After some befuddlement I realized that the query string &ndash; like the pathinfo string &ndash; doesn&rsquo;t show up in the URI that the Apache directives get to work with. The query string and pathinfo parts of the request URI have already been written to environment variables. Since those directives don&rsquo;t have access to the envvars representing an HTTP request, I had two choices:</p>
 <ul>
@@ -42,7 +42,7 @@
   RewriteCond   %{QUERY_STRING}  show=(.+)
   RewriteRule   ^/(browse|wiki)  /show/%1? [last,redirect=301]
 </pre>
-<p>It&rsquo;s pretty simple: turn on the engine. Match a URI with a query string of the form &ldquo;show=&lt;page>". Capture the &lt;page> in %1. Now rewrite /browse or /wiki URIs with this query string to "/show/&lt;page>". The trailing "?&rdquo; is the &ldquo;clue&rdquo; to the rewriter to null out the query string. Since the rewritten URI can include a query string, it seems to me to make more sense that simply leaving it blank (which is what I did at first) would be the sensible thing. If I want to keep it I should have to write it on the right side.</p>
+<p>It&rsquo;s pretty simple: turn on the engine. Match a URI with a query string of the form &ldquo;show=&lt;page&gt;&rdquo;. Capture the &lt;page&gt; in %1. Now rewrite /browse or /wiki URIs with this query string to "/show/&lt;page&gt;&rdquo;. The trailing "?&rdquo; is the &ldquo;clue&rdquo; to the rewriter to null out the query string. Since the rewritten URI can include a query string, it seems to me to make more sense that simply leaving it blank (which is what I did at first) would be the sensible thing. If I want to keep it I should have to write it on the right side.</p>
 <p>The &ldquo;[last,redirect=301]&rdquo; bit is a note to</p>
 <ul>
 <li>not match any more rules, and</li>
