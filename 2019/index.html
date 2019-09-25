@@ -22,7 +22,7 @@
 <h4 id="github-vs-bitbucket"><a href="#github-vs-bitbucket">GitHub vs Bitbucket</a></h4>
 <p>After learning that Bitbucket have <a href="https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket">announced that they are sunsetting Mercurial support</a>, I went through all my Bitbucket repos and converted the Mercurial ones to Git. Since GitHub now offers unlimited private repos in their free plan, I went ahead and pushed all my Bitbucket repos over to GitHub.</p>
 <p>As a backup? I&rsquo;m not sure yet which platform I want to use as my primary storage for repos.</p>
-<p>Bitbucket has serious UX problems. In the process of trying to find all my Mercurial repos, rename each one with a &ldquo;-hg&rdquo; suffix to make it obvious (since the UI also has no way of showing, in the list view, whether a repo is Git or Mercurial), and then convert them to Git, I discovered that the interfaces (yes, there is more than one) for viewing all your Bitbucket repos is very broken. There is no way to sort the list by name, which is exactly what I wanted because then &ldquo;repo&rdquo; and &ldquo;repo-hg&rdquo; would be next to each other, and I could more easily track my &ldquo;renaming and converting&rdquo; process.</p>
+<p>Bitbucket has serious UX problems. In the process of trying to find all my Mercurial repos, rename each one with a &ldquo;-hg&rdquo; suffix to make it obvious (since the UI also has no way of showing, in the list view, whether a repo is Git or Mercurial), and then convert them to Git, I discovered that the interfaces (I found two) for viewing all your Bitbucket repos are broken. There is no way to sort by name, which is exactly what I wanted because then &ldquo;repo&rdquo; and &ldquo;repo-hg&rdquo; would be next to each other, and I could more easily track my &ldquo;renaming and converting&rdquo; process.</p>
 <p>The default (and only) sort is by &ldquo;last-modified&rdquo;! Since renaming a repo is considered a modification, just trying to rename my Mercurial repos wreaked havoc on the sort order. Really stupid.</p>
 <p>In their announcement Bitbucket did <em>not</em> announce that they had created a handy tool to do a pushbutton, batch conversion of Mercurial repos to Git, instead simply <a href="https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket#How-to-migrate-and-export">pointing users to two open-source projects</a>: hg-fast-export and hg-git.</p>
 <p>I had good luck using hg-fast-export. (The <a href="https://github.com/frej/fast-export">documentation for hg-fast-export</a> and the <a href="https://git-scm.com/book/en/v2/Git-and-Other-Systems-Migrating-to-Git#_mercurial">instructions in the online Git book</a> are both good.) To suggest the scale of the effort, I have thirty-something repos in my Bitbucket account. Because of the manual nature of the conversion process, and because the Bitbucket UX is so terrible, this process took several hours spread over two days.</p>
@@ -85,7 +85,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202019%20journal">Send feedback</a> on this page (last edited 2019 September 25 14:03)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202019%20journal">Send feedback</a> on this page (last edited 2019 September 25 14:06)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
