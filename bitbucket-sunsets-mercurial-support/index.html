@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="description" content="In which we learn that Bitbucket has decided to throw its Mercurial users &ndash; its bread and butter, its raison d&rsquo;&ecirc;tre &ndash; under the bus." />
+<meta name="keywords" content="Bitbucket, Mercurial, Git, GitHub, religious wars, Bitbucket vs GitHub, Mercurial vs Git, version control, version control software" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="In which we learn that Bitbucket has decided to throw its Mercurial users &ndash; its bread and butter, its raison d&rsquo;&ecirc;tre &ndash; under the bus." />
+<meta name="twitter:image" content="https://www.nimblemachines.com/-/sierra_sky_640x480.jpg" />
+<meta name="twitter:site" content="@nimblemachines" />
+<meta name="twitter:title" content="Bitbucket sunsets Mercurial support" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="icon" href="/-/sierra_sky_150x150.jpg" type="image/jpeg" />
+<link rel="canonical" href="https://www.nimblemachines.com/bitbucket-sunsets-mercurial-support/" />
+<title>Bitbucket sunsets Mercurial support &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Bitbucket sunsets Mercurial support</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="git-wins-literally"><a href="#git-wins-literally">Git wins, literally</a></h3>
+<p>According to Bitbucket, new users create 100 Git repos for every Mercurial repo created. Citing the high cost of supporting such a &ldquo;minority&rdquo; use case, <a href="https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket">Bitbucket announced that they are sunsetting Mercurial support</a>,</p>
+<p>Over the years I had enjoyed using Mercurial. Git was always my &ldquo;go-to&rdquo; for version control, but I wanted to see how Mercurial stacked up, so I used it on a few private Bitbucket repos &ndash; including the one that stores the source for this web site and its Lua-based markup-to-HTML generator.</p>
+<p>I found simple things simple with Mercurial, but more complicated things became <em>much</em> more complicated, and sometimes impossible. In one repo I accidentally created a new head and had such a hard time getting rid of it that I just converted the repo to Git and fixed it there. I&rsquo;m sure, if you are a Mercurial fan, you&rsquo;ll say &ldquo;well, you don&rsquo;t know what you&rsquo;re doing&rdquo;, which is probably true. But while Git is complicated to the point of being unapproachable &ndash; it took me six months of reading the docs and playing around before I used Git &ldquo;in anger&rdquo; &ndash; it has never surprised me, let me down, or lost any of my work. The documentation can be rather inscrutable, and there are areas of Git that are dark to me (the email tools, the left-right merge stuff, rerere), but in general if I have an idea of something that I want to do, I can usually figure out a way.</p>
+<p>I have always <em>enjoyed</em> using Git.</p>
+<p>This was less true with Mercurial. It is much more approachable, but more limited. And I hugely prefer the sophisticated (and complicated) way that Git handles branches.</p>
+<p>While I&rsquo;m sad that Bitbucket is dropping Mercurial support &ndash; I really liked that there was an alternative to Git, especially for the Git &ldquo;haters&rdquo; out there &ndash; <em>for me</em> it&rsquo;s not a big deal. It was a playground for me, and not really &ldquo;mission critical&rdquo;.</p>
+<p>After Bitbucket&rsquo;s announcement, I went through all my Bitbucket repos and converted the Mercurial ones to Git. Since GitHub now offer unlimited private repos in their free plan, I went ahead and pushed all my Bitbucket repos over to GitHub.</p>
+<p>As a backup? I&rsquo;m not sure yet which platform I want to use as my primary storage for repos.</p>
+<p>Bitbucket has serious UX problems. In the process of trying to find all my Mercurial repos, rename each one with a &ldquo;-hg&rdquo; suffix to make it obvious (since the UI also has no way of showing, in the list view, whether a repo is Git or Mercurial), and then convert them to Git, I discovered that the interfaces (I found two) for viewing all your Bitbucket repos are broken. There is no way to sort by name, which is exactly what I wanted because then &ldquo;repo&rdquo; and &ldquo;repo-hg&rdquo; would be next to each other, and I could more easily track my &ldquo;renaming and converting&rdquo; process.</p>
+<p>The default (and only) sort is by &ldquo;last-modified&rdquo;! Since renaming a repo is considered a modification, just trying to rename my Mercurial repos wreaked havoc on the sort order. Really stupid.</p>
+<p>In their announcement Bitbucket did <em>not</em> announce that they had created a handy tool to do a pushbutton, batch conversion of Mercurial repos to Git, instead simply <a href="https://bitbucket.org/blog/sunsetting-mercurial-support-in-bitbucket#How-to-migrate-and-export">pointing users to two open-source projects</a>: hg-fast-export and hg-git.</p>
+<p>I had good luck using hg-fast-export. (The <a href="https://github.com/frej/fast-export">documentation for hg-fast-export</a> and the <a href="https://git-scm.com/book/en/v2/Git-and-Other-Systems-Migrating-to-Git#_mercurial">instructions in the online Git book</a> are both good.) To suggest the scale of the effort, I have thirty-something repos in my Bitbucket account. Because of the manual nature of the conversion process, and because the Bitbucket UX is so terrible, this process took several hours spread over two days.</p>
+<p>Saddling users with big manual migrations because you no longer support your product is <em>not</em> a good PR move. Way to build trust with your users, Bitbucket!</p>
+<p>Predictably, when the <a href="https://community.atlassian.com/t5/Bitbucket-articles/What-to-do-with-your-Mercurial-repos-when-Bitbucket-sunsets/ba-p/1155380">sunsetting was announced on the forum</a>, it lit up, with users saying things like:</p>
+<blockquote><p> &ldquo;I initially thought this was an April fool&rsquo;s joke, then I realized it was August. The only reason we chose BitBucket over GitHub in the first place was because of the Mercurial support, so we really have no reason to stay with BitBucket if Mercurial is removed. A sad day indeed, but hey, the almighty buck wins out again over customer loyalty :(&rdquo;</p></blockquote>
+<blockquote><p> &ldquo;Probably most Mercurial customers will either move their repos to another Mercurial site or else they convert the affected repositories to git and move to a provider with &ndash; let&rsquo;s hope so &ndash; more long term service continuity.&rdquo;</p></blockquote>
+<blockquote><p> &ldquo;If there is no automated script to make the transition, I&rsquo;m afraid all my repos will migrate to GitHub.&rdquo;</p></blockquote>
+<p>The announcement also suggested, to users who want to stick with Mercurial, that there are other vendors still hosting Mercurial repos. But why would they stay in business if the biggest player is exiting the market (because of shrinking market- and mind-share for Mercurial)? Sadly, it doesn&rsquo;t look good for the future of Mercurial generally.</p>
+<p>If you have the stomach for such things, you can <a href="https://news.ycombinator.com/item?id=20745393">read the comments on Hacker News</a> about this announcement. Fortunately, just to keep things lively, at least one person mentioned <a href="https://fossil-scm.org/home/doc/trunk/www/index.wiki">Fossil</a>! (You should go read about Fossil. It&rsquo;s an interesting project, brought to you by the same folks that make SQLite.)</p>
+<p>I&rsquo;m wondering if this isn&rsquo;t the beginning of the end for Bitbucket. They were founded as &ldquo;GitHub for Mercurial users&rdquo;. Then they added Git. Then they discovered that their users prefer Git to Mercurial. Then they axed Mercurial support. What now distinguishes them from GitHub?</p>
+<p>There is a compelling reason for people to switch over to GitHub: the community on GitHub is four times larger.</p>
+<p>According to the <a href="https://github.com/home">GitHub homepage</a>, as of August 2019 it had 40M users and 100M repos. <a href="https://bitbucket.org/product/">Bitbucket homepage</a> doesn&rsquo;t mention repo count but says &ldquo;more than 10M developers&rdquo; use Bitbucket.</p>
+<p>For now I&rsquo;m keeping my account on Bitbucket as a backup, but their fortunes could change quickly.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Bitbucket%20sunsets%20Mercurial%20support">Send feedback</a> on this page (last edited 2019 October 03 12:00)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>
