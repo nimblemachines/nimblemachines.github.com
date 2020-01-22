@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="keywords" content="journal, 2020, blog" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="icon" href="/-/sierra_sky_150x150.jpg" type="image/jpeg" />
+<link rel="canonical" href="https://www.nimblemachines.com/2020/" />
+<title>2020 journal &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>2020 journal</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="january-21-15:25"><a href="#january-21-15:25">2020 January 21 15:25</a></h3>
+<p>Happy 2020!</p>
+<p>Here&rsquo;s to a new year, and to yet another chance to &ldquo;do better this year&rdquo;. I have a growing list of subjects that I want to tackle here! I&rsquo;d love to see it getting shorter, rather than longer.</p>
+<p>As I return to writing this blog on my Chromebook, I decided to reflect on the experience of using it in a somewhat unconventional way.</p>
+<hr />
+<p>I may be nearing the end of my patience with ChromeOS.</p>
+<p>In order to use my Chromebook as an authoring tool &ndash; and to hack on <a href="https://muforth.nimblemachines.com/">muforth</a> and various microcontroller targets &ndash; I created a very simple, clunky <em>chroot</em> environment, based on Gentoo&rsquo;s &ldquo;stage3&rdquo; tarballs. Simply untarring one of these into ChromeOS&rsquo;s <code>/usr/local</code> &ndash; after switching your Chromebook to developer mode, of course &ndash; yields a barebones but usable development environment. Since Gentoo is a source-based distribution, and the stage3 tarballs are the usual starting point for a Gentoo installation, they contain many useful programming tools, including GCC, Python, Make (and the GNU autotools), and bash. After adding Vim and Git &ndash; which I usually compile from source and install into my $HOME/bin directory &ndash; I&rsquo;m ready to go.</p>
+<p>The trouble is, using this command-line chroot environment requires using Chrome&rsquo;s <a href="https://chromium.googlesource.com/apps/libapps/+/master/hterm/doc/hack.md">in-browser terminal emulator</a>. Because this lives in a browser tab &ndash; like everything else in ChromeOS &ndash; it is subject to sudden and ruthless <em>garbage collection</em> when other tabs start to hog memory. Watching a handful of YouTube videos is often enough to trigger this.</p>
+<p>There also seems to be a new kind of &ldquo;persistent&rdquo; memory leak. After getting close to memory exhaustion it isn&rsquo;t enough to close a bunch of tabs and windows. Post exhaustion, with a only a few tabs open, switching around can cause my chroot sessions to be garbage-collected all over again. Restarting is the only way to begin with a clean slate.</p>
+<p>Chrome &ndash; and ChromeOS &ndash; receive frequent updates. Google&rsquo;s story is that both get better as time passes. But my experience has been exactly opposite. The Chrome browser seems to be getting buggier &ndash; and this memory problem is only one of several annoyances. And the UI changes to ChromeOS tend &ndash; in my opinion and experience &ndash; to be moves <em>backward</em>. One example is the change to the keyboard shortcut viewer, summoned forth by pressing <code>Ctrl-Alt-?</code>. This used to bring up a really cool on-screen keyboard that allowed you to see, in real time, what changed by pressing various modifier keys (Shift, Ctrl, Alt, Search). It allowed easy exploration, and suggested ways that various shortcuts were related.</p>
+<p>The on-screen keyboard was replaced by a simple dialog with a search bar and various &ldquo;categories&rdquo;. This approach works when you know what you are looking for &ndash; except coming up with the right category to search is often non-obvious &ndash; but is terrible for exploration. It used to be that by changing a <em>flag</em> (in <code>chrome://flags</code>) you could bring back the old behaviour, but that too has been removed.</p>
+<p>The system is getting buggier, and the UI is getting less and less useful and friendly &ndash; in my opinion. These changes, coupled with the frustration of having my chroot sessions randomly garbage-collected, have turned a fun and freewheeling environment into a bummer. Every day I move closer to reflashing the firmware with <a href="https://mrchromebox.tech/#firmware">MrChromebox&rsquo;s Coreboot/Tianocore UEFI</a>, axing ChromeOS for ever, and installing something else.</p>
+<p>But what should I install?</p>
+<p>GalliumOS might be my best bet, but I&rsquo;m expecting a lot of pain to get an OS of my choice set up. I&rsquo;d love to run some flavour of BSD, but every time I tried booting FreeBSD with SeaBIOS &ndash; the only option if you are not willing to overwrite the core firmware on the machine &ndash; failed when the FreeBSD kernel tried to write to the screen. The bootloader worked, but not the kernel.</p>
+<p>The appealing aspects of this Chromebook &ndash; its low price ($270!), decent build quality, stellar battery life, good display, and totally quiet operation (no disks, no fans) &ndash; are being eclipsed by the increasingly annoying software updates. To say nothing of Google&rsquo;s insistent march toward evil robot overlordship.</p>
+<hr />
+<p>Read the <a href="/2019/">2019 journal</a>.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%202020%20journal">Send feedback</a> on this page (last edited 2020 January 21 15:52)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>
