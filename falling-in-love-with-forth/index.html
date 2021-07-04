@@ -3,33 +3,35 @@
 <head>
 <meta charset="utf-8" />
 <meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
-<meta name="description" content="How I dropped out, met Trimpin, started programming in Forth (in anger), and discovered that Forth is a convivial tool." />
-<meta name="keywords" content="Forth, Forth language, convivial, convivial tool, muforth, cross-compiler, meta-compiler, target compiler, 6809, 8086, Linux Forth, ARM Forth, MSP430 Forth, RISC-V Forth" />
+<meta name="description" content="How I dropped out, met Trimpin, started programming in Forth, and fell in love." />
+<meta name="keywords" content="Forth, Forth language, fig-FORTH, convivial, convivial tool, muforth, cross-compiler, meta-compiler, target compiler, 6809, 8086, Linux Forth, ARM Forth, MSP430 Forth, RISC-V Forth, Trimpin, Seattle, kinetic sculpture, MIDI, Forth :heart: if honk then" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:description" content="How I dropped out, met Trimpin, started programming in Forth (in anger), and discovered that Forth is a convivial tool." />
+<meta name="twitter:description" content="How I dropped out, met Trimpin, started programming in Forth, and fell in love." />
 <meta name="twitter:image" content="https://www.nimblemachines.com/-/sierra_sky_640x480.jpg" />
 <meta name="twitter:site" content="@nimblemachines" />
-<meta name="twitter:title" content="Forth is a convivial tool" />
+<meta name="twitter:title" content="Falling in love with Forth" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="/-/screen.css" type="text/css" />
 <link rel="icon" href="/-/sierra_sky_150x150.jpg" type="image/jpeg" />
-<link rel="canonical" href="https://www.nimblemachines.com/forth-is-a-convivial-tool/" />
-<title>Forth is a convivial tool &ndash; Nimble Machines</title>
+<link rel="canonical" href="https://www.nimblemachines.com/falling-in-love-with-forth/" />
+<title>Falling in love with Forth &ndash; Nimble Machines</title>
 </head>
 <body>
 
 <div id="header">
-<h1>Forth is a convivial tool</h1>
+<h1>Falling in love with Forth</h1>
 <hr />
 </div>
 
 <div id="content">
-<p>Some time in 1990 (I think it was) an odd conjunction occurred. I visited a family friend and talked about Forth &ndash; he wanted to make his own fuel-injection computer. Returning to Seattle, I read everything I could find about Forth. The engineering library at the University of Washington has a lot: the Caltech manual; the FORML (Forth modification lab) proceedings; <em>Forth Dimensions</em> (the now-defunct Forth Interest Group&rsquo;s now-defunct magazine).</p>
-<p>I had known about Forth since I was sixteen; but I hadn&rsquo;t plumbed its depths until that week. I made up a packet of articles and hand-written notes and sent it off.</p>
-<p>Shortly thereafter I ran into <a href="https://en.wikipedia.org/wiki/Trimpin">Trimpin</a>, a local artist. I had seen a performance of a work of his &ndash; <em>Circumference</em> &ndash; at Bumbershoot (a big arts festival in Seattle) a year or two before. This performance involved a roomful of percussion &ndash; drums, timpani, garbage cans &ndash; all played by &ldquo;robot hands&rdquo;. Each instrument had a drumstick poised over it, attached to a solenoid, which was attached via a homemade interface to Trimpin&rsquo;s computer. Using MIDI and MIDI sequencing software (Performer) he controlled this roomful of instruments. It was breathtaking.</p>
+<p>I have known about Forth since I was sixteen. A family friend gave me a copy of fig-FORTH for the 8080. After puzzling over it off and on for several years, I decided to finally try understand it fully. I think it was 1990.</p>
+<p>I lived in Seattle at the time. I had recently quit my job at Microsoft &ndash; where, curiously, I had worked side-by-side with a fellow Forth enthusiast, modifying a bytecode interpreter and OS &ldquo;loader&rdquo; written in 68000 assembler.</p>
+<p>The engineering library at the University of Washington was an amazing resource for learning Forth. They had a lot of Forth-related holdings: the Caltech manual; the FORML (Forth modification lab) proceedings; <em>Forth Dimensions</em> (the now-defunct Forth Interest Group&rsquo;s now-defunct magazine).</p>
+<p>I spent a week or so reading everything and taking notes.</p>
+<p>Shortly thereafter, I ran into <a href="https://en.wikipedia.org/wiki/Trimpin">Trimpin</a>, a local Seattle artist. I had seen a performance of a work of his &ndash; <em>Circumference</em> &ndash; at Bumbershoot (a big arts festival) a year or two before. This performance involved a roomful of percussion &ndash; drums, timpani, garbage cans &ndash; all played by &ldquo;robot hands&rdquo;. Each instrument had a drumstick poised over it, attached to a solenoid, which was attached via a homemade interface to Trimpin&rsquo;s computer. Using MIDI and MIDI sequencing software (Performer) he controlled this roomful of instruments. It was breathtaking.</p>
 <p>His studio was in my neighborhood, and one day I met him on the street, getting an espresso. Oh, Seattle!</p>
 <p>We fell into a collaboration and I was able to realize two dreams: to use Forth, and to program the Motorola 6809, a processor I had been fascinated by since reading about it in Byte magazine in the late 1970s. I wrote a Forth development system, based on a terrible &ldquo;object-oriented&rdquo; Forth for the Macintosh. In a few days&rsquo; time I was able to write an assembler for the 6809, a Forth cross-compiler, and a simple &ldquo;chat&rdquo; protocol that allowed me to type commands on the host machine (the Mac) that were executed on the target (a small 6809-based embedded computer). All this was possible because of the simplicity and transparency of Forth.</p>
-<p>I enjoyed this process tremendously. I felt empowered. Programming in Forth was ecstatic, liberating. Programming in C had never been this much fun. I went back to the library to figure out <em>why</em> Forth was so much fun, and discovered ... the <em>lambda calculus</em>?!? It seemed to be at the heart of what was compelling about Forth, but I never figured it out. There is some kind of eldritch magic inherent in the interpretation of a bunch of number as <em>commands</em>, that still gives me chills, and Forth keeps the programmer close to that magic. Something like that.</p>
+<p>I enjoyed this process tremendously. I felt empowered. Programming in Forth was ecstatic, liberating. Programming in C had never been this much fun!</p>
 <p>Over the next ten years we collaborated on a series of projects. These were mostly handmade, idiosyncratic &ndash; and often musical &ndash; kinetic sculptures. Trimpin would collect modern industrial &ldquo;junk&rdquo; parts, and piece together a contraption; I would program it, always in Forth. I enjoyed aspects of this collaboration immensely. I worked in his studio &ndash; an appealing environment, much more Gepetto&rsquo;s workshop than high-tech office. I was combining technology and art. I was able to try out new (for me) ideas. I wrote a multitasker. I wrote code to generate and consume MIDI. I wrote an aleatoric music generator.</p>
 <p>The largest program I wrote &ndash; which sequenced a forty-foot-tall sculpture consisting of four octaves of marimbas, xylophones, and wooden milk bottles, and composed simple musical sequences on the fly &ndash; consumed 6k of object code. (This is a permanent installation in the lobby of the Science Museum of Minnesota, in Saint Paul.)</p>
 <p>Forth impressed me. It liberated and empowered me. It was a small tool &ndash; one that I could understand deeply and entirely. <em>I could make it entirely my own</em> and I have. I have written several Forths &ndash; two for the PC (one in 486 assembler, one in C), and a bunch of &ldquo;target&rdquo; Forths: 6809, embedded 8086, ARM, RISC-V, MSP430.</p>
@@ -42,7 +44,7 @@
 
 <div id="footer">
 <hr />
-<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Forth%20is%20a%20convivial%20tool">Send feedback</a> on this page (last edited 2019 April 12 15:31)<br />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Falling%20in%20love%20with%20Forth">Send feedback</a> on this page (last edited 2019 April 12 15:31)<br />
 Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
 </div>
 
