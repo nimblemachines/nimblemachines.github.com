@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="description" content="SPF, DKIM, and DMARC are technologies to reduce spam and phishing and to improve authentication of email. Let&rsquo;s set them up for an email domain hosted at Google." />
+<meta name="keywords" content="email, phishing, anti-phishing, spam, anti-spam, authentication, digital signature, SPF, DKIM, DMARC, records, DNS" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="SPF, DKIM, and DMARC are technologies to reduce spam and phishing and to improve authentication of email. Let&rsquo;s set them up for an email domain hosted at Google." />
+<meta name="twitter:image" content="https://www.nimblemachines.com/-/sierra_sky_640x640.jpg" />
+<meta name="twitter:site" content="@nimblemachines" />
+<meta name="twitter:title" content="Making email slightly more secure" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="icon" href="/-/sierra_sky_150x150.jpg" type="image/jpeg" />
+<link rel="canonical" href="https://www.nimblemachines.com/making-email-slightly-more-secure/" />
+<title>Making email slightly more secure &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Making email slightly more secure</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="2018-september-27-17:42"><a href="#2018-september-27-17:42">2018 September 27 17:42</a></h3>
+<p>In the process of &ldquo;thinking out loud&rdquo; and doing some Google searches related to email infrastructure I discovered SPF, DKIM, and DMARC. These are technologies to reduce spam and phishing and to improve authentication of email.</p>
+<h4 id="spf-dkim-and-dmarc-oh-my"><a href="#spf-dkim-and-dmarc-oh-my">SPF, DKIM, and DMARC ... Oh my!</a></h4>
+<p><a href="https://tools.ietf.org/html/rfc7208">SPF &ndash; the Sender Policy Framework</a> &ndash; allows domain owners to specify the IP addresses that are authorized to send email for their domains.</p>
+<p><a href="https://tools.ietf.org/html/rfc6376">DKIM &ndash; DomainKeys Identified Mail</a> &ndash; is a mechanism for email senders to sign email in such a way that the receiver can verify that the message hasn&rsquo;t been corrupted in transit.</p>
+<p><a href="https://tools.ietf.org/html/rfc7489">DMARC &ndash; Domain-based Message Authentication, Reporting, and Conformance</a> &ndash; allows domain owners to recommend an action to be taken in the case of SPF or DKIM failures, and also to request <em>reports</em> from receivers about failing emails, so that a domain owner can <em>measure</em> to what degree their domain is being attacked by spammers or phishing schemes.</p>
+<p>I decided that it would be &ldquo;fun&rdquo; to set this up for <code>nimblemachines.com</code>. It&rsquo;s not that hard. Currently Google is hosting the email for <code>nimblemachines.com</code>. If you use a different service, or run your own infrastructure, the steps for setting up the digital signing of emails will be different, but all the DNS steps will be substantially the same.</p>
+<h4 id="spf"><a href="#spf">SPF</a></h4>
+<p>Let&rsquo;s start with SPF. By publishing the IP addresses of the machines that are authorized to send mail for our domain, we make it possible to identify potential spam and phishing emails: anything sent from an address <em>not</em> on our list should be flagged or rejected.</p>
+<p>I followed Google&rsquo;s <a href="https://support.google.com/a/answer/33786">G Suite help for configuring SPF</a>.</p>
+<p>Since Google&rsquo;s machines send (and receive) mail for <code>nimblemachines.com</code>, the SPF record is going to simply &ldquo;point&rdquo; to Google&rsquo;s own SPF record, by using the &ldquo;include&rdquo; operator and including _spf.google.com. It&rsquo;s easy to see this using <code>dig</code>:</p>
+<pre>
+  $ dig -t txt nimblemachines.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  nimblemachines.com.  3599  IN  TXT  "v=spf1 include:_spf.google.com ~all"
+</pre>
+<p>and a further</p>
+<pre>
+  $ dig -t txt _spf.google.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  _spf.google.com.  196  IN  TXT  "v=spf1 include:_netblocks.google.com
+  include:_netblocks2.google.com include:_netblocks3.google.com ~all"
+</pre>
+<p>I&rsquo;ll leave it as an exercise for the reader to keep digging, but you&rsquo;ll be rewarded with a list of the IPv4 and IPv6 addresses that <em>all</em> Google mail orginates from.</p>
+<p>The trailing "~all&rdquo; means that in the case of an IP address mismatch (ie, failure), fail <em>softly</em>. Mark the mail as having failed SPF but don&rsquo;t reject it outright.</p>
+<p>One last comment about SPF: There is an obsolete, experimental DNS record <em>type</em> called &ldquo;SPF&rdquo;. Don&rsquo;t use it!</p>
+<p>I initially made the mistake of publishing <em>both</em> an SPF TXT record and an obsolete SPF record (a DNS record with SPF <em>type</em>) to the DNS. RFC 7208 states that <a href="https://tools.ietf.org/html/rfc7208#section-3.1">SPF records MUST be published as TXT records</a>!</p>
+<p>If your DNS provider lets you generate &ldquo;SPF&rdquo; records, don&rsquo;t! Only use TXT.</p>
+<h4 id="dkim"><a href="#dkim">DKIM</a></h4>
+<p>DKIM makes it possible for the sending machine to cryptographically <em>sign</em> emails that it sends.</p>
+<p>DKIM is a bit more complicated than SPF because it involves public key cryptography; in particular, it requires the <em>sending machines</em> to possess the private key; the public key is published to the DNS in a similar fashion to the SPF record. This way anyone can verify the signature.</p>
+<p>For this to work for me, Google has to generate the key. Again, I followed the <a href="https://support.google.com/a/answer/174124">G Suite help for configuring DKIM</a>.</p>
+<p>Here is the result:</p>
+<pre>
+  $ dig -t txt google._domainkey.nimblemachines.com
+</pre>
+<p>yields</p>
+<pre>
+  ;; ANSWER SECTION:
+  google._domainkey.nimblemachines.com. 3600 IN TXT "v=DKIM1; k=rsa; p=MIIBIjANBgkqhki
+  G9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmlYtC9k5N+Ajg5R3esNkMpvybhnou/3k3cNo5fVYIzb2xGSBff0IRIJ
+  qlzOr8XhQckub9emKdA/YDp4BmlBxy2LffPsUVChRXGsN5aM8pwTJ6iQFVKRQ55DjPCgmE4GIUljIMj1OhSn
+  kga9m8KfY25VcTlqHgfQuSyT0uMChdq6tyk9ljU4YuBe5J2oJUHUay"
+  "kmrAGWybvtM6nnARQRw1MIymD8hDwnRabPz2u38UCBAta4KZbiLZTmKmzpC93ac3I/2uta3ml/aJq1sSY+I
+  WlH4LM+y9pehRvhSDZWxUJRhV1SMLdMNHvYJWuIBvrLPPwuFsuCiFKuSkkWVT9QfYQIDAQAB"
+</pre>
+<p>To see the public key corresponding to the private key that Google use to sign <em>all</em> gmail.com mail, try this:</p>
+<pre>
+  $ dig -t txt 20161025._domainkey.gmail.com
+</pre>
+<p>In general, the format of the query is</p>
+<pre>
+  &lt;s&gt;._domainkey.&lt;d&gt;
+</pre>
+<p>where &lt;s&gt; is a &ldquo;selector&rdquo; and &lt;d&gt; is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
+<pre>
+  $ dig -t txt arc-20160816._domainkey.google.com
+</pre>
+<p>(Actually, there is yet another DKIM-related field in there. I leave finding it and digging for the DKIM public key as an exercise for the reader.)</p>
+<p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning, even though <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
+<h4 id="dmarc"><a href="#dmarc">DMARC</a></h4>
+<p>I understand why a domain owner and email sender would want to use SPF and DKIM. DMARC is more mysterious. It is about telling the <em>recipient</em> what to do with emails that fail</p>
+<p>I didn&rsquo;t intially set up an DMARC records, and it <em>seemed</em> like SPF and DKIM weren&rsquo;t really working.</p>
+<p>The G Suite admin page for my domain said &ldquo;Status: Authenticating email&rdquo;, but when I looked at messages I sent since setting all this up I didn&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there was no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I needed a DMARC record... &lt;sigh&gt;</p>
+<p><em>Update (2018 December 11): It turns out I didn&rsquo;t do a careful enough job checking whether Google was creating SPF and DKIM headers, even in the absence of a DMARC record. I checked today and emails sent to a friend included the SPF and DKIM headers.</em></p>
+<p><em>Even so, I&rsquo;ve decided to add a DMARC record. Now the Check MX tool shows <code>nimblemachines.com</code> passing every test. Yay!</em></p>
+<p>But I may remove this. It still seems odd to me that senders should tell receivers how to deal with questionable emails.</p>
+<h4 id="conclusion"><a href="#conclusion">Conclusion</a></h4>
+<p>I hope this helps! I think these are simple and interesting technologies that all domain owners should be using to make sending and receiving email a litte bit safer.</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Making%20email%20slightly%20more%20secure">Send feedback</a> on this page (last edited 2021 July 07 10:18)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>

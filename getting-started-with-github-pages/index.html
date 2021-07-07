@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
+<meta name="description" content="GitHub Pages is a free web site hosting service from GitHub. It&rsquo;s easy to set up, and your site automagically gets a free SSL certificate!" />
+<meta name="keywords" content="GitHub, Pages, GitHub Pages, publishing, web site, free web site hosting, project documentation" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="GitHub Pages is a free web site hosting service from GitHub. It&rsquo;s easy to set up, and your site automagically gets a free SSL certificate!" />
+<meta name="twitter:image" content="https://www.nimblemachines.com/-/sierra_sky_640x640.jpg" />
+<meta name="twitter:site" content="@nimblemachines" />
+<meta name="twitter:title" content="Getting started with GitHub Pages" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/-/screen.css" type="text/css" />
+<link rel="icon" href="/-/sierra_sky_150x150.jpg" type="image/jpeg" />
+<link rel="canonical" href="https://www.nimblemachines.com/getting-started-with-github-pages/" />
+<title>Getting started with GitHub Pages &ndash; Nimble Machines</title>
+</head>
+<body>
+
+<div id="header">
+<h1>Getting started with GitHub Pages</h1>
+<hr />
+</div>
+
+<div id="content">
+<h3 id="2018-august-14-15:58"><a href="#2018-august-14-15:58">2018 August 14 15:58</a></h3>
+<p>This past May, GitHub quietly announced that <a href="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/">custom domains hosted on their GitHub Pages service would be available over HTTPS</a>. GitHub has teamed up with the awesome folks at <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> to make this possible.</p>
+<p>I tried an experiment to see how easy it is to set up an HTTPS-enabled site from scratch on GitHub Pages. The answer: super easy! And it&rsquo;s surprisingly fast. Within a minute or two of pushing my tiny site it had a valid SSL cert from Let&rsquo;s Encrypt!</p>
+<p>Here are the steps. NOTE: I&rsquo;m assuming that you are not a complete Git or GitHub newbie! If you are, the following directions will likely <em>not</em> be enough to get you started. But you are obviously welcome to try anyway!</p>
+<h4 id="register-a-domain-if-you-dont-already-have-one"><a href="#register-a-domain-if-you-dont-already-have-one">Register a domain (if you don&rsquo;t already have one)</a></h4>
+<p>Please don&rsquo;t use Go Daddy, and please <a href="/donuts-inc-a-creepy-company/">don&rsquo;t register in any of the Donuts, Inc new TLDs</a>. <a href="/donuts-inc-a-creepy-company/">They are creepy</a> and deserve to go down in flames. Because they have purchased United TLD Holdco, those are off-limits too (assuming you agree with me about the creepiness of Donuts.) Sadly that means that one of my favorites among the new TLDs &ndash; <a href="https://www.iana.org/domains/root/db/rocks.html">.rocks</a> &ndash; is off-limits.</p>
+<p>Ironically &ndash; and contrary to ICANN&rsquo;s <a href="https://www.icann.org/resources/pages/governance/bylaws-en/#_Ref444420881">unfounded pipe dreams</a> about their <a href="https://newgtlds.icann.org/">new TLD project</a> &ndash; .com, .org, and .net are among the cheapest to register now (around $8/year). If you can find a name you like, that is...</p>
+<p>As far as choosing a registrar, I&rsquo;ve had great service from PairNIC (now <a href="https://www.pairdomains.com/">pair Domains</a>) over the last 18 or so years. (They are the domain registrar branch of <a href="https://www.pair.com/">pair Networks</a>.) Their service is always improving and their DNS is crazy fast and reliable. They are not the cheapest, but if you buy/renew in 5 year increments they are not bad (I think $13/year or so).</p>
+<p>I&rsquo;ve used <a href="https://joker.com/">Joker</a> a couple of times to register experimental domains (but never renewed any of them). Their prices are good, but their web interface is kind of strange. No problems though.</p>
+<p>I&rsquo;ve got an account with <a href="https://porkbun.com/">Porkbun</a>, and they have great pricing and support tons of TLDs, but I can&rsquo;t comment from experience on using their site to administer a live domain and its DNS. I mean to try this out, and I&rsquo;ll report back. Porkbun is the registrar arm of <a href="https://toplevel.design/">Top Level Design</a>, which also runs a few registries (.design, .ink, and .wiki). That&rsquo;s not an endorsement, just a fact. ;-)</p>
+<p><a href="https://www.gandi.net/en">gandi.net</a> is also a good option &ndash; lots of TLDs to choose from, and fairly cheap.</p>
+<p>You probably have a favorite registrar anyway, so don&rsquo;t listen to me. ;-)</p>
+<p>In the instructions that follow, I am going to assume that you registered the domain &ldquo;wiki.kiwi&rdquo;.</p>
+<h4 id="register-with-github-if-you-havent-already"><a href="#register-with-github-if-you-havent-already">Register with GitHub, if you haven&rsquo;t already</a></h4>
+<p>This part is pretty easy. Of course, you&rsquo;ll have to know some basics of using Git for the rest of these instructions to make much sense. That part is not so easy. It took me &ndash; in 2007, when I first started using Git &ndash; about six months of reading and pondering before I had the guts to just dive in. But I&rsquo;ve been super happy that I took the plunge. Git has problems &ndash; the UI can be rather odd in places &ndash; but it&rsquo;s crazy powerful, and I personally have never lost any work because of Git. To the contrary &ndash; it has saved my butt more than once.</p>
+<h4 id="create-a-repository-on-github-for-your-site"><a href="#create-a-repository-on-github-for-your-site">Create a repository on GitHub for your site</a></h4>
+<p>If you want this to be your &ldquo;personal&rdquo; site or blog, or an &ldquo;organization&rdquo; site or blog, name it &lt;username&gt;.github.io (for a personal site) or &lt;orgname&gt;.github.io (for an organization). Your site will live in the master branch of the repo. <a href="https://help.github.com/articles/user-organization-and-project-pages/">Read the GitHub Pages docs</a> for more details about the different kinds of sites.</p>
+<p>If you already have a project that you are hosting on GitHub and want to create a documentation site for it, create a &ldquo;gh-pages&rdquo; branch, as described below.</p>
+<p>If you already have a personal or organization site, and you just want to try something new on a different domain, create a repository as if for a project, create a README file as a placeholder, and then follow the &ldquo;gh-pages&rdquo; directions below.</p>
+<h4 id="clone-the-new-repo-or-existing-project-repo-onto-your-machine"><a href="#clone-the-new-repo-or-existing-project-repo-onto-your-machine">Clone the new repo, or existing project repo, onto your machine</a></h4>
+<p>On the repository page, copy the &ldquo;clone this repo&rdquo; link and then do</p>
+<pre>
+  git clone &lt;url&gt;
+</pre>
+<p>on your machine. cd into the directory that was just created. If this is a user or organization site, we will stay on the master branch. If this is a project or &ldquo;random other domain&rdquo; site, we need to create and populate a &ldquo;gh-pages&rdquo; branch.</p>
+<h4 id="prepare-the-gh-pages-branch"><a href="#prepare-the-gh-pages-branch">Prepare the &ldquo;gh-pages&rdquo; branch</a></h4>
+<p>Skip this part if you are using a user or organization repo.</p>
+<p>In the top-level directory of the cloned repo, do the following:</p>
+<pre>
+  git checkout --orphan gh-pages
+  git rm -rf .
+</pre>
+<p>This leaves you with an empty tree, and a &ldquo;gh-pages&rdquo; branch with no parents.</p>
+<h4 id="populate-the-new-site"><a href="#populate-the-new-site">Populate the new site</a></h4>
+<p>Still in that top-level directory, do this:</p>
+<pre>
+  touch .nojekyll
+</pre>
+<p>I&rsquo;m assuming for now that you are going to create a simple HTML site, or you are using some kind of site generator other than Jekyll.</p>
+<p>Assuming that you just registered the domain wiki.kiwi, create a file called CNAME with the single line</p>
+<pre>
+  www.wiki.kiwi
+</pre>
+<p>This will be the root URL of your site.</p>
+<p>To have something show up on your new site, create a simple index.html file. Then do</p>
+<pre>
+  git add .
+  git commit -m "initial commit of new site!"
+  git push --all
+</pre>
+<p>The <code>--all</code> is only necessary for site using a gh-pages branch. You can leave it off for a user or org site.</p>
+<h4 id="set-up-some-dns"><a href="#set-up-some-dns">Set up some DNS</a></h4>
+<p>You&rsquo;ll want to create a CNAME record with your registrar/DNS provider that maps www.wiki.kiwi to &lt;username&gt;.github.io (or &lt;orgname&gt;.github.io, if you are doing this in an organization account).</p>
+<p>That&rsquo;s all you&rsquo;ll need to get started. If you are interested in having the bare (or &ldquo;apex&rdquo;) domain also resolve, follow <a href="https://help.github.com/articles/setting-up-an-apex-domain/">GitHub&rsquo;s directions</a>.</p>
+<h4 id="enjoy-your-new-site"><a href="#enjoy-your-new-site">Enjoy your new site!</a></h4>
+<p>Go to <a href="http://www.wiki.kiwi/">http://www.wiki.kiwi/</a> or <a href="https://www.wiki.kiwi/">https://www.wiki.kiwi/</a> (the http version should redirect to the https version) and marvel! If nothing shows up at first, try again in a minute or two.</p>
+<p>While that may seem like a lot of steps, they are all pretty easy. Populating and maintaining your new site is much harder. Witness the state of this site, for example. ;-)</p>
+<p>Above all, enjoy!</p>
+
+</div>
+
+<div id="footer">
+<hr />
+<a href="mailto:%77%65%62%68%61%6d%73%74%65%72%40%6e%69%6d%62%6c%65%6d%61%63%68%69%6e%65%73%2e%63%6f%6d?subject=%5bNimble%20Machines%5d%20Getting%20started%20with%20GitHub%20Pages">Send feedback</a> on this page (last edited 2021 July 06 16:54)<br />
+Browse <a href="/all-pages/">all pages</a>, or return <a href="/">home</a>
+</div>
+
+</body>
+</html>
