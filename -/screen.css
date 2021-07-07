@@ -56,6 +56,19 @@ div#footer {
 } /* end @media desktop-ish */
 
 
+/* fit images into body width */
+img {
+  max-width: 100%;
+}
+
+/* tweets are narrower */
+img.tweet {
+  border: 1px solid #aaaaaa;
+  width: 75%;
+  margin-left: 5%;
+  margin-right: 20%;
+}
+
 a img {
   border: none;
 }
@@ -224,12 +237,13 @@ blockquote {
 /* Let's make code and pre look good. */
 code, pre {
   font-family: Fira Mono, monospace;
+  letter-spacing: -0.05em;
   font-size: 100%;
 }
 
 pre {
   margin: 1.5em 0;
-  font-size: 100%;
+  font-size: 87%;
 }
 
 /* man page links */
@@ -257,7 +271,8 @@ code.forth {
 div.voiceforth {
   margin: 1.5em 0;
   font-family: Fira Mono, monospace;
-  font-size: 100%;
+  font-size: 87%;
+  letter-spacing: -0.05em;
   color: #774444;
 }
 
