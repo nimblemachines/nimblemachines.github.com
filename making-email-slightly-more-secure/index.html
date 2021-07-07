@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="copyright" content="All content on www.nimblemachines.com is copyrighted. All rights are reserved." />
 <meta name="description" content="SPF, DKIM, and DMARC are technologies to reduce spam and phishing and to improve authentication of email. Let&rsquo;s set them up for an email domain hosted at Google." />
-<meta name="keywords" content="email, phishing, anti-phishing, spam, anti-spam, authentication, digital signature, SPF, DKIM, DMARC, records, DNS" />
+<meta name="keywords" content="email, phishing, anti-phishing, spam, anti-spam, authentication, digital signature, SPF, DKIM, DMARC, records, DNS, Gmail, G suite" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:description" content="SPF, DKIM, and DMARC are technologies to reduce spam and phishing and to improve authentication of email. Let&rsquo;s set them up for an email domain hosted at Google." />
 <meta name="twitter:image" content="https://www.nimblemachines.com/-/sierra_sky_640x640.jpg" />
@@ -91,12 +91,12 @@
 <p>(Actually, there is yet another DKIM-related field in there. I leave finding it and digging for the DKIM public key as an exercise for the reader.)</p>
 <p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning, even though <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
 <h4 id="dmarc"><a href="#dmarc">DMARC</a></h4>
-<p>I understand why a domain owner and email sender would want to use SPF and DKIM. DMARC is more mysterious. It is about telling the <em>recipient</em> what to do with emails that fail</p>
-<p>I didn&rsquo;t intially set up an DMARC records, and it <em>seemed</em> like SPF and DKIM weren&rsquo;t really working.</p>
-<p>The G Suite admin page for my domain said &ldquo;Status: Authenticating email&rdquo;, but when I looked at messages I sent since setting all this up I didn&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there was no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I needed a DMARC record... &lt;sigh&gt;</p>
+<p>I understand why a domain owner (and email sender) would want to use SPF and DKIM. DMARC is more mysterious: It is about telling the <em>recipient</em> what to do with emails that &ldquo;fail&rdquo; &ndash; because the origin machine is not in the SPF list, or because the digital signature is incorrect.</p>
+<p>For this reason, I didn&rsquo;t intially set up a DMARC record, and it <em>seemed</em> like without it, SPF and DKIM weren&rsquo;t working.</p>
+<p>The G Suite admin page for my domain said &ldquo;Status: Authenticating email&rdquo;, but when I looked at messages I had sent since setting all this up, I didn&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there was no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I needed a DMARC record... &lt;sigh&gt;</p>
 <p><em>Update (2018 December 11): It turns out I didn&rsquo;t do a careful enough job checking whether Google was creating SPF and DKIM headers, even in the absence of a DMARC record. I checked today and emails sent to a friend included the SPF and DKIM headers.</em></p>
 <p><em>Even so, I&rsquo;ve decided to add a DMARC record. Now the Check MX tool shows <code>nimblemachines.com</code> passing every test. Yay!</em></p>
-<p>But I may remove this. It still seems odd to me that senders should tell receivers how to deal with questionable emails.</p>
+<p>But I may remove the DMARC record. It still seems odd to me that senders should tell receivers how to deal with questionable emails.</p>
 <h4 id="conclusion"><a href="#conclusion">Conclusion</a></h4>
 <p>I hope this helps! I think these are simple and interesting technologies that all domain owners should be using to make sending and receiving email a litte bit safer.</p>
 
