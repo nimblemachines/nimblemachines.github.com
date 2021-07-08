@@ -54,7 +54,7 @@
 </pre>
 <p><code>twitter:card</code> is the card type; <code>twitter:site</code> is the Twitter handle associated with the domain. In this case, I have registered <a href="https://twitter.com/muforth">@muforth</a> as a &ldquo;project news feed&rdquo; for <a href="https://muforth.nimblemachines.com/">muforth</a>.</p>
 <p><code>twitter:description</code> and <code>twitter:title</code> contain the same information as the HTML &lt;meta name="description"&gt; and &lt;title&gt; tags.</p>
-<p>Here is a tweet that embeds a <code>summary</code> card:</p>
+<p>Here is a tweet that embeds the above <code>summary</code> card:</p>
 <p><img src="/-/twitter-card-summary.png" alt="twitter-card-summary.png" title="twitter-card-summary.png" class="tweet" /></p>
 <h3 id="summarylargeimage-card"><a href="#summarylargeimage-card">summary_large_image card</a></h3>
 <p>The HTML generated for the page <a href="https://muforth.nimblemachines.com/getting-started-with-risc-v/">https://muforth.nimblemachines.com/getting-started-with-risc-v/</a>, contains the following Twitter-specific &lt;meta&gt; tags:</p>
@@ -66,17 +66,20 @@
   &lt;meta name="twitter:title" content="Getting started with RISC-V" /&gt;
 </pre>
 <p>The only difference from the first example is the card type. Here we are requesting a <code>summary_large_image</code> card instead of a <code>summary</code> card (because there was a <code>twitter:image</code> called out in the page metadata).</p>
-<p>Here is a tweet that embeds a <code>summary_large_image</code> card:</p>
+<p>Here is a tweet that embeds the above <code>summary_large_image</code> card:</p>
 <p><img src="/-/twitter-card-summary-large-image.png" alt="twitter-card-summary-large-image.png" title="twitter-card-summary-large-image.png" class="tweet" /></p>
 <h3 id="issues-with-my-journal-blog-pages"><a href="#issues-with-my-journal-blog-pages">Issues with my journal (blog) pages</a></h3>
 <p>I publish my blog in an unusual &ndash; and sometimes problematic &ndash; way. Each year is a contiguous HTML page. Entries are simply HTML headings. And while it is possible, using fragment id&rsquo;s, to link to a particular heading &ndash; thus I have a sort of &ldquo;permalink&rdquo; capability &ndash; the metadata that Twitter needs to create a card refers to the page as a whole &ndash; ie &ldquo;2021 journal&rdquo;. In order to fix this I would have to break each blog entry into its own page... Which is something that I have thought about doing.</p>
 <p>But as it stands, it would be confusing for Twitter to generate cards for the journal pages, because the card would always say something like &ldquo;2021 journal: my thoughts for the year&rdquo; or something like that, and <em>not</em> say anything about the particular heading that is being shared (again, by using a fragment id).</p>
 <p>Since my generator only generates the Twitter card metadata if there is a <code>description</code> field in the page metadata, I simply leave it out for the journal pages.</p>
-<h3 id="an-intermittent-bug"><a href="#an-intermittent-bug">An intermittent bug?</a></h3>
+<h3 id="it-works-perfectly-right"><a href="#it-works-perfectly-right">It works perfectly ... right?!?</a></h3>
 <p>When I first tried this out, it seemed to work very well. Twitter supplies a handy <a href="https://cards-dev.twitter.com/validator">card validator</a> that you can use to test out your card markup. (You have to be logged in to Twitter to use it.) By pasting in a URL that (presumably) contains Twitter metadata, you can see what Twitter would generate.</p>
-<p>While I never saw any problems with <code>summary_large_image</code> cards, with <code>summary</code> cards I noticed that the card very often did <em>not</em> have an image associated with it. If I tried it in the validator, it worked. And if I then refreshed the tweet, the image would show up!</p>
-<p>I reread the documentation, and it said that Twitter &ldquo;prefers&rdquo; 1:1 aspect ratio images, between 150x150 and 4096x4096 for the <code>summary</code> card images. I was using non-square images when I saw the intermittent behavior. I have since created special square images for the sole purpose of having a default that might make Twitter happier. I haven&rsquo;t seen any hiccups since then!</p>
+<p>While I never saw any problems when tweeting URLs that generate <code>summary_large_image</code> cards, with <code>summary</code> cards I noticed that the card very often did <em>not</em> have an image associated with it. If I tried a failing URL in the validator, it worked. And if, after first unsuccessfully tweeting and then validating, I then refreshed the tweet, the image would show up!</p>
+<p>I hate intermittent failures.</p>
+<p>I re-read the documentation, and it said that Twitter &ldquo;prefers&rdquo; 1:1 aspect ratio images, between 150x150 and 4096x4096 pixels in size, for the <code>summary</code> card images. I was using non-square images when I saw the intermittent behavior. I have since created special square images for the sole purpose of having a default that might make Twitter happier. I haven&rsquo;t seen any hiccups since then!</p>
 <p>My advice is this: make sure to <em>always</em> use a square image &ndash; even if you have to go to some extra trouble to generate it &ndash; for <code>summary</code> cards.</p>
+<p>The astute reader will realize something else: the tweet shown above that embeds a <code>summary</code> card <em>also</em> shows the URL. Usually the card <em>replaces</em> the URL, as in the <code>summary_large_image</code> example. Why is it showing both? Because the URL is followed by two hashtags?</p>
+<p>There may still be some subtle bugs in the system!</p>
 <h3 id="conclusion"><a href="#conclusion">Conclusion</a></h3>
 <p>I think Twitter cards are a neat idea, and I had fun making them work.</p>
 <p>Facebook does a very similar thing &ndash; they call it &ldquo;Open Graph&rdquo; and the metadata key names start with &ldquo;og:&rdquo; &ndash; but because I hate Facebook I decided not to bother also generating meta tags for them!</p>
