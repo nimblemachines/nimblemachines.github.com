@@ -54,74 +54,7 @@
 <p>Should I switch to <a href="https://protonmail.com/">ProtonMail</a>?</p>
 <p>Should I bite the bullet, set up a cloud server, and try running my own infrastructure again?</p>
 <p>I&rsquo;m still not sure about any of this, but in the process of &ldquo;thinking out loud&rdquo; and doing some Google searches related to email infrastructure I discovered SPF, DKIM, and DMARC. These are technologies to reduce spam and phishing and to improve authentication of email.</p>
-<h4 id="spf-dkim-and-dmarc-oh-my"><a href="#spf-dkim-and-dmarc-oh-my">SPF, DKIM, and DMARC ... Oh my!</a></h4>
-<p><a href="https://tools.ietf.org/html/rfc7208">SPF &ndash; the Sender Policy Framework</a> &ndash; allows domain owners to specify the IP addresses that are authorized to send email for their domains.</p>
-<p><a href="https://tools.ietf.org/html/rfc6376">DKIM &ndash; DomainKeys Identified Mail</a> &ndash; is a mechanism for email senders to sign email in such a way that the receiver can verify that the message hasn&rsquo;t been corrupted in transit.</p>
-<p><a href="https://tools.ietf.org/html/rfc7489">DMARC &ndash; Domain-based Message Authentication, Reporting, and Conformance</a> &ndash; allows domain owners to recommend an action to be taken in the case of SPF or DKIM failures, and also to request <em>reports</em> from receivers about failing emails, so that a domain owner can <em>measure</em> to what degree their domain is being attacked by spammers or phishing schemes.</p>
-<p>I decided that it would be &ldquo;fun&rdquo; to set this up for <code>nimblemachines.com</code>. It&rsquo;s not that hard.</p>
-<h4 id="spf"><a href="#spf">SPF</a></h4>
-<p>Let&rsquo;s start with SPF. I followed Google&rsquo;s <a href="https://support.google.com/a/answer/33786">G Suite help for configuring SPF</a>.</p>
-<p>Since Google&rsquo;s machines send (and receive) mail for <code>nimblemachines.com</code>, the SPF record is going to simply &ldquo;point&rdquo; to Google&rsquo;s own SPF record, by using the &ldquo;include&rdquo; operator and including _spf.google.com. It&rsquo;s easy to see this using <code>dig</code>:</p>
-<pre>
-  $ dig -t txt nimblemachines.com
-</pre>
-<p>yields</p>
-<pre>
-  ;; ANSWER SECTION:
-  nimblemachines.com.  3599  IN  TXT  "v=spf1 include:_spf.google.com ~all"
-</pre>
-<p>and a further</p>
-<pre>
-  $ dig -t txt _spf.google.com
-</pre>
-<p>yields</p>
-<pre>
-  ;; ANSWER SECTION:
-  _spf.google.com.  196  IN  TXT  "v=spf1 include:_netblocks.google.com
-  include:_netblocks2.google.com include:_netblocks3.google.com ~all"
-</pre>
-<p>I&rsquo;ll leave it as an exercise for the reader to keep digging, but you&rsquo;ll be rewarded with a list of the IPv4 and IPv6 addresses that <em>all</em> Google mail orginates from.</p>
-<p>The trailing "~all&rdquo; means that in the case of an IP address mismatch (ie, failure), fail <em>softly</em>. Mark the mail as having failed SPF but don&rsquo;t reject it outright.</p>
-<p>One last comment about SPF: There is an obsolete, experimental DNS record <em>type</em> called &ldquo;SPF&rdquo;. Don&rsquo;t use it!</p>
-<p>I initially made the mistake of publishing <em>both</em> an SPF TXT record and an obsolete SPF record (a DNS record with SPF <em>type</em>) to the DNS. RFC 7208 states that <a href="https://tools.ietf.org/html/rfc7208#section-3.1">SPF records MUST be published as TXT records</a>!</p>
-<p>If your DNS provider lets you generate &ldquo;SPF&rdquo; records, don&rsquo;t! Only use TXT.</p>
-<h4 id="dkim"><a href="#dkim">DKIM</a></h4>
-<p>DKIM is a bit more complicated because it involves public key cryptography, and, in particular, requires the <em>sending machines</em> to possess the private key; the public key is published to the DNS in a similar fashion to the SPF record.</p>
-<p>For this to work for me, Google has to generate the key. Again, I followed the <a href="https://support.google.com/a/answer/174124">G Suite help for configuring DKIM</a>.</p>
-<p>Here is the result:</p>
-<pre>
-  $ dig -t txt google._domainkey.nimblemachines.com
-</pre>
-<p>yields</p>
-<pre>
-  ;; ANSWER SECTION:
-  google._domainkey.nimblemachines.com. 3600 IN TXT "v=DKIM1; k=rsa; p=MIIBIjANBgkqhki
-  G9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmlYtC9k5N+Ajg5R3esNkMpvybhnou/3k3cNo5fVYIzb2xGSBff0IRIJ
-  qlzOr8XhQckub9emKdA/YDp4BmlBxy2LffPsUVChRXGsN5aM8pwTJ6iQFVKRQ55DjPCgmE4GIUljIMj1OhSn
-  kga9m8KfY25VcTlqHgfQuSyT0uMChdq6tyk9ljU4YuBe5J2oJUHUay"
-  "kmrAGWybvtM6nnARQRw1MIymD8hDwnRabPz2u38UCBAta4KZbiLZTmKmzpC93ac3I/2uta3ml/aJq1sSY+I
-  WlH4LM+y9pehRvhSDZWxUJRhV1SMLdMNHvYJWuIBvrLPPwuFsuCiFKuSkkWVT9QfYQIDAQAB"
-</pre>
-<p>To see the public key corresponding to the private key that Google use to sign <em>all</em> gmail.com mail, try this:</p>
-<pre>
-  $ dig -t txt 20161025._domainkey.gmail.com
-</pre>
-<p>In general, the format of the query is</p>
-<pre>
-  &lt;s&gt;._domainkey.&lt;d&gt;
-</pre>
-<p>where &lt;s&gt; is a &ldquo;selector&rdquo; and &lt;d&gt; is the email&rsquo;s domain. If you look closely (by viewing an email in Gmail and then clicking &ldquo;Show original&rdquo;) you&rsquo;ll see that there are two other authentication headers in the message: ARC-Seal and ARC-Message-Signature. They both use d=google.com and s=arc-20160816. We can find the matching public key by doing:</p>
-<pre>
-  $ dig -t txt arc-20160816._domainkey.google.com
-</pre>
-<p>(Actually, there is yet another DKIM-related field in there. I leave finding it and digging for the DKIM public key as an exercise for the reader.)</p>
-<p>Curiously, Google&rsquo;s own DKIM TXT records omit the &ldquo;v=DKIM1&rdquo; at the beginning, even though <a href="https://tools.ietf.org/html/rfc6376#section-3.6.1">RFC 6376 recommends including it</a>.</p>
-<h4 id="dmarc"><a href="#dmarc">DMARC?</a></h4>
-<p>I haven&rsquo;t yet published a DMARC record. That comes next.</p>
-<p>Fun stuff &ndash; if you like plumbing!</p>
-<p>Of course, Google being Google... it doesn&rsquo;t seem to be working. The G Suite admin page for my domain says &ldquo;Status: Authenticating email&rdquo;, but when I look at messages I&rsquo;ve sent since setting all this up I don&rsquo;t see any DKIM headers (or SPF headers for that matter), and unlike with messages coming from gmail.com, there is no &ldquo;SPF: PASS, DKIM: PASS&rdquo; at the beginning of Gmail&rsquo;s &ldquo;Show original&rdquo; page. I ran the G Suite toolbox <a href="https://toolbox.googleapps.com/apps/checkmx/check?domain=nimblemachines.com&amp;dkim_selector=">Check MX</a> test, which told me I need a DMARC record... &lt;sigh&gt;</p>
-<p><em>Update (2018 December 11): It turns out I didn&rsquo;t do a careful enough job checking whether Google was creating SPF and DKIM headers, even in the absence of a DMARC record. I checked today and emails sent to a friend included the SPF and DKIM headers.</em></p>
-<p><em>Even so, I&rsquo;ve decided to add a DMARC record. Now the Check MX tool shows <code>nimblemachines.com</code> passing every test. Yay!</em></p>
+<p>I decided to write up what I learned about <a href="/making-email-slightly-more-secure/">making email slightly more secure</a>.</p>
 <hr />
 <h3 id="september-05-15:01"><a href="#september-05-15:01">2018 September 05 15:01</a></h3>
 <p>I can&rsquo;t help but throw another log onto the &ldquo;ICANN fire&rdquo; here.</p>
@@ -175,62 +108,7 @@
 <p>Now I don&rsquo;t have to do anything, until and unless I someday want access to my server logs...</p>
 <p>To make sure that as many visitors as possible access this site over HTTPS, I followed GitHub&rsquo;s <a href="https://help.github.com/articles/setting-up-an-apex-domain/#configuring-a-records-with-your-dns-provider">directions for changing my DNS A records</a>, and for setting &ldquo;Enforce HTTPS&rdquo; on the repository. I have some internal links that still use HTTP, but the &ldquo;Enforce HTTPS&rdquo; setting redirects them, and this seems to work well. We&rsquo;ll see if it screws up Google Search Console (that is, more than it is already screwed up by Google).</p>
 <p>Last night I tried an experiment: to see how easy it is to set up an HTTPS-enabled site from scratch on GitHub Pages. The answer: super easy! And it&rsquo;s surprisingly fast. Within a minute or two of pushing my tiny site it had a valid SSL cert from Let&rsquo;s Encrypt!</p>
-<p>Here are the steps. NOTE: I&rsquo;m assuming that you are not a complete Git or GitHub newbie! If you are, the following directions will likely <em>not</em> be enough to get you started. But you are obviously welcome to try anyway!</p>
-<h4 id="register-a-domain-if-you-dont-already-have-one"><a href="#register-a-domain-if-you-dont-already-have-one">Register a domain (if you don&rsquo;t already have one)</a></h4>
-<p>Please don&rsquo;t use Go Daddy, and please don&rsquo;t register in any of the Donuts, Inc new TLDs. They are creepy and deserve to go down in flames. Because they have purchased United TLD Holdco, those are off-limits too (assuming you agree with me about the creepiness of Donuts.) Sadly that means that one of my favorites among the new TLDs &ndash; <a href="https://www.iana.org/domains/root/db/rocks.html">.rocks</a> &ndash; is off-limits.</p>
-<p>I&rsquo;ll publish a list here soon of Donuts/TLD Holdco domains.</p>
-<p>Ironically &ndash; and contrary to ICANN&rsquo;s <a href="https://www.icann.org/resources/pages/governance/bylaws-en/#_Ref444420881">unfounded pipe dreams</a> about their <a href="https://newgtlds.icann.org/">new TLD project</a> &ndash; .com, .org, and .net are among the cheapest to register now (around $8/year). If you can find a name you like, that is...</p>
-<p>As far as choosing a registrar, I&rsquo;ve had great service from PairNIC (now <a href="https://www.pairdomains.com/">pair Domains</a>) over the last 18 or so years. (They are the domain registrar branch of <a href="https://www.pair.com/">pair Networks</a>.) Their service is always improving and their DNS is crazy fast and reliable. They are not the cheapest, but if you buy/renew in 5 year increments they are not bad (I think $13/year or so).</p>
-<p>I&rsquo;ve used <a href="https://joker.com/">Joker</a> a couple of times to register experimental domains (but never renewed any of them). Their prices are good, but their web interface is kind of strange. No problems though.</p>
-<p>I&rsquo;ve got an account with <a href="https://porkbun.com/">Porkbun</a>, and they have great pricing and support tons of TLDs, but I can&rsquo;t comment from experience on using their site to administer a live domain and its DNS. I mean to try this out, and I&rsquo;ll report back. Porkbun is the registrar arm of <a href="https://toplevel.design/">Top Level Design</a>, which also runs a few registries (.design, .ink, and .wiki). That&rsquo;s not an endorsement, just a fact. ;-)</p>
-<p><a href="https://www.gandi.net/en">gandi.net</a> is also a good option &ndash; lots of TLDs to choose from, and fairly cheap.</p>
-<p>You probably have a favorite registrar anyway, so don&rsquo;t listen to me. ;-)</p>
-<p>In the instructions that follow, I am going to assume that you registered the domain &ldquo;wiki.kiwi&rdquo;.</p>
-<h4 id="register-with-github-if-you-havent-already"><a href="#register-with-github-if-you-havent-already">Register with GitHub, if you haven&rsquo;t already</a></h4>
-<p>This part is pretty easy. Of course, you&rsquo;ll have to know some basics of using Git for the rest of these instructions to make much sense. That part is not so easy. It took me &ndash; in 2007, when I first started using Git &ndash; about six months of reading and pondering before I had the guts to just dive in. But I&rsquo;ve been super happy that I took the plunge. Git has problems &ndash; the UI can be rather odd in places &ndash; but it&rsquo;s crazy powerful, and I personally have never lost any work because of Git. To the contrary &ndash; it has saved my butt more than once.</p>
-<h4 id="create-a-repository-on-github-for-your-site"><a href="#create-a-repository-on-github-for-your-site">Create a repository on GitHub for your site</a></h4>
-<p>If you want this to be your &ldquo;personal&rdquo; site or blog, or an &ldquo;organization&rdquo; site or blog, name it &lt;username&gt;.github.io (for a personal site) or &lt;orgname&gt;.github.io (for an organization). Your site will live in the master branch of the repo. <a href="https://help.github.com/articles/user-organization-and-project-pages/">Read the GitHub Pages docs</a> for more details about the different kinds of sites.</p>
-<p>If you already have a project that you are hosting on GitHub and want to create a documentation site for it, create a &ldquo;gh-pages&rdquo; branch, as described below.</p>
-<p>If you already have a personal or organization site, and you just want to try something new on a different domain, create a repository as if for a project, create a README file as a placeholder, and then follow the &ldquo;gh-pages&rdquo; directions below.</p>
-<h4 id="clone-the-new-repo-or-existing-project-repo-onto-your-machine"><a href="#clone-the-new-repo-or-existing-project-repo-onto-your-machine">Clone the new repo, or existing project repo, onto your machine</a></h4>
-<p>On the repository page, copy the &ldquo;clone this repo&rdquo; link and then do</p>
-<pre>
-  git clone &lt;url&gt;
-</pre>
-<p>on your machine. cd into the directory that was just created. If this is a user or organization site, we will stay on the master branch. If this is a project or &ldquo;random other domain&rdquo; site, we need to create and populate a &ldquo;gh-pages&rdquo; branch.</p>
-<h4 id="prepare-the-gh-pages-branch"><a href="#prepare-the-gh-pages-branch">Prepare the &ldquo;gh-pages&rdquo; branch</a></h4>
-<p>Skip this part if you are using a user or organization repo.</p>
-<p>In the top-level directory of the cloned repo, do the following:</p>
-<pre>
-  git checkout --orphan gh-pages
-  git rm -rf .
-</pre>
-<p>This leaves you with an empty tree, and a &ldquo;gh-pages&rdquo; branch with no parents.</p>
-<h4 id="populate-the-new-site"><a href="#populate-the-new-site">Populate the new site</a></h4>
-<p>Still in that top-level directory, do this:</p>
-<pre>
-  touch .nojekyll
-</pre>
-<p>I&rsquo;m assuming for now that you are going to create a simple HTML site, or you are using some kind of site generator other than Jekyll.</p>
-<p>Assuming that you just registered the domain wiki.kiwi, create a file called CNAME with the single line</p>
-<pre>
-  www.wiki.kiwi
-</pre>
-<p>This will be the root URL of your site.</p>
-<p>To have something show up on your new site, create a simple index.html file. Then do</p>
-<pre>
-  git add .
-  git commit -m "initial commit of new site!"
-  git push --all
-</pre>
-<p>The --all is only necessary for site using a gh-pages branch. You can leave it off for a user or org site.</p>
-<h4 id="set-up-some-dns"><a href="#set-up-some-dns">Set up some DNS</a></h4>
-<p>You&rsquo;ll want to create a CNAME record with your registrar/DNS provider that maps www.wiki.kiwi to &lt;username&gt;.github.io (or &lt;orgname&gt;.github.io, if you are doing this in an organization account).</p>
-<p>That&rsquo;s all you&rsquo;ll need to get started. If you are interested in having the bare (or &ldquo;apex&rdquo;) domain also resolve, follow the directions <a href="https://help.github.com/articles/setting-up-an-apex-domain/">here</a>.</p>
-<h4 id="enjoy-your-new-site"><a href="#enjoy-your-new-site">Enjoy your new site!</a></h4>
-<p>Go to <a href="http://www.wiki.kiwi/">http://www.wiki.kiwi/</a> or <a href="https://www.wiki.kiwi/">https://www.wiki.kiwi/</a> (the http version should redirect to the https version) and marvel! If nothing shows up at first, try again in a minute or two.</p>
-<p>While that may seem like a lot of steps, they are all pretty easy. Populating and maintaining your new site is much harder. Witness the state of this site, for example. ;-)</p>
-<p>Above all, enjoy!</p>
+<p>I decided to document the process of <a href="/getting-started-with-github-pages/">getting started with GitHub Pages</a>.</p>
 <hr />
 <h3 id="august-12-16:04"><a href="#august-12-16:04">2018 August 12 16:04</a></h3>
 <p>Today&rsquo;s rant is less about technology <em>per se</em> and more about the tech press.</p>
