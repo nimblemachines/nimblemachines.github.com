@@ -24,8 +24,8 @@
 </div>
 
 <div id="content">
-<h3 id="what-are-twitter-cards"><a href="#what-are-twitter-cards">What are Twitter Cards?</a></h3>
-<p>A Twitter Card is a fancy way of displaying a URL. Instead of the text of the URL itself, Twitter displays a &ldquo;box&rdquo; containing an image, the title and description of the page the URL refers to, and the domain. The idea is to make it more appealing to follow URLs.</p>
+<h3 id="what-are-twitter-cards"><a href="#what-are-twitter-cards">What are Twitter cards?</a></h3>
+<p>A Twitter card is a fancy way of displaying a URL within a tweet. Instead of the text of the URL itself, Twitter displays a &ldquo;box&rdquo; containing an image, the title and description of the page the URL refers to, and the domain. The idea is to make it more appealing to follow URLs.</p>
 <p>Any time a Twitter user tweets a URL, Twitter follows the URL and looks for Twitter-specific page metadata (&lt;meta&gt; tags). If it finds this card metadata, it creates a <em>card</em> in the body of the tweet instead of simply displaying the URL verbatim.</p>
 <p>It behooves web publishers, if they expect their readers to be sharing links to their site via Twitter, to make the (minor) effort of generating the metadata that Twitter needs.</p>
 <p>I thought it was a cool idea, and wanted to see how hard it would be to add card support to <a href="https://www.nimblemachines.com/">nimblemachines.com</a> and <a href="https://muforth.nimblemachines.com/">muforth.nimblemachines.com</a>.</p>
@@ -70,7 +70,7 @@
 <p><img src="/-/twitter-card-summary-large-image.png" alt="twitter-card-summary-large-image.png" title="twitter-card-summary-large-image.png" class="tweet" /></p>
 <h3 id="issues-with-my-journal-blog-pages"><a href="#issues-with-my-journal-blog-pages">Issues with my journal (blog) pages</a></h3>
 <p>I publish my blog in an unusual &ndash; and sometimes problematic &ndash; way. Each year is a contiguous HTML page. Entries are simply HTML headings. And while it is possible, using fragment id&rsquo;s, to link to a particular heading &ndash; thus I have a sort of &ldquo;permalink&rdquo; capability &ndash; the metadata that Twitter needs to create a card refers to the page as a whole &ndash; ie &ldquo;2021 journal&rdquo;. In order to fix this I would have to break each blog entry into its own page... Which is something that I have thought about doing.</p>
-<p>But as it stands, it would be confusing for Twitter to generate cards for the journal pages, because the card would always say something like &ldquo;2021 journal: my thoughts for the year&rdquo; or something like that, and <em>not</em> say anything about the particular heading that is being shared (again, by using a fragment id).</p>
+<p>But as it stands, it would be confusing for Twitter to generate cards for the journal pages, because the card would always say &ldquo;2021 journal: my thoughts for the year&rdquo; or something like that, and <em>not</em> say anything about the particular heading that is being shared (again, by using a fragment id).</p>
 <p>Since my generator only generates the Twitter card metadata if there is a <code>description</code> field in the page metadata, I simply leave it out for the journal pages.</p>
 <h3 id="it-works-perfectly-right"><a href="#it-works-perfectly-right">It works perfectly ... right?!?</a></h3>
 <p>When I first tried this out, it seemed to work very well. Twitter supplies a handy <a href="https://cards-dev.twitter.com/validator">card validator</a> that you can use to test out your card markup. (You have to be logged in to Twitter to use it.) By pasting in a URL that (presumably) contains Twitter metadata, you can see what Twitter would generate.</p>
